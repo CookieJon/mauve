@@ -2,21 +2,33 @@
 import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router'
-import App from './App'
 
 // import VueTouch from '../node_modules/vue-touch' // J
 import Vuex from '../node_modules/vuex' // J
-import VueDragula from '../node_modules/vue-dragula' // J
+import { Vue2Dragula } from 'vue2-dragula'
+
+import App from './App'
 
 Quasar.theme.set(__THEME)
 
 Vue.use(Quasar)
 Vue.use(Vuex)
-Vue.use(VueDragula)
-// Vue.use(VueTouch)
+console.log('VueDragula', Vue2Dragula)
+console.log('router', router)
+import 'dragula/dist/dragula.css'
+Vue.config.debug = true
+
+Vue.use(Vue2Dragula, {
+  xlogging: {
+    directive: true,
+    plugin: true,
+    service: true,
+    dragHandler: true
+  }
+})
 
 Quasar.start(() => {
-  /* eslint-disable no-new */
+  /* eslint-disable */
   new Vue({
     el: '#q-app',
     router,

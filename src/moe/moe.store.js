@@ -6,6 +6,23 @@
  * https://github.com/Alex-fun/vue-drag-and-drop-list#readme
  */
 
+// "title": "Example Schema",
+//   "type": "object",
+//   "properties": {
+//     "firstName": {
+//       "type": "string"
+//     },
+//     "lastName": {
+//       "type": "string"
+//     },
+//     "age": {
+//       "description": "Age in years",
+//       "type": "integer",
+//       "minimum": 0
+//     }
+//   },
+//   "required": ["firstName", "lastName"]
+
   'use strict'
 
   var MoeStore = {

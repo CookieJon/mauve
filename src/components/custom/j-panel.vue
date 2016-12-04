@@ -2,9 +2,27 @@
 
   <!-- j-panel -->
   <div
-    class='j-panel non-selectable item-collapsible xshadow-transition xhoverable-5'
+    class='j-panel non-selectable item-collapsible shadow-transition hoverable-5'
+    ref='container'
     v-bind:style='computedStyle'
   >
+  <hr />
+  <input type="text" x-model="debugFilter" />
+  X{{ debugState() }}X
+  {{ __properties }}
+  <hr />
+
+    <div v-for="(prop, i) in __properties">
+      <div>
+        <label>{{ prop }}
+        </label>
+        {{ i }}
+        </div>
+    </div>
+
+  <hr />
+
+
     <!-- j-panel-header -->
     <div class='j-panel-header' @dblClick='toggle()' ref="header">
 
@@ -14,7 +32,28 @@
         <span class="title">{{ title }}</span>
         <i class="item-secondary">menu</i>
         <i class="xitem-secondary" style="font-size:1.2rem; margin-left:auto;" :class="{'rotate-180': expanded}">keyboard_arrow_down</i>
-        <i class="item-secondary">more_vert</i>
+
+         <!-- CONTROL: Action Menu -->
+          <button ref="target" class="iclear">
+            <i>more_vert</i>
+          </button>
+          <q-popover ref="popover" anchor-ref="target"
+            :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
+            :target-origin="{vertical: 'top', horizontal: 'left'}" >
+            <div class="list item-delimiter" >
+              <!-- Select All -->
+              <label class="item item-link">
+                <div class="item-primary"><i>select_all</i></div>
+                <div class="item-content">Select All Items</div>
+              </label>
+              <!-- Select None -->
+              <label class="item item-link" >
+                <div class="item-primary"><i>clear</i></div>
+                <div class="item-content">Clear Item Selection</div>
+              </label>
+            </div>
+          </q-popover>
+
       </div>
 
       <!-- user toolbars -->
@@ -27,6 +66,7 @@
     <div class='j-panel-content' ref="content">
 
         <div class='j-panel-content-inner scroll' ref="content-inner">
+
 
           <!-- user content -->
           <slot name="content"></slot>
@@ -49,8 +89,11 @@
 
 
 <script>
+/* eslint-disable */
+import { Utils } from 'quasar'
   var _static = require('./j-panel-static.js')
  // import '../../store/actions'
+
   var $ = require('jquery')
   require('malihu-custom-scrollbar-plugin')
   require('jquery-mousewheel')
@@ -63,6 +106,7 @@
   // require('jquery-ui-touch-punch')
   export default {
     props: {
+      value: { default () { return {prop1: 'one', prop2: 'two'} } },
       title: { type: String },
       width: { type: Number, default: 240 },
       height: { type: Number, default: 460 },
@@ -110,6 +154,26 @@
       }
     },
     computed: {
+      __value () {
+        // clone prop
+        return  Utils.extend({}, this.value)
+      },
+      __properties () {
+        // [{}]
+
+        // return this.__value.getOwnPropertyDescriptors(obj)
+        let out = {}
+        for (var property in this.__value) {
+          if (this.__value.hasOwnProperty(property)) {
+            let type = typeof property === "object" ? (Array.isArray(property) ? "array" : "object") : typeof property
+            out[property] = {
+              type: type
+            }
+          }
+        }
+        console.log('___properties ', out)
+        return out
+      },
       computedStyle () {
         var s = this.style
         return {
@@ -134,7 +198,7 @@
       this.id = 'Panel-00' + _static._panelCount
       console.log('CREATED j-PANEL:', this.order, this)
     },
-    ready () {
+    mounted () {
       var vm = this
       var $el = $(vm.$el)
       // var $content = $(vm.$refs.content)
@@ -174,12 +238,15 @@
           stop: function (event, ui) {
             $el.removeClass('shadow-4')
             $el.addClass('shadow-2')
-            vm.style.x = ui.offset.left
-            vm.style.y = ui.offset.top
+            vm.style.x = ui.position.left
+            vm.style.y = ui.position.top
           }
         })
     },
     methods: {
+      debugState () {
+        return this.___properties
+      },
       onClick (e) {
         this.$store.dispatch('addBitmap')
         console.log('panel toolbar click', e)
