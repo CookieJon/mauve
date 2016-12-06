@@ -36,7 +36,7 @@
 <div  v-for="el in __properties">
 JON
 </div>
-{{ __properties}} dd
+{{ __properties}}
       <template v-for="el in __properties">
         <h6 v-if="el.type === 'heading'" v-html="el.label"></h6>
 

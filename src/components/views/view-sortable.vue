@@ -18,6 +18,7 @@
 </template>
 
 <script>
+/* eslint-ignore */
 var jPanel = require('components/custom/j-panel')
 export default {
   components: {
@@ -63,7 +64,7 @@ export default {
 
 <style>
 
-/** 
+/**
  * For the correct positioning of the placeholder element, the dnd-list and
  * it's children must have position: relative
  */

@@ -41,13 +41,10 @@
         <q-small-fab class="white" @click="toast('alarm')">alarm</q-small-fab>
       </q-fab>
 
-   <div class="column items-bottom"  v-bind:style="{'background-image': selectedBg}" style="bottom: 100px; z-index:0;">
-
-
 
       <!-- <div class="layout-view no-scroll">keep-alive>-->
       <keep-alive>
-        <router-view> </router-view>
+       x <router-view> </router-view>z
       </keep-alive>
     </div>
   </q-layout>

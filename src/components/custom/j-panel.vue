@@ -6,25 +6,35 @@
     ref='container'
     v-bind:style='computedStyle'
   >
-  <hr />
-  <input type="text" x-model="debugFilter" />
-  X{{ debugState() }}X
-  {{ __properties }}
-  <hr />
-
-    <div v-for="(prop, i) in __properties">
-      <div>
-        <label>{{ prop }}
-        </label>
-        {{ i }}
-        </div>
-    </div>
-
-  <hr />
-
+    <hr />
+    <input type="text" x-model="debugFilter" />
+    X{{ debugState() }}X
+    {{ __properties }}
+    <hr />
 
     <!-- j-panel-header -->
     <div class='j-panel-header' @dblClick='toggle()' ref="header">
+
+      <!-- CONTROL: Action Menu -->
+      <button ref="targety" class="iclear">
+        <i>more_vert</i>
+      </button>
+      <q-popover ref="popover" anchor-ref="target"
+        :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
+        :target-origin="{vertical: 'top', horizontal: 'left'}" >
+        <div class="list item-delimiter" >
+          <!-- Select All -->
+          <label class="item item-link">
+            <div class="item-primary"><i>select_all</i></div>
+            <div class="item-content">Select All Items</div>
+          </label>
+          <!-- Select None -->
+          <label class="item item-link" >
+            <div class="item-primary"><i>clear</i></div>
+            <div class="item-content">Clear Item Selection</div>
+          </label>
+        </div>
+      </q-popover>
 
       <!-- j-panel-title -->
       <div class='j-panel-toolbar j-panel-title'>
@@ -32,28 +42,6 @@
         <span class="title">{{ title }}</span>
         <i class="item-secondary">menu</i>
         <i class="xitem-secondary" style="font-size:1.2rem; margin-left:auto;" :class="{'rotate-180': expanded}">keyboard_arrow_down</i>
-
-         <!-- CONTROL: Action Menu -->
-          <button ref="target" class="iclear">
-            <i>more_vert</i>
-          </button>
-          <q-popover ref="popover" anchor-ref="target"
-            :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
-            :target-origin="{vertical: 'top', horizontal: 'left'}" >
-            <div class="list item-delimiter" >
-              <!-- Select All -->
-              <label class="item item-link">
-                <div class="item-primary"><i>select_all</i></div>
-                <div class="item-content">Select All Items</div>
-              </label>
-              <!-- Select None -->
-              <label class="item item-link" >
-                <div class="item-primary"><i>clear</i></div>
-                <div class="item-content">Clear Item Selection</div>
-              </label>
-            </div>
-          </q-popover>
-
       </div>
 
       <!-- user toolbars -->
@@ -67,6 +55,14 @@
 
         <div class='j-panel-content-inner scroll' ref="content-inner">
 
+        <!-- auto-gen content -->
+        <div v-for="(prop, i) in __properties">
+          <div>
+            <label class='item-label'>{{ prop }}
+            </label>
+             <input class='auto' v-model='__value[prop]' />
+            </div>
+        </div>
 
           <!-- user content -->
           <slot name="content"></slot>

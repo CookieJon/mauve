@@ -49,54 +49,33 @@ function load (name) {
   }
 }
 let routes = [
+
   // Default
   {
-    path: '/',
+    path: '/main',
     component: load('layouts/layout-main'),
-    children: [{
-      path: '/',
-      component: load('views/view-panels')
-    }]
+    children: [
+      {
+        path: '/view-panels',
+        component: load('views/view-panels')
+      },
+      {
+        path: '/view-sortable',
+        component: load('views/view-sortable')
+      },
+      {
+        path: '/view-editor',
+        component: load('views/view-editor')
+      }
+    ]
   },
 
   // Not found
   {
     path: '*',
-    component: load('error404')
-  },
-
-  // view-panels
-  {
-    name: 'panels',
-    path: '/view-panels',
-    component: load('layouts/layout-main'),
-    children: [{
-      path: '/',
-      component: load('views/view-panels')
-    }]
-  },
-
-  // view-sortable
-  {
-    name: 'sortable',
-    path: '/view-sortable',
-    component: load('layouts/layout-main'),
-    children: [{
-      path: '/',
-      component: load('views/view-sortable')
-    }]
-  },
-
-  // view-editor
-  {
-    name: 'panels',
-    path: '/view-editor',
-    component: load('layouts/layout-main'),
-    children: [{
-      path: '/',
-      component: load('views/view-editor')
-    }]
+    component: load('layouts/layout-main')
   }
+
 ]
 
 export default new VueRouter({

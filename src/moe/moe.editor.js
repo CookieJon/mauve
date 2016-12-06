@@ -8,26 +8,26 @@
   'use strict'
 
   var MoeEditor = {
-      loadBitmap: function(e) {
-        for (var i=0, l=e.target.files.length;i<l;i++) {
-          var file = e.target.files[i];
-          var tmppath = URL.createObjectURL(file);
-          serveBitmap(tmppath, function(bitmap) {
-            this.bitmaps.push(bitmap);
-          }.bind(this));
-        }
-      },
-      addBitmap: function() {
-        serveBitmap("img/bmp/newtest.bmp", function(bitmap) {
-           this.bitmaps.push(bitmap);
+    loadBitmap: function(e) {
+      for (var i=0, l=e.target.files.length;i<l;i++) {
+        var file = e.target.files[i];
+        var tmppath = URL.createObjectURL(file);
+        serveBitmap(tmppath, function(bitmap) {
+          this.bitmaps.push(bitmap);
         }.bind(this));
-      },
-      removeItem: function(item) {
-        this.list.$remove(item)
-      },
-      changeFirst: function() {
-        this.list[0] && (this.list[0].name = this.list[0].name.toUpperCase())
       }
+    },
+    addBitmap: function() {
+      serveBitmap("img/bmp/newtest.bmp", function(bitmap) {
+         this.bitmaps.push(bitmap);
+      }.bind(this));
+    },
+    removeItem: function(item) {
+      this.list.$remove(item)
+    },
+    changeFirst: function() {
+      this.list[0] && (this.list[0].name = this.list[0].name.toUpperCase())
+    }
   }
 
   module.exports = MoeEditor
