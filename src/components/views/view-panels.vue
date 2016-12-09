@@ -8,8 +8,6 @@
     <div class="layout-padding">
 
 
-
-
       <!-- PANEL :: Alpha -->
       <!-- ======================== -->
       <j-panel title='Alpha' icon='photo' :width="380" :height="750" :x="5" :y="445">
@@ -17,8 +15,6 @@
         <pre slot="content" class='text-white'>My Store: {{ store.state }}</pre>
 
       </j-panel>
-
-
 
 
       <!-- PANEL :: Gamma -->
@@ -33,19 +29,16 @@
         }"
          :width="370" :height="640" :x="220" :y="135">
         >
-          <div slot="header" class='j-panel-toolbar text-black'>
-            <button class="circular primary small" @click='addBitmap'><i>add</i></button>
-            <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
+
+          <div slot="toolbar">
+            <span>
+            <button class="primary small" @click='addBitmap'><i>add</i></button>
+            <button class="primary small" @click='loadBitmap'><i>file_upload</i></button>
+            </span>
           </div>
+
           <div slot="content">
-
-
-          <div class="wrapper">
-            <div ref="jsonhere">
-            </div>
           </div>
-
-        </div>
         </div>
       </j-panel>
 
@@ -60,29 +53,29 @@
         icon="business"
         :width="320" :height="520" :x="10" :y="10">
       >
-        <div slot="header" class='j-panel-toolbar text-black'>
-          <button class="circular primary small" @click='addBitmap'><i>add</i></button>
-          <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
+        <div slot="toolbar">
+          <button class=" white small" @click='addBitmap'><i>add</i></button>
+          <button class=" white small" @click='loadBitmap'><i>file_upload</i></button>
         </div>
 
         <div slot="content" class="j-tray area panel-item-grow">
 
-        <div class="container" v-dragula="colOne" service="my-first" drake="first">
-          <div v-for="text in colOne" @click="onClick">{{text}} [click me]</div>
-        </div>
-        <div class="container" v-dragula="colTwo" service="my-first" drake="first">
-          <div v-for="text in colTwo">
-            <span class="handle">+</span>
-            <span>{{text}}</text>
+          <div class="container" v-dragula="colOne" service="my-first" drake="first">
+            <div v-for="text in colOne" @click="onClick">{{text}} [click me]</div>
           </div>
-        <hr />
-          {{ images}}
-          <j-collection
-            :model="images"
-            @jon="onUpdateBitmap"
-            @arrange="onArrangeBitmap"
-            class='frame-type-grid'
-          ></j-collection>
+          <div class="container" v-dragula="colTwo" service="my-first" drake="first">
+            <div v-for="text in colTwo">
+              <span class="handle">+</span>
+              <span>{{text}}</text>
+            </div>
+          <hr />
+
+            <j-collection
+              :model="testBitmaps"
+              @jon="onUpdateBitmap"
+              @arrange="onArrangeBitmap"
+              class='frame-type-grid'
+            ></j-collection>
         </div>
       </j-panel>
 

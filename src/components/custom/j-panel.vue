@@ -2,49 +2,61 @@
 
   <!-- J-PANEL -->
   <div
-    class='j-panel non-selectable item-collapsible shadow-transition hoverable-5'
     ref='container'
-    v-bind:style='vr_stylePanelStyle'
+    class='j-panel non-selectable xshadow-transition hoverable-5'
+    :class='vr_classPanelExpanded'
+    :style='vr_stylePanel'
   >
 
 
     <!-- > J-PANEL-HEADER -->
     <div
       class='j-panel-header'
-      @dblClick='toggle_ExpandCollapse()'
+      @dblclick='toggle_ExpandCollapse()'
       ref="header"
     >
 
-      <!-- HEADER CONTROL: Action Menu -->
-      <!-- <button ref="target" class="clear">
-        <i>more_vert</i>
-        <q-popover ref="popover" anchor-ref="target"
-          :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
-          :target-origin="{vertical: 'top', horizontal: 'left'}" >
-          <div class="list item-delimiter" >
-            <label class="item item-link">
-              <div class="item-primary"><i>select_all</i></div>
-              <div class="item-content">Select All Items</div>
-            </label>
-            <label class="item item-link" >
-              <div class="item-primary"><i>clear</i></div>
-              <div class="item-content">Clear Item Selection</div>
-            </label>
-          </div>
-        </q-popover>
-      </button> -->
+      <!-- > HEADER > j-PANEL-TITLEBAR -->
+      <div class='j-panel-tools j-panel-titlebar'>
 
-      <!-- >> J-PANEL-TITLE -->
-      <div class='j-panel-toolbar j-panel-title'>
+        <!--  J-PANEL-TOOL: Panel icon -->
         <i>{{ icon }}</i>
+
+        <!--  J-PANEL-TOOL: Panel title -->
         <span class="title">{{ title }}</span>
-        <i>menu</i>
-        <i :class="vr_classPanelExpandedArrow">keyboard_arrow_down</i>
+
+        <!--  J-PANEL-TOOL: Toggle Expand Panel -->
+        <button ref="target" >
+          <i class="panelExpandArrow" :class="vr_classPanelExpandArrow">expand_more</i> <!-- or: "keyboard_arrow_down" -->
+        </button>
+
+        <!--  J-PANEL-TOOL: Action Menu -->
+        <button ref="target" class="primary">
+          <i>more_vert</i>
+          <q-popover ref="popover" anchor-ref="target"
+            :anchor-origin="{vertical: 'bottom', horizontal: 'right'}"
+            :target-origin="{vertical: 'top', horizontal: 'right'}" >
+            <div class="list item-delimiter" >
+              <label class="item item-link">
+                <div class="item-primary"><i>select_all</i></div>
+                <div class="item-content">Select All Items</div>
+              </label>
+              <label class="item item-link" >
+                <div class="item-primary"><i>clear</i></div>
+                <div class="item-content">Clear Item Selection</div>
+              </label>
+            </div>
+          </q-popover>
+        </button>
+
       </div>
 
       <!-- >> USER TOOLBAR(s) -->
-      <slot name="header">
-      </slot>
+
+      <div class='j-panel-tools j-panel-toolbar text-primary'>
+        <slot name="toolbar">
+        </slot>
+      </div>
 
     </div>
 
@@ -58,7 +70,7 @@
         class='j-panel-content-inner scroll'
         ref="content-inner"
       >
-
+      <pre>{{ state }}</pre>
         <!-- user content -->
         <slot name="content"></slot>
 
@@ -95,6 +107,8 @@
   require('jquery-ui-css/draggable.css')
   require('jquery-ui-css/resizable.css')
 
+  var s // shortcut for 'this.state'
+
   // require('jquery-ui-touch-punch')
   export default {
     props: {
@@ -117,27 +131,14 @@
     },
     data () {
       return {
-        images: [
-          {
-            'label': 'Item A1'
-          },
-          {
-            'label': 'Item A2'
-          },
-          {
-            'label': 'Item A3'
-          },
-          {
-            'label': 'Item A4'
-          }
-        ],
-        style: {
+        state: {
           x: 10,
           y: 10,
           width: 300,
           height: 400,
           header_height: 40,
-          zIndex: 10
+          zIndex: 10,
+          expanded: true
         },
         test: null,
         id: null,
@@ -151,18 +152,23 @@
         return  Utils.extend({}, this.value)
       },
       // View Rules
-      vr_classPanelExpandedArrow () {
-
-      },
-      vr_stylePanelStyle () {
-        var s = this.style
+      vr_stylePanel () {
+        var s = this.state
         return {
           left: s.x + 'px',
           top: s.y + 'px',
           width: s.width + 'px',
-          height: this.expanded ? s.height + 'px' : '45px',
+          height: s.expanded ? s.height + 'px' : '45px',
           'z-index': this.order
         }
+      },
+      vr_classPanelExpandArrow () {
+        var s = this.state
+        return {'rotate-180': !s.expanded}
+      },
+      vr_classPanelExpanded () {
+        var s = this.state
+        return (this.state.expanded === true) ? 'is-expanded' : 'is-collapsed'
       },
       __properties () {
         // [{}]
@@ -181,18 +187,23 @@
         return out
       }
     },
+    //
+    // HOOKS
+    //
     created () {
+      s = this.state
       _static._panels.push(this)
       _static._panelCount++
       _static._currentPanel = this
-      this.style.x = this.x
-      this.style.y = this.y
-      this.style.width = this.width
-      this.style.height = this.height
+      this.state.x = this.x
+      this.state.y = this.y
+      this.state.width = this.width
+      this.state.height = this.height
       this._static = _static
       this.order = _static._panels.length - 1
       this.id = 'Panel-00' + _static._panelCount
       console.log('CREATED j-PANEL:', this.order, this)
+      console.log("State = ", s)
     },
     mounted () {
       var vm = this
@@ -215,8 +226,8 @@
       $el
         .resizable({
           stop (event, ui) {
-            vm.style.width = ui.size.width
-            vm.style.height = ui.size.height
+            vm.state.width = ui.size.width
+            vm.state.height = ui.size.height
             console.log(ui.size)
           },
           handles: 'all'
@@ -234,14 +245,15 @@
           stop: function (event, ui) {
             $el.removeClass('shadow-4')
             $el.addClass('shadow-2')
-            vm.style.x = ui.position.left
-            vm.style.y = ui.position.top
+            vm.state.x = ui.position.left
+            vm.state.y = ui.position.top
           }
         })
     },
     methods: {
       toggle_ExpandCollapse () {
-        this.expanded = !this.expanded
+        this.state.expanded = !this.state.expanded
+        console.log(this.state.expanded)
       },
       debugState () {
         return this.___properties
@@ -314,7 +326,9 @@
   .ui-draggable-handle:active
     cursor grabbing
 
+
   .j-panel
+    transition box-shadow .2s ease-in-out 0s
     position absolute
     overflow hidden
     display flex
@@ -328,24 +342,101 @@
     border-top-left-radius 2px
     border-top-right-radius 2px
     box-shadow 0 3px 6px 3px rgba(1,1,1,0.4)
-    transition box-shadow .2s ease-in-out 0s
     z-index 5
     width 100%
     background-color rgba(255, 255, 255, 0.1)
     background-color rgba(0, 0, 0, 0.1)
-    box-shadow 0px 0px 5px #fff
-    xxbox-shadow 0px 0px 3px 5px #f2e1f2
+    xbackground-color $light
+    pointer-events none
+    & > div
+      pointer-events auto
+    &:hover
+      & .j-panel-content
+        box-shadow 0px 0px 7px #fff
+      & .j-panel-header
+        & i
+        & span.title
+          background $fff
+    &.is-collapsed
+      transition height .4s ease-in-out 0s
+      & > .j-panel-toolbar
+        height 0px !important
+        position relative
+        transform translateY(-100%)
+      & > .j-panel-content
+        opacity 0
+      & > .j-panel-footer
+        opacity 0
+
 
   .j-panel-header
     cursor pointer
     z-index 10
     xflex-shrink 0
+    transition all 0.2s
     xbackground $primary
+
+
+
+  & .j-panel-titlebar
+    background $primary
+    background $toolbar-background
+    z-index 10
+    color white
+    padding 4px 8px
+    display flex
+    flex-wrap nowrap
+    flex-direction row
+    justify-content space-between
+    // align-content center
+    align-items center
+    box-shadow 0 1px 3px 2px rgba(1,1,1,0.4)
+    & span.title
+      flex-grow 1
+      margin-left 8px
+      font-size 1.1rem
+    & i.panelExpandArrow
+      transition transform 0.2s
+
+  .j-panel-toolbar
+    color $primary-light
+    background #B0BEC5
+    font-size 1rem
+    padding 4px
+    display flex
+    flex-wrap nowrap
+    flex-direction row
+    justify-content space-between
+    // align-content center
+    align-items center
+    transition transform 0.2s
+    transform translateY(0%)
+    z-index 9
+  & > i
+    font-size 24px
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+/*  & > button ~ button
+    margin-left 8px*/
+
+  & .btn.circular.small
+    height 33px
+    width 32px
+    margin-right: 4px
+
+
+
 
   .j-panel-content
     xborder 2px dotted yellow
     overflow hidden
     padding 2px
+    transition all 0.2s
+    color $light
     flex-grow 1
     display flex
     flex-wrap nowrap
@@ -370,6 +461,7 @@
     xbackground white
 
   .content-item
+    border 1px solid red
 
   .panel-item-grow
     xborder 4px dotted red
@@ -401,50 +493,6 @@
     flex-shrink 1
 
   // .area-resizable
-
-  .j-panel-toolbar
-    display flex
-    flex-wrap nowrap
-    flex-direction row
-    position relative
-    padding 6px
-    zjustify-content flex-start
-    align-items center
-    align-content flex-start
-    color $primary-light
-    background white
-    background  $white
-    background #B0BEC5
-    font-size 1rem
-    z-index 9
-  & > i
-    font-size 24px
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-
-  & .btn.circular.small
-    height 33px
-    width 32px
-    margin-right: 4px
-
-  &.j-panel-title
-    background $primary
-    background $toolbar-background
-
-    z-index 10
-    padding 14px
-    color white
-    box-shadow 0 1px 3px 2px rgba(1,1,1,0.4)
-
-    & > :not(:last-child)
-      margin-right 14px
-
-    & > .title
-      margin-right auto
 
 /*
     & > button.circular.small
