@@ -7,16 +7,25 @@
     <!-- your content -->
     <div class="layout-padding">
 
-      <!-- PANEL :: DEBUG -->
-      <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
 
-  <pre slot="content" class='text-white'>My Store: {{ store.state }}</pre>
+
+
+      <!-- PANEL :: Alpha -->
+      <!-- ======================== -->
+      <j-panel title='Alpha' icon='photo' :width="380" :height="750" :x="5" :y="445">
+
+        <pre slot="content" class='text-white'>My Store: {{ store.state }}</pre>
 
       </j-panel>
 
+
+
+
+      <!-- PANEL :: Gamma -->
+      <!-- ======================== -->
       <j-panel
-        title="Bitmap Detail"
-        icon="upload"
+        title="Gamma"
+        icon="motorcycle"
         v-model="store.state"
         options="{
           'title': 'Testy Bitemaps'
@@ -24,135 +33,65 @@
         }"
          :width="370" :height="640" :x="220" :y="135">
         >
-          <div slot="header" class='j-panel-toolbar text-black' style='padding:4px;'>
+          <div slot="header" class='j-panel-toolbar text-black'>
             <button class="circular primary small" @click='addBitmap'><i>add</i></button>
             <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
           </div>
-        <div slot="content">
+          <div slot="content">
 
 
-        <div class="wrapper">
-          <div ref="jsonhere">
-<div  v-for="el in __properties">
-JON
-</div>
-{{ __properties}}
-      <template v-for="el in __properties">
-        <h6 v-if="el.type === 'heading'" v-html="el.label"></h6>
-
-        <div v-if="el.type === 'textbox'" class="floating-label" style="margin-bottom: 10px">
-          <input type="text" class="full-width" v-model="el.model" :placeholder="el.placeholder" required>
-          <label v-html="el.label"></label>
-        </div>
-
-        <div v-if="el.type === 'textarea'" class="floating-label" style="margin-bottom: 10px">
-          <textarea type="text" class="full-width" v-model="el.model" :placeholder="el.placeholder" required></textarea>
-          <label v-html="el.label"></label>
-        </div>
-
-        <div v-if="el.type === 'numeric'" style="margin-bottom: 10px">
-          <label v-html="el.label"></label>
-          <q-numeric v-model="el.model" :min="el.min" :max="el.max" :step="el.step"></q-numeric>
-        </div>
-
-        <div v-if="el.type === 'chips'" style="margin-bottom: 10px">
-          <label v-html="el.label"></label>
-          <q-chips v-model="el.model"></q-chips>
-        </div>
-
-        <label v-if="el.type === 'radio'" v-for="radio in el.items" class="item">
-          <div class="item-primary">
-            <q-radio v-model="el.model" :val="radio.value"></q-radio>
+          <div class="wrapper">
+            <div ref="jsonhere">
+            </div>
           </div>
-          <div class="item-content" v-html="radio.label"></div>
-        </label>
 
-        <label v-if="el.type === 'checkbox'" v-for="checkbox in el.items" class="item">
-          <div class="item-primary">
-            <q-checkbox v-model="checkbox.model"></q-checkbox>
-          </div>
-          <div class="item-content" v-html="checkbox.label"></div>
-        </label>
-
-        <label v-if="el.type === 'toggle'" v-for="toggle in el.items" class="item">
-          <div class="item-content has-secondary" v-html="toggle.label"></div>
-          <div class="item-secondary">
-            <q-toggle v-model="toggle.model"></q-toggle>
-          </div>
-        </label>
-
-        <!--
-        <div v-if="el.type === 'range' || el.type === 'double-range'" style="margin-top: 15px; margin-bottom: 10px">
-          <label v-html="el.label + ' (' + (el.type === 'double-range' ? el.model.min + ' to ' + el.model.max : el.model) + ')'"></label>
-          <component
-            :is="'q-' + el.type"
-            v-model="el.model"
-            :min="el.min"
-            :max="el.max"
-            :step="el.step"
-            :label="el.withLabel"
-            :markers="el.markers"
-            :snap="el.snap"
-          ></component>
-        </div>
-        -->
-
-        <div v-if="el.type !== 'rating'" style="margin-bottom: 10px">
-          <label v-html="el.label"></label>
-          <q-rating v-model="el.model" :max="el.max" :icon="el.icon" :style="{fontSize: el.size || '2rem'}"></q-rating>
-        </div>
-      </template>
-    </div>
-
-
-
-          Hi there
-          </div>
-  <!--   <div class="container" v-dragula="colTwo" drake="first">
-    <div v-for="text in colTwo">{{text}}</div>
-  </div> -->
         </div>
         </div>
       </j-panel>
 
-      <!-- PANEL :: BITMAPS -->
+
+
+
+      <!-- PANEL :: Delta -->
+      <!-- ======================== -->
       <j-panel
         name="yang"
-        title="Bitmaps"
+        title="Delta"
         icon="business"
-         :width="320" :height="520" :x="10" :y="10">
-        >
-          <div slot="header" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='addBitmap'><i>add</i></button>
-            <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
-          </div>
+        :width="320" :height="520" :x="10" :y="10">
+      >
+        <div slot="header" class='j-panel-toolbar text-black'>
+          <button class="circular primary small" @click='addBitmap'><i>add</i></button>
+          <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
+        </div>
 
-          <div slot="content" class="j-tray area panel-item-grow">
+        <div slot="content" class="j-tray area panel-item-grow">
 
-          <div class="container" v-dragula="colOne" service="my-first" drake="first">
-            <div v-for="text in colOne" @click="onClick">{{text}} [click me]</div>
+        <div class="container" v-dragula="colOne" service="my-first" drake="first">
+          <div v-for="text in colOne" @click="onClick">{{text}} [click me]</div>
+        </div>
+        <div class="container" v-dragula="colTwo" service="my-first" drake="first">
+          <div v-for="text in colTwo">
+            <span class="handle">+</span>
+            <span>{{text}}</text>
           </div>
-          <div class="container" v-dragula="colTwo" service="my-first" drake="first">
-            <div v-for="text in colTwo">
-              <span class="handle">+</span>
-              <span>{{text}}</text>
-            </div>
-          <hr />
+        <hr />
           {{ images}}
-            <j-collection
-              :model="images"
-              @jon="onUpdateBitmap"
-              @arrange="onArrangeBitmap"
-              class='frame-type-grid'
-            ></j-collection>
-          </div>
+          <j-collection
+            :model="images"
+            @jon="onUpdateBitmap"
+            @arrange="onArrangeBitmap"
+            class='frame-type-grid'
+          ></j-collection>
+        </div>
       </j-panel>
 
-              <!--
-              :options="" -->
-      <!-- PANEL :: ARTWORK PREVIEW -->
+
+
+      <!-- PANEL :: Omega -->
+      <!-- ======================== -->
       <j-panel
-        title="Artwork"
+        title="Omega"
         icon="android"
          :width="256" :height="256" :x="520" :y="635">
         >
@@ -297,7 +236,7 @@ export default {
       this.$store.dispatch('arrangeBitmap', e)
     }
   },
-  ready () {},
+  ready () { console.log(this.data + '****') },
   mounted () {
     // var element = this.$refs.jsonhere
     // var editor = JSONEditor(element, {

@@ -56,6 +56,10 @@ let routes = [
     component: load('layouts/layout-main'),
     children: [
       {
+        path: '/view-mauve',
+        component: load('views/view-mauve')
+      },
+      {
         path: '/view-panels',
         component: load('views/view-panels')
       },

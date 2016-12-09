@@ -1,74 +1,68 @@
 <template>
 
-  <!-- j-panel -->
+  <!-- J-PANEL -->
   <div
     class='j-panel non-selectable item-collapsible shadow-transition hoverable-5'
     ref='container'
-    v-bind:style='computedStyle'
+    v-bind:style='vr_stylePanelStyle'
   >
-    <hr />
-    <input type="text" x-model="debugFilter" />
-    X{{ debugState() }}X
-    {{ __properties }}
-    <hr />
 
-    <!-- j-panel-header -->
-    <div class='j-panel-header' @dblClick='toggle()' ref="header">
 
-      <!-- CONTROL: Action Menu -->
-      <button ref="targety" class="iclear">
+    <!-- > J-PANEL-HEADER -->
+    <div
+      class='j-panel-header'
+      @dblClick='toggle_ExpandCollapse()'
+      ref="header"
+    >
+
+      <!-- HEADER CONTROL: Action Menu -->
+      <!-- <button ref="target" class="clear">
         <i>more_vert</i>
-      </button>
-      <q-popover ref="popover" anchor-ref="target"
-        :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
-        :target-origin="{vertical: 'top', horizontal: 'left'}" >
-        <div class="list item-delimiter" >
-          <!-- Select All -->
-          <label class="item item-link">
-            <div class="item-primary"><i>select_all</i></div>
-            <div class="item-content">Select All Items</div>
-          </label>
-          <!-- Select None -->
-          <label class="item item-link" >
-            <div class="item-primary"><i>clear</i></div>
-            <div class="item-content">Clear Item Selection</div>
-          </label>
-        </div>
-      </q-popover>
+        <q-popover ref="popover" anchor-ref="target"
+          :anchor-origin="{vertical: 'bottom', horizontal: 'left'}"
+          :target-origin="{vertical: 'top', horizontal: 'left'}" >
+          <div class="list item-delimiter" >
+            <label class="item item-link">
+              <div class="item-primary"><i>select_all</i></div>
+              <div class="item-content">Select All Items</div>
+            </label>
+            <label class="item item-link" >
+              <div class="item-primary"><i>clear</i></div>
+              <div class="item-content">Clear Item Selection</div>
+            </label>
+          </div>
+        </q-popover>
+      </button> -->
 
-      <!-- j-panel-title -->
+      <!-- >> J-PANEL-TITLE -->
       <div class='j-panel-toolbar j-panel-title'>
-        <i class="item-primary">{{ icon }}</i>
+        <i>{{ icon }}</i>
         <span class="title">{{ title }}</span>
-        <i class="item-secondary">menu</i>
-        <i class="xitem-secondary" style="font-size:1.2rem; margin-left:auto;" :class="{'rotate-180': expanded}">keyboard_arrow_down</i>
+        <i>menu</i>
+        <i :class="vr_classPanelExpandedArrow">keyboard_arrow_down</i>
       </div>
 
-      <!-- user toolbars -->
+      <!-- >> USER TOOLBAR(s) -->
       <slot name="header">
       </slot>
 
     </div>
 
-    <!-- j-panel-content -->
-    <div class='j-panel-content' ref="content">
+    <!-- > J-PANEL-CONTENT -->
+    <div
+      class='j-panel-content'
+      ref="content"
+      :style="vr_panelStyle"
+    >
+      <div
+        class='j-panel-content-inner scroll'
+        ref="content-inner"
+      >
 
-        <div class='j-panel-content-inner scroll' ref="content-inner">
-
-        <!-- auto-gen content -->
-        <div v-for="(prop, i) in __properties">
-          <div>
-            <label class='item-label'>{{ prop }}
-            </label>
-             <input class='auto' v-model='__value[prop]' />
-            </div>
-        </div>
-
-          <!-- user content -->
-          <slot name="content"></slot>
+        <!-- user content -->
+        <slot name="content"></slot>
 
        </div>
-
     </div>
 
     <!-- j-panel-footer -->
@@ -85,10 +79,11 @@
 
 
 <script>
-/* eslint-disable */
-import { Utils } from 'quasar'
+  /* eslint-disable */
+  import { Utils } from 'quasar'
+
   var _static = require('./j-panel-static.js')
- // import '../../store/actions'
+  // import '../../store/actions'
 
   var $ = require('jquery')
   require('malihu-custom-scrollbar-plugin')
@@ -99,6 +94,7 @@ import { Utils } from 'quasar'
   require('jquery-ui-css/theme.css')
   require('jquery-ui-css/draggable.css')
   require('jquery-ui-css/resizable.css')
+
   // require('jquery-ui-touch-punch')
   export default {
     props: {
@@ -154,6 +150,20 @@ import { Utils } from 'quasar'
         // clone prop
         return  Utils.extend({}, this.value)
       },
+      // View Rules
+      vr_classPanelExpandedArrow () {
+
+      },
+      vr_stylePanelStyle () {
+        var s = this.style
+        return {
+          left: s.x + 'px',
+          top: s.y + 'px',
+          width: s.width + 'px',
+          height: this.expanded ? s.height + 'px' : '45px',
+          'z-index': this.order
+        }
+      },
       __properties () {
         // [{}]
 
@@ -169,16 +179,6 @@ import { Utils } from 'quasar'
         }
         console.log('___properties ', out)
         return out
-      },
-      computedStyle () {
-        var s = this.style
-        return {
-          left: s.x + 'px',
-          top: s.y + 'px',
-          width: s.width + 'px',
-          height: this.expanded ? s.height + 'px' : '45px',
-          'z-index': this.order
-        }
       }
     },
     created () {
@@ -240,6 +240,9 @@ import { Utils } from 'quasar'
         })
     },
     methods: {
+      toggle_ExpandCollapse () {
+        this.expanded = !this.expanded
+      },
       debugState () {
         return this.___properties
       },
@@ -330,12 +333,14 @@ import { Utils } from 'quasar'
     width 100%
     background-color rgba(255, 255, 255, 0.1)
     background-color rgba(0, 0, 0, 0.1)
+    box-shadow 0px 0px 5px #fff
+    xxbox-shadow 0px 0px 3px 5px #f2e1f2
 
   .j-panel-header
-    xborder 4px dotted orange
-    flex-shrink 0
-    xbackground $primary
+    cursor pointer
     z-index 10
+    xflex-shrink 0
+    xbackground $primary
 
   .j-panel-content
     xborder 2px dotted yellow
@@ -402,15 +407,16 @@ import { Utils } from 'quasar'
     flex-wrap nowrap
     flex-direction row
     position relative
+    padding 6px
     zjustify-content flex-start
     align-items center
     align-content flex-start
-    height 42px
-    background $light
-    // background  $primary
+    color $primary-light
+    background white
+    background  $white
+    background #B0BEC5
     font-size 1rem
     z-index 9
-    color $primary-light
   & > i
     font-size 24px
     /* Support for Safari and Chrome. */
@@ -427,6 +433,8 @@ import { Utils } from 'quasar'
 
   &.j-panel-title
     background $primary
+    background $toolbar-background
+
     z-index 10
     padding 14px
     color white
