@@ -31,6 +31,7 @@
         :item='item'
         @jon="onJon">
       </j-item>
+
     </div>
   </div>
 </template>
@@ -41,6 +42,7 @@
   export default {
     data () {
       return {
+        myItems: null,
         options: {
           sortable: {
             animation: 550,
@@ -74,6 +76,8 @@
     created () {
       console.log('NAMED SERVICES: created')
 
+      this.myItems = this.items
+
       let dragula = this.$dragula
 
       let service = dragula.createService({
@@ -84,7 +88,7 @@
       })
 
       // let log = console.log
-
+      //
       // TODO: Use classlist: https://developer.mozilla.org/en/docs/Web/API/Element/classList
       // See all events here: https://github.com/bevacqua/dragula#drakeon-events
       //

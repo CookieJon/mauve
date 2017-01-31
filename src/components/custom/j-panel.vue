@@ -4,8 +4,8 @@
   <div
     ref='container'
     class='j-panel non-selectable xshadow-transition hoverable-5'
-    :class='vr_classPanelExpanded'
-    :style='vr_stylePanel'
+    :class='class_Panel'
+    :style='style_Panel'
   >
 
 
@@ -27,7 +27,7 @@
 
         <!--  J-PANEL-TOOL: Toggle Expand Panel -->
         <button ref="target" >
-          <i class="panelExpandArrow" :class="vr_classPanelExpandArrow">expand_more</i> <!-- or: "keyboard_arrow_down" -->
+          <i class="panelExpandArrow" :class="class_PanelExpandArrow">expand_more</i> <!-- or: "keyboard_arrow_down" -->
         </button>
 
         <!--  J-PANEL-TOOL: Action Menu -->
@@ -70,7 +70,9 @@
         class='j-panel-content-inner scroll'
         ref="content-inner"
       >
-      <pre>{{ state }}</pre>
+
+   <!--    <pre>{{ state }}</pre> -->
+
         <!-- user content -->
         <slot name="content"></slot>
 
@@ -152,7 +154,7 @@
         return  Utils.extend({}, this.value)
       },
       // View Rules
-      vr_stylePanel () {
+      style_Panel () {
         var s = this.state
         return {
           left: s.x + 'px',
@@ -162,11 +164,11 @@
           'z-index': this.order
         }
       },
-      vr_classPanelExpandArrow () {
+      class_PanelExpandArrow () {
         var s = this.state
         return {'rotate-180': !s.expanded}
       },
-      vr_classPanelExpanded () {
+      class_Panel () {
         var s = this.state
         return (this.state.expanded === true) ? 'is-expanded' : 'is-collapsed'
       },

@@ -26,20 +26,66 @@
   'use strict'
 
   var MoeStore = {
-
     state: {
-      bitmaps: [],
+      bitmaps: [
+        {
+          title: 'zxc',
+          src: '/statics/img/resource/bg/more1.png'
+        },
+        {
+          title: 'asd',
+          src: '/statics/img/resource/bg/more2.png'
+        },
+        {
+          title: 'qwe',
+          src: '/statics/img/resource/bg/bg2.png'
+        },
+        {
+          title: 'sdf',
+          src: '/statics/img/resource/bg/bg10.png'
+        },
+        {
+          title: 'xcv',
+          src: '/statics/img/resource/bg/bitmap1.bmp'
+        }
+      ],
+      bitmaps__meta: {
+
+      },
       activeBitmap: {},
       notes: [],
+      currentLevel: 70,
       imgUrls: [
         '/statics/img/resource/bg/more1.png',
         '/statics/img/resource/bg/more2.png',
         '/statics/img/resource/bg/bg2.png',
         '/statics/img/resource/bg/bg10.png',
         '/statics/img/resource/bg/bitmap1.bmp'
-      ]
-    },
+      ],
+      'building': {
+        'levels': {
+          'id': {
+            'id': null,
+            'spaces': {
+              'artwork': null,
+              'other': {
+                key: null,
+                exits: null
+              }
+            }
+          }
+        },
+        'artworks': {
+          'id': {
+            id: null,
+            filters: []
+          }
+        },
+        'palettes': {
+        }
+      }
 
+    },
     actions: {
 
     }

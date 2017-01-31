@@ -1,18 +1,19 @@
 <template>
   <div>
     TITLE: {{ test }}
-    IMAGEDATATA: {{ imageData.data.length }} !
+    IMAGEDATATA: {{ imageData }} !
     <canvas ref="canvas" :width='width' :height='height' style="border:2px solid blue;"></canvas>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'j-canvas',
   props: {
     id: 'j-canvas-1',
     imageData: null,
-    width: 256,
-    height: 256,
+    width: Number,
+    height: Number,
     test: 'testing'
   },
   watch: {
@@ -21,7 +22,7 @@ export default {
     },
     imageData (oldVal, newVal) {
       alert('ImageData changed!')
-      this.ctx.putImageData(newVal, 0, 0, 256, 256)
+      // this.ctx.putImageData(newVal, 0, 0, 256, 256)
     }
   },
   data () {

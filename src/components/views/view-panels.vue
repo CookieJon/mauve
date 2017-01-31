@@ -31,10 +31,8 @@
         >
 
           <div slot="toolbar">
-            <span>
-            <button class="primary small" @click='addBitmap'><i>add</i></button>
-            <button class="primary small" @click='loadBitmap'><i>file_upload</i></button>
-            </span>
+              <button class="primary small clear" @click='addBitmap'><i>add</i></button>
+              <button class="primary small clear" @click='loadBitmap'><i>file_upload</i></button>
           </div>
 
           <div slot="content">

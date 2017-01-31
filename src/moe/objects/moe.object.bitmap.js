@@ -5,6 +5,8 @@
  * https://github.com/CookieJon
  */
 
+ /* eslint-disable */
+
 export default Bitmap
 
 var iq = require('image-q')
@@ -218,7 +220,21 @@ Bitmap.prototype = {
 
     return this
   },
+  //this function is called when the input loads an image
+  renderImage (file) {
+    var reader = new FileReader();
+    reader.onload = function(event){
+      the_url = event.target.result
+      //of course using a template library like handlebars.js is a better solution than just inserting a string
+      $('#preview').html("<img src='"+the_url+"' />")
+      $('#name').html(file.name)
+      $('#size').html(humanFileSize(file.size, "MB"))
+      $('#type').html(file.type)
+    }
 
+    //when the file is read it triggers the onload event above.
+    reader.readAsDataURL(file);
+  },
   // fromFileName (filename, callback) {
   fromFileName (filename, callback) {
     // Load bitmap programatically

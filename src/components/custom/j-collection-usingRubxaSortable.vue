@@ -125,12 +125,10 @@
 
 <template>
   <div>
-    <pre class="text-white">{{ this.model}}</pre>
+    <!-- <pre class="text-white">{{ this.model}}</pre> -->
     <div
-
-      v-sortable="options.sortable"
+      sortable="options.sortable"
       @sort='onArrange'
-
       @dragenter.stop.prevent="onDragEnter"
       @dragover.stop.prevent="onDragOver"
       @drop.stop.prevent="onDrop"
@@ -138,7 +136,7 @@
       class="frame upload-zone"
     >
       <j-item
-        v-for='(i, item) in model'
+        v-for='(item, i) in model'
         :item='item'
         @jon="onJon">
       </j-item>
@@ -150,8 +148,10 @@
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
   export default {
+    name: 'j-collection-rubaxa',
     data () {
       return {
+        myModel: null,
         options: {
           sortable: {
             animation: 550,
@@ -182,6 +182,7 @@
     },
     mounted () {
       // var me = this
+      this.myModel = this.model
     },
     methods: {
       onDragEnter (e) {
