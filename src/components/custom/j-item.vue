@@ -3,7 +3,7 @@
     <!-- item is just "Bitmap" at the moment... make generic later -->
     <div class='frame' @click='onClick'>
       <img ref="src" :src="item.src" class='frame' @xload='onImgLoad' width='256' height='256' />
-      <j-canvas :test="item.title" :img-data="item.imageData" :width='256' :height='256'></j-canvas>
+      <j-canvas :img-data="imageData" :width='256' :height='256'></j-canvas>
       <canvas ref="dest" class='image' width='256' height='256'></canvas>
       <div class='item-label'>
         <div><input :id="item.id" :value="item.name" @input="onJon('name', $event)"></div>
@@ -33,7 +33,7 @@
     },
     watch: {
       imageData (newValue, oldValue) {
-        // alert('j-item watch kicked in!')
+        alert('j-item watch kicked in!')
       }
     },
     methods: {

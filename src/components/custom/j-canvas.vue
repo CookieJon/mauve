@@ -1,33 +1,40 @@
 <template>
-  <div>
-    TITLE: {{ test }}
-    IMAGEDATATA: {{ imageData }} !
-    <canvas ref="canvas" :width='width' :height='height' style="border:2px solid blue;"></canvas>
-  </div>
+  <canvas ref="canvas" :width='width' :height='height' style="border:2px solid blue;"></canvas>
 </template>
 
 <script>
 export default {
   name: 'j-canvas',
   props: {
-    id: 'j-canvas-1',
-    imageData: null,
-    width: Number,
-    height: Number,
-    test: 'testing'
+    width: {
+      type: Number,
+      default: 256
+    },
+    height: {
+      type: Number,
+      default: 256
+    },
+    imageData: {
+      type: Array
+    }
+  },
+  data () {
+    return {
+      // Prop alias
+      myImageData: this.imageData,
+      myWidth: this.width,
+      myHeight: this.height,
+      // Other
+      ctx: null,
+      id: 'j-canvas-1'
+    }
   },
   watch: {
     test: function (newVal, oldVal) {
       alert('test changed ' + newVal + ' old=' + oldVal)
     },
-    imageData (oldVal, newVal) {
-      alert('ImageData changed!')
-      // this.ctx.putImageData(newVal, 0, 0, 256, 256)
-    }
-  },
-  data () {
-    return {
-      ctx: null
+    myImageData (oldVal, newVal) {
+      this.ctx.putImageData(newVal, 0, 0, 256, 256)
     }
   },
   mounted () {
