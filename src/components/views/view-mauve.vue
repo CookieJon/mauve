@@ -5,9 +5,9 @@
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-<!--  <pre slot="content" class='text-white'>My Store: {{ store.state | json 2 }}</pre>
+        <pre slot="content" class='text-white'>{{ store.editor }}</pre>
 
-        <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
+      <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>
 
       <j-panel
@@ -33,7 +33,7 @@
 
           <div slot="content" class="j-tray area panel-item-grow">
             <j-collection
-              :model="store.state.bitmaps"
+              v-model="store.resources.bitmaps"
               @jon="onUpdateBitmap"
               @arrange="onArrangeBitmap"
               class='frame-type-grid'
@@ -49,9 +49,9 @@
         icon="android"
          :width="256" :height="256" :x="520" :y="35">
         >
-        <!-- <div slot="content" class="j-tray area panel-item-grow">
-          <j-canvas :imgdata='activeBitmap.img' :width="256" :height="256" ></j-canvas>
-        </div> -->
+        <div slot="content" class="j-tray area panel-item-grow">
+          <j-canvas :image-data='store.editor.activeBitmap ? store.editor.activeBitmap.imageData : null' :width="256" :height="256" ></j-canvas>
+        </div>
       </j-panel>
 
 

@@ -1,3 +1,121 @@
+<template>
+  <div>
+    <!-- <pre class="text-white">{{ this.myValue}}</pre> -->
+    <div
+      sortable="options.sortable"
+      @sort='onArrange'
+      @dragenter.stop.prevent="onDragEnter"
+      @dragover.stop.prevent="onDragOver"
+      @drop.stop.prevent="onDrop"
+      :class="this.class"
+      class="frame upload-zone"
+    >
+      <j-item
+        v-for='(item, i) in myValue'
+        v-model='myValue[i]'>
+      </j-item>
+    </div>
+  </div>
+</template>
+
+<script>
+  // var Bitmap = require('../../moe/moe.bitmap.js')
+  var jItem = require('components/custom/j-item')
+  import { Utils } from 'quasar'
+
+  export default {
+    name: 'j-collection-rubaxa',
+    components: {
+      jItem
+    },
+    props: {
+      value: {
+        type: [Array, Object],
+        required: true
+      },
+      class: {
+        type: String,
+        default: 'frame-type-grid'
+      }
+    },
+    data () {
+      return {
+        myValue: Utils.extend({}, this.value),
+        options: {
+          sortable: {
+            animation: 550,
+            ghostClass: 'sortable-ghost',  // Class name for the drop placeholder
+            chosenClass: 'sortable-chosen',  // Class name for the chosen item
+            dragClass: 'sortable-drag'  // Class name for the dragging item
+          }
+        },
+        sortFromIndex: null,
+        sortToIndex: null
+      }
+    },
+    computed: {
+      //  collection:
+    },
+    mounted () {
+      // var me = this
+      this.myValue = this.value
+    },
+    methods: {
+      onDragEnter (e) {
+        e.stopPropagation()
+        e.preventDefault()
+      },
+      onDragOver (e) {
+        e.stopPropagation()
+        e.preventDefault()
+      },
+      onDrop (e) {
+        console.log('onDrop:', e, e.dataTransfer.files)
+        e.preventDefault()
+        var files = e.dataTransfer.files
+        for (var i = 0, l = files.length; i < l; i++) {
+          var file = files[i]
+          if (!file.type.match(/image.*/)) {
+            console.log('File ', i, 'not an image. Won\'t create bitmap.')
+          }
+          else {
+            // this.loadImage(file)
+            console.log('File type = ', file.type)
+            this.$store.dispatch('addBitmap', {file})
+          }
+        }
+        // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
+      },
+      loadImage (src) {
+        //  Prevent any non-image file type from being read.
+        if (!src.type.match(/image.*/)) {
+          console.log('The dropped file is not an image: ', src.type)
+          return
+        }
+        //  Create our FileReader and ru n the results through the render function.
+        var reader = new FileReader()
+        reader.onload = function (e) {
+          this.render(e.target.result)
+        }.bind(this)
+        reader.readAsDataURL(src)
+      },
+      onJon (e) {
+        // Update a property on an item
+        console.log('j-collection.onUpdate()', e)
+        this.$emit('jon', e)
+      },
+      onArrange (e) {
+        console.log('j-collection.onArrange()', e)
+        this.$emit('arrange', {
+          obj: this.item,
+          fromIndex: e.oldIndex,
+          toIndex: e.newIndex
+        })
+        console.log(e)
+      }
+    }
+  }
+</script>
 
 <style lang="stylus">
 
@@ -122,125 +240,6 @@
 
 
 </style>
-
-<template>
-  <div>
-    <!-- <pre class="text-white">{{ this.model}}</pre> -->
-    <div
-      sortable="options.sortable"
-      @sort='onArrange'
-      @dragenter.stop.prevent="onDragEnter"
-      @dragover.stop.prevent="onDragOver"
-      @drop.stop.prevent="onDrop"
-      :class="this.class"
-      class="frame upload-zone"
-    >
-      <j-item
-        v-for='(item, i) in model'
-        :item='item'
-        @jon="onJon">
-      </j-item>
-    </div>
-  </div>
-</template>
-
-<script>
-  // var Bitmap = require('../../moe/moe.bitmap.js')
-  var jItem = require('components/custom/j-item')
-  export default {
-    name: 'j-collection-rubaxa',
-    data () {
-      return {
-        myModel: null,
-        options: {
-          sortable: {
-            animation: 550,
-            ghostClass: 'sortable-ghost',  // Class name for the drop placeholder
-            chosenClass: 'sortable-chosen',  // Class name for the chosen item
-            dragClass: 'sortable-drag'  // Class name for the dragging item
-          }
-        },
-        sortFromIndex: null,
-        sortToIndex: null
-      }
-    },
-    props: {
-      class: {
-        type: String,
-        default: 'frame-type-grid'
-      },
-      model: {
-        type: [Array, Object],
-        required: true
-      }
-    },
-    computed: {
-      //  collection:
-    },
-    components: {
-      jItem
-    },
-    mounted () {
-      // var me = this
-      this.myModel = this.model
-    },
-    methods: {
-      onDragEnter (e) {
-        e.stopPropagation()
-        e.preventDefault()
-      },
-      onDragOver (e) {
-        e.stopPropagation()
-        e.preventDefault()
-      },
-      onDrop (e) {
-        console.log('onDrop:', e, e.dataTransfer.files)
-        e.preventDefault()
-        var files = e.dataTransfer.files
-        for (var i = 0, l = files.length; i < l; i++) {
-          var file = files[i]
-          if (!file.type.match(/image.*/)) {
-            console.log('File ', i, 'not an image. Won\'t create bitmap.')
-          }
-          else {
-            // this.loadImage(file)
-            console.log('File type = ', file.type)
-            this.$store.dispatch('addBitmap', {file})
-          }
-        }
-        // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
-      },
-      loadImage (src) {
-        //  Prevent any non-image file type from being read.
-        if (!src.type.match(/image.*/)) {
-          console.log('The dropped file is not an image: ', src.type)
-          return
-        }
-        //  Create our FileReader and ru n the results through the render function.
-        var reader = new FileReader()
-        reader.onload = function (e) {
-          this.render(e.target.result)
-        }.bind(this)
-        reader.readAsDataURL(src)
-      },
-      onJon (e) {
-        // Update a property on an item
-        console.log('j-collection.onUpdate()', e)
-        this.$emit('jon', e)
-      },
-      onArrange (e) {
-        console.log('j-collection.onArrange()', e)
-        this.$emit('arrange', {
-          obj: this.item,
-          fromIndex: e.oldIndex,
-          toIndex: e.newIndex
-        })
-        console.log(e)
-      }
-    }
-  }
-</script>
-
 <!--
        ** SORTABLE OPTIONS **
         group: "name",  // or { name: "...", pull: [true, false, clone], put: [true, false, array] }

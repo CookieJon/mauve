@@ -26,63 +26,80 @@
   'use strict'
 
   var MoeStore = {
-    state: {
-      bitmaps: [
-        {
+    functions: {
+      selectBitmap (id) {
+        this.editor.activeBitmap = this.resources.bitmaps[id]
+        console.log('selected bitmap')
+      }
+    },
+    resources: {
+      bitmaps: {
+        bitmap1: {
+          id: 'bitmap1',
           title: 'zxc',
-          src: '/statics/img/resource/bg/more1.png'
+          src: '/statics/img/resource/bg/more1.png',
+          imageData: null
         },
-        {
+        bitmap2: {
+          id: 'bitmap2',
           title: 'asd',
-          src: '/statics/img/resource/bg/more2.png'
+          src: '/statics/img/resource/bg/more2.png',
+          imageData: null
         },
-        {
+        bitmap3: {
+          id: 'bitmap3',
           title: 'qwe',
-          src: '/statics/img/resource/bg/bg2.png'
+          src: '/statics/img/resource/bg/bg2.png',
+          imageData: null
         },
-        {
+        bitmap4: {
+          id: 'bitmap4',
           title: 'sdf',
-          src: '/statics/img/resource/bg/bg10.png'
+          src: '/statics/img/resource/bg/bg10.png',
+          imageData: null
         },
-        {
+        bitmap5: {
+          id: 'bitmap5',
           title: 'xcv',
-          src: '/statics/img/resource/bg/bitmap1.bmp'
+          src: '/statics/img/resource/bg/bitmap1.bmp',
+          imageData: null
         }
-      ],
-      bitmaps__meta: {
-
-      },
-      activeBitmap: {},
-      notes: [],
-      currentLevel: 70,
-      imgUrls: [
-        '/statics/img/resource/bg/more1.png',
-        '/statics/img/resource/bg/more2.png',
-        '/statics/img/resource/bg/bg2.png',
-        '/statics/img/resource/bg/bg10.png',
-        '/statics/img/resource/bg/bitmap1.bmp'
-      ],
-      'building': {
-        'levels': {
-          'id': {
-            'id': null,
-            'spaces': {
-              'artwork': null,
-              'other': {
-                key: null,
-                exits: null
-              }
+      }
+    },
+    editor: {
+      bitmaps: [],
+      activeBitmap: []
+    },
+    activeBitmap: {},
+    notes: [],
+    currentLevel: 70,
+    imgUrls: [
+      '/statics/img/resource/bg/more1.png',
+      '/statics/img/resource/bg/more2.png',
+      '/statics/img/resource/bg/bg2.png',
+      '/statics/img/resource/bg/bg10.png',
+      '/statics/img/resource/bg/bitmap1.bmp'
+    ],
+    'building': {
+      'levels': {
+        'id': {
+          'id': null,
+          'spaces': {
+            'artwork': null,
+            'other': {
+              key: null,
+              exits: null
             }
           }
-        },
-        'artworks': {
-          'id': {
-            id: null,
-            filters: []
-          }
-        },
-        'palettes': {
         }
+      },
+      'artworks': {
+        'id': {
+          id: null,
+          filters: []
+        }
+      },
+      'palettes': {
       }
 
     },

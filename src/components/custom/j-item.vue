@@ -2,12 +2,12 @@
 <template>
     <!-- item is just "Bitmap" at the moment... make generic later -->
     <div class='frame' @click='onClick'>
-      <img ref="src" :src="item.src" class='frame' @xload='onImgLoad' width='256' height='256' />
-      <j-canvas :img-data="imageData" :width='256' :height='256'></j-canvas>
-      <canvas ref="dest" class='image' width='256' height='256'></canvas>
+      <img ref="src" :src="myValue.src" xclass='frame' @load='onImgLoad' width='256' height='256' />
+      <j-canvas ref="jCanvas" :image-data="imageData" class='image' :width='256' :height='256'></j-canvas><!--
+      <canvas ref="dest" class='image' width='256' height='256'></canvas> -->
       <div class='item-label'>
-        <div><input :id="item.id" :value="item.name" @input="onJon('name', $event)"></div>
-        <div><input :id="item.id+'2'" :value="item.src" @input="onJon('src', $event)"></div>
+        <div><input :id="myValue.id" :value="myValue.name" @input="onJon('name', $event)"></div>
+        <div><input :id="myValue.id+'2'" :value="myValue.src" @input="onJon('src', $event)"></div>
         <div>sub label</div>
       </div>
     </div>
@@ -17,22 +17,33 @@
   var iq = require('image-q')
   var ColorUtils = require('../../moe/utils/moe.utils.color.js')
   var jCanvas = require('./j-canvas')
-  console.log(ColorUtils)
+
+  import { Utils } from 'quasar'
+
+  // console.log(ColorUtils)
+
   export default {
     name: 'j-item',
-    data () {
-      return {
-        ctx: null,
-        imageData: null
+    props: {
+      value: {
+        type: Object
       }
     },
-    props: ['item', 'value'],
-    components: {jCanvas},
+    data () {
+      return {
+        myValue: Utils.extend({}, this.value),
+        imageData: null,
+        ctx: null
+      }
+    },
+    components: {
+      jCanvas
+    },
     mounted () {
-      this.imageData = this.$refs.dest.getContext('2d').getImageData(0, 0, 255, 255)
+      // this.imageData = this.$refs.dest.getContext('2d').getImageData(0, 0, 255, 255)
     },
     watch: {
-      imageData (newValue, oldValue) {
+      imageData: function (newValue, oldValue) {
         alert('j-item watch kicked in!')
       }
     },
@@ -47,13 +58,13 @@
         })
       },
       onClick () {
-        // console.log(addBitmap)
+        console.log('onClick')
       },
       onImgLoad () {
         //
         var img = this.$refs.src
-        var canvas = this.$refs.dest
-        canvas.getContext('2d').drawImage(img, 0, 0, 256, 256)
+        var jCanvas = this.$refs.jCanvas
+        jCanvas.fromImage(img)     // canvas.getContext('2d').drawImage(img, 0, 0, 256, 256)
 
         // desired colors number
 
@@ -89,19 +100,26 @@
         //     return new iq.distance.ManhattanNommyde();
         // }
 
+        console.log('LOADED IMAGE')
+
         // & iq.image.?
-        var inPointContainer = iq.utils.PointContainer.fromHTMLCanvasElement(canvas)
+        var inPointContainer = iq.utils.PointContainer.fromHTMLCanvasElement(jCanvas.getCanvas())
         // var iqImage = new iq.image.ErrorDiffusionArray(iqDistance, iq.image.ErrorDiffusionArrayKernel.SierraLite)
         var iqImage = new iq.image.NearestColor(iqDistance)
 
         var outPointContainer = iqImage.quantize(inPointContainer, iqPalette)
-        var uint8array = outPointContainer.toUint8Array()
+
+        jCanvas.fromRGBA(outPointContainer.toUint8Array())
+        /*
         var imageData = canvas.getContext('2d').getImageData(0, 0, 256, 256)
         for (var i = 0; i < uint8array.length; i++) {
           imageData.data[i] = uint8array[i]
         }
-        canvas.getContext('2d').putImageData(imageData, 0, 0)
+        this.imageData = imageData
+        jCanvas.getContext('2d').putImageData(imageData, 0, 0)
+        */
 
+        // this.$refs.jCanvas.imageData = imageData
         // draw palette
         //
         var paletteCanvas = ColorUtils.drawPixels(iqPalette.getPointContainer(), 16, 32)
