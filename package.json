@@ -28,6 +28,7 @@
     "quasar-framework": "0.x",
     "roboto-fontface": "^0.6.0",
     "sortable": "^2.0.0",
+    "sortablejs": "^1.5.0-rc1",
     "velocity-animate": "^1.2.3",
     "vue": "^2.0.0",
     "vue-router": "^2.0.0",

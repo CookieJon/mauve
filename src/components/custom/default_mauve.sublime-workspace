@@ -371,7 +371,6 @@
 			"settings":
 			{
 				"buffer_size": 889,
-				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -551,9 +550,6 @@
 	"expanded_folders":
 	[
 		"/C/_JON_TEMP_tmp/mauve",
-		"/C/_JON_TEMP_tmp/mauve/node_modules/quasar-framework",
-		"/C/_JON_TEMP_tmp/mauve/node_modules/quasar-framework/src",
-		"/C/_JON_TEMP_tmp/mauve/node_modules/quasar-framework/src/utils",
 		"/C/_JON_TEMP_tmp/mauve/src",
 		"/C/_JON_TEMP_tmp/mauve/src/components",
 		"/C/_JON_TEMP_tmp/mauve/src/components/custom",
@@ -1247,8 +1243,8 @@
 						"selection":
 						[
 							[
-								1701,
-								1701
+								1751,
+								1751
 							]
 						],
 						"settings":

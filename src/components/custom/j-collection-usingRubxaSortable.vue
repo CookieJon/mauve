@@ -2,6 +2,7 @@
   <div>
     <!-- <pre class="text-white">{{ this.myValue}}</pre> -->
     <div
+      ref="container"
       sortable="options.sortable"
       @sort='onArrange'
       @dragenter.stop.prevent="onDragEnter"
@@ -22,6 +23,7 @@
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
   import { Utils } from 'quasar'
+  import Sortable from 'sortablejs'
 
   export default {
     name: 'j-collection-rubaxa',
@@ -59,6 +61,7 @@
     mounted () {
       // var me = this
       this.myValue = this.value
+      Sortable.create(this.$refs.container)
     },
     methods: {
       onDragEnter (e) {

@@ -34,6 +34,7 @@
           <div slot="content" class="j-tray area panel-item-grow">
             <j-collection
               v-model="store.resources.bitmaps"
+              @click="store.methods.selectBitmap"
               @jon="onUpdateBitmap"
               @arrange="onArrangeBitmap"
               class='frame-type-grid'

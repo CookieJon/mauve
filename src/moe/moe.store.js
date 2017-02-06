@@ -26,10 +26,10 @@
   'use strict'
 
   var MoeStore = {
-    functions: {
+    methods: {
       selectBitmap (id) {
         this.editor.activeBitmap = this.resources.bitmaps[id]
-        console.log('selected bitmap')
+        console.log('selected bitmap', id)
       }
     },
     resources: {
