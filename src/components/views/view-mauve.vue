@@ -1,7 +1,13 @@
  <template>
   <!-- root node required -->
   <div>
+<!--
+ JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
 
+ orm, oauth, perhaps websockets
+
+ graphql
+ -->
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
@@ -21,9 +27,9 @@
       </j-panel>
 
       <!-- PANEL :: BITMAPS -->
-      <j-panel
+      <j-panel icon="business"
+
         title="Bitmaps"
-        icon="business"
          :width="320" :height="520" :x="10" :y="10">
         >
           <div slot="header" class='j-panel-toolbar text-black' style='padding:4px;'>
@@ -51,6 +57,7 @@
          :width="256" :height="256" :x="520" :y="35">
         >
         <div slot="content" class="j-tray area panel-item-grow">
+          <j-component v-model='store.resources.bitmaps'></j-component>
           <j-canvas :image-data='store.editor.activeBitmap ? store.editor.activeBitmap.imageData : null' :width="256" :height="256" ></j-canvas>
         </div>
       </j-panel>
@@ -100,12 +107,12 @@
  * START SCRIPT
  *
  **/
-
+var jComponent = require('components/custom/j-component')
 var jPanel = require('components/custom/j-panel')
 var jItem = require('components/custom/j-item')
 var jCanvas = require('components/custom/j-canvas')
+var jCollection = require('components/custom/j-collection')
 // var jCollection = require('components/custom/j-collection')
-var jCollection = require('components/custom/j-collection-usingRubxaSortable')
 var jUploadZone = require('components/custom/j-upload-zone')
 var DragEffects = require('components/custom/DragEffects')
 

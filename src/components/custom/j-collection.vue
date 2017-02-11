@@ -1,37 +1,20 @@
-
 <template>
   <div>
-    <pre class="text-white">{{ this.model}}</pre>
-   <!--  <div
-      v-sortable="options.sortable"
+    <!-- <pre class="text-white">{{ this.myValue}}</pre> -->
+    <div
+      ref="container"
+      sortable="options.sortable"
       @sort='onArrange'
-
       @dragenter.stop.prevent="onDragEnter"
       @dragover.stop.prevent="onDragOver"
       @drop.stop.prevent="onDrop"
       :class="this.class"
       class="frame upload-zone"
-    > -->
-
-    <div id="first" class="container" v-dragula="colOne" service="effects">
-      <div v-for="text in value">
-        <span class="handle">+</span>
-        <span>{{text}}</text>
-      </div>
-    </div>
-
+    >
       <j-item
-        v-for='(i, item) in value'
-        :item='item'
-        @jon="onJon">
+        v-for='(item, i) in myValue'
+        v-model='myValue[i]'>
       </j-item>
-
-      <j-item
-        v-for='(i, item) in value'
-        :item='item'
-        @jon="onJon">
-      </j-item>
-
     </div>
   </div>
 </template>
@@ -39,10 +22,27 @@
 <script>
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
+  import { Utils } from 'quasar'
+  import Sortable from 'sortablejs'
+
   export default {
+    name: 'j-collection-rubaxa',
+    components: {
+      jItem
+    },
+    props: {
+      value: {
+        type: [Array, Object],
+        required: true
+      },
+      class: {
+        type: String,
+        default: 'frame-type-grid'
+      }
+    },
     data () {
       return {
-        myItems: null,
+        myValue: Utils.extend({}, this.value),
         options: {
           sortable: {
             animation: 550,
@@ -55,85 +55,13 @@
         sortToIndex: null
       }
     },
-    props: {
-      class: {
-        type: String,
-        default: 'frame-type-grid'
-      },
-      // v-model...
-      value: {
-        type: String,
-        default: ''
-      }
-    },
     computed: {
       //  collection:
     },
-    components: {
-      jItem
-    },
-
-    created () {
-      console.log('NAMED SERVICES: created')
-
-      this.myItems = this.items
-
-      let dragula = this.$dragula
-
-      let service = dragula.createService({
-        name: 'effects',
-        drake: {
-          copy: true
-        }
-      })
-
-      // let log = console.log
-      //
-      // TODO: Use classlist: https://developer.mozilla.org/en/docs/Web/API/Element/classList
-      // See all events here: https://github.com/bevacqua/dragula#drakeon-events
-      //
-      service.on({
-        'effects:removeModel': ({name, el, source, dragIndex, model}) => {
-          console.log('HANDLE effects:removeModel: ', name, el, source, dragIndex, model)
-          el.classList.remove('ex-moved')
-        },
-        'effects:dropModel': ({name, el, source, target, dropIndex, model}) => {
-          console.log('HANDLE effects:dropModel: ', el, source, target, dropIndex, model)
-          el.classList.add('ex-moved')
-        },
-        accepts: ({el, target}) => {
-          console.log('accepts: ', el, target)
-          return true // target !== document.getElementById(left)
-        },
-        drag: ({el, source, target, container}) => {
-          console.log('HANDLE drag: ', 'el:', el, 'c:', container)
-          console.log('classList', el.classList)
-          el.classList.remove('ex-moved')
-        },
-        drop: (opts) => {
-          const {el, container, model} = opts
-          console.log('HANDLE drop: ', el, container, model, opts)
-          console.log('classList', el.classList)
-          el.classList.add('ex-moved')
-          console.log('new classList', el.classList)
-        },
-        over: ({el, container}) => {
-          console.log('over: ', el, container)
-          console.log('classList', el.classList)
-          el.classList.add('ex-over')
-        },
-        out: ({el, container}) => {
-          console.log('out: ', el, container)
-          console.log('classList', el.classList)
-          el.classList.remove('ex-over')
-        }
-      })
-      console.log('DRAG EFFECTS: ready')
-
-      console.log('NAMED SERVICES: ready')
-    },
     mounted () {
       // var me = this
+      this.myValue = this.value
+      Sortable.create(this.$refs.container)
     },
     methods: {
       onDragEnter (e) {
@@ -192,54 +120,8 @@
   }
 </script>
 
-<!--
-       ** SORTABLE OPTIONS **
-        group: "name",  // or { name: "...", pull: [true, false, clone], put: [true, false, array] }
-        sort: true,  // sorting inside list
-        delay: 0, // time in milliseconds to define when the sorting should start
-        disabled: false, // Disables the sortable if set to true.
-        store: null,  // @see Store
-        animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
-        handle: ".my-handle",  // Drag handle selector within list items
-        filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
-        draggable: ".item",  // Specifies which items inside the element should be draggable
-        ghostClass: "sortable-ghost",  // Class name for the drop placeholder
-        chosenClass: "sortable-chosen",  // Class name for the chosen item
-        dragClass: "sortable-drag",  // Class name for the dragging item
-        dataIdAttr: 'data-id',
-
-        forceFallback: false,  // ignore the HTML5 DnD behaviour and force the fallback to kick in
-
-        fallbackClass: "sortable-fallback",  // Class name for the cloned DOM Element when using forceFallback
-        fallbackOnBody: false,  // Appends the cloned DOM Element into the Document's Body
-        fallbackTolerance: 0 // Specify in pixels how far the mouse should move before it's considered as a drag.
-
-        scroll: true, // or HTMLElement
-        scrollFn: function(offsetX, offsetY, originalEvent) { ... }, // if you have custom scrollbar scrollFn may be used for autoscrolling
-        scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
-        scrollSpeed: 10, // px
-        + events...
--->
-
 <style lang="stylus">
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-.ex-moved {
-  animation: fadeIn 2s ease-in 1 forwards;
-  border: 2px solid yellow;
-  padding: 2px
-}
-
-.ex-over {
-  animation: fadeIn .5s ease-in 1 forwards;
-  border: 4px solid green;
-  padding: 2px
-}
 .ui-resizable
   position absolute
 
@@ -361,3 +243,31 @@
 
 
 </style>
+<!--
+       ** SORTABLE OPTIONS **
+        group: "name",  // or { name: "...", pull: [true, false, clone], put: [true, false, array] }
+        sort: true,  // sorting inside list
+        delay: 0, // time in milliseconds to define when the sorting should start
+        disabled: false, // Disables the sortable if set to true.
+        store: null,  // @see Store
+        animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+        handle: ".my-handle",  // Drag handle selector within list items
+        filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
+        draggable: ".item",  // Specifies which items inside the element should be draggable
+        ghostClass: "sortable-ghost",  // Class name for the drop placeholder
+        chosenClass: "sortable-chosen",  // Class name for the chosen item
+        dragClass: "sortable-drag",  // Class name for the dragging item
+        dataIdAttr: 'data-id',
+
+        forceFallback: false,  // ignore the HTML5 DnD behaviour and force the fallback to kick in
+
+        fallbackClass: "sortable-fallback",  // Class name for the cloned DOM Element when using forceFallback
+        fallbackOnBody: false,  // Appends the cloned DOM Element into the Document's Body
+        fallbackTolerance: 0 // Specify in pixels how far the mouse should move before it's considered as a drag.
+
+        scroll: true, // or HTMLElement
+        scrollFn: function(offsetX, offsetY, originalEvent) { ... }, // if you have custom scrollbar scrollFn may be used for autoscrolling
+        scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
+        scrollSpeed: 10, // px
+        + events...
+-->

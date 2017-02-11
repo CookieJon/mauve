@@ -32,9 +32,35 @@
         console.log('selected bitmap', id)
       }
     },
+    // UI schema
+    ui: {
+      panel_bitmaps: {
+        model: 'resources.bitmaps',
+        type: 'j-panel',
+
+      }
+    },
+    // UI state
+    workbench: {
+
+    },
+    // Object schema
+    templates: {
+      Bitmap: {
+        id: 'String',
+        title: 'String',
+        src: 'Array',
+        imageData: 'UInt256Array'
+      }
+    },
+    // Object state
     resources: {
       bitmaps: {
+        _meta: {
+
+        },
         bitmap1: {
+          _template: 'Bitmap'
           id: 'bitmap1',
           title: 'zxc',
           src: '/statics/img/resource/bg/more1.png',
