@@ -4,6 +4,8 @@
 <!--
  JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
 
+ Axios / GraphQL
+
  orm, oauth, perhaps websockets
 
  graphql
@@ -11,7 +13,7 @@
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-        <pre slot="content" class='text-white'>{{ store.editor }}</pre>
+        <pre slot="content" class='text-white'>{{ $store.state }}</pre>
 
       <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>
@@ -40,7 +42,6 @@
           <div slot="content" class="j-tray area panel-item-grow">
             <j-collection
               v-model="store.resources.bitmaps"
-              @click="store.methods.selectBitmap"
               @jon="onUpdateBitmap"
               @arrange="onArrangeBitmap"
               class='frame-type-grid'
@@ -88,7 +89,6 @@
           </div>
 
           <div slot="content">
-            <j-collection
           </div>
         </div>
       </j-panel>
@@ -128,11 +128,12 @@ export default {
     }
   }
   ,components: {
-    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects
+    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent
   },
   methods: {
     onClick () {
-      window.alert('click event')
+      this.$store.setActiveBitmap()
+      window.alert('click event', this.$store)
     },
     testModify () {
       this.categories = [

@@ -1,16 +1,12 @@
 
-<template>
-  <div class="test">
-    <h1>{{props.msg}}</h1>
-    <h2>Static content</h2>
-    <span v-for="n in 10">{{n}} </span>
-    <button @click="console.log('click', props.msg)"><slot></slot></button>
-  </div>
-</template>
-
 <script>
 /* eslint-disable */
+var jItem = require('components/custom/j-item')
 export default {
+  name: 'j-component',
+  components: {
+    jItem
+  },
   render: function (createElement) {
     function appropriateListComponent () {
       // var items = context.props.items
@@ -21,19 +17,13 @@ export default {
     }
     return createElement(
       appropriateListComponent(),
-      context.data,
-      context.children
+      this.$slots.default
     )
   },
   props: {
     value: {
-
-    },
-    items: {
-      type: Array,
-      required: true
-    },
-    isOrdered: Boolean
+      required: false
+    }
   }
   // render: function (createElement) {
   //   // create kebabCase id

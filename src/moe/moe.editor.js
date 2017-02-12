@@ -12,28 +12,25 @@
 
     },
     loadBitmap (e) {
-      for (var i=0, l=e.target.files.length;i<l;i++) {
-        var file = e.target.files[i];
-        var tmppath = URL.createObjectURL(file);
-        serveBitmap(tmppath, function(bitmap) {
-          this.bitmaps.push(bitmap);
-        }.bind(this));
-      }
+      // for (var i = 0, l = e.target.files.length; i < l; i++) {
+      //   var file = e.target.files[i];
+      //   var tmppath = URL.createObjectURL(file)
+      //   serveBitmap(tmppath, function(bitmap) {
+      //     this.bitmaps.push(bitmap)
+      //   }.bind(this));
+      // }
     },
     addBitmap () {
-      serveBitmap("img/bmp/newtest.bmp", function(bitmap) {
-         this.bitmaps.push(bitmap);
-      }.bind(this));
+      // serveBitmap("img/bmp/newtest.bmp", function(bitmap) {
+      //    this.bitmaps.push(bitmap)
+      // }.bind(this))
     },
     removeItem (item) {
       this.list.$remove(item)
     },
     changeFirst () {
       this.list[0] && (this.list[0].name = this.list[0].name.toUpperCase())
-    },
-    toggleBitmapPreview: function()
+    }
   }
 
   module.exports = MoeEditor
-
-

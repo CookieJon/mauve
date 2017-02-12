@@ -8,6 +8,7 @@
       @dragenter.stop.prevent="onDragEnter"
       @dragover.stop.prevent="onDragOver"
       @drop.stop.prevent="onDrop"
+      @click="onClick"
       :class="this.class"
       class="frame upload-zone"
     >
@@ -64,6 +65,10 @@
       Sortable.create(this.$refs.container)
     },
     methods: {
+      onClick (e) {
+        console.log(e)
+        this.$emit('click')
+      },
       onDragEnter (e) {
         e.stopPropagation()
         e.preventDefault()

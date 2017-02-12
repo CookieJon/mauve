@@ -26,20 +26,25 @@
   'use strict'
 
   var MoeStore = {
-    methods: {
-      selectBitmap (id) {
-        this.editor.activeBitmap = this.resources.bitmaps[id]
-        console.log('selected bitmap', id)
-      }
-    },
     // UI schema
     ui: {
-      panel_bitmaps: {
-        model: 'resources.bitmaps',
-        type: 'j-panel',
+      PanelCollection: {
+        model: null,
+        component: 'j-panel',
+        options: {
+          toolbar: {
 
+          }
+        }
+
+      },
+      jPanel: {
+        model: null,
+        type: 'j-panel',
+        variation: null
       }
     },
+
     // UI state
     workbench: {
 
@@ -60,7 +65,7 @@
 
         },
         bitmap1: {
-          _template: 'Bitmap'
+          _template: 'Bitmap',
           id: 'bitmap1',
           title: 'zxc',
           src: '/statics/img/resource/bg/more1.png',
@@ -132,7 +137,6 @@
     actions: {
 
     }
-
   }
 
   export default MoeStore
