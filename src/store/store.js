@@ -7,10 +7,11 @@ import MoeObjects from '../moe/objects'
 
 Vue.use(Vuex)
 
-// the root, initial state object
+//  --- state
+//
 const state = {
   bitmaps: [],
-  activeBitmap: 'lala',
+  activeBitmap: {},
   notes: [],
   imgUrls: [
     '/statics/img/resource/bg/more1.png',
@@ -24,28 +25,28 @@ const state = {
   ]
 }
 
-// define store actions
+//  --- actions
+//
 const actions = {
   addBitmap: ({ commit }, payload) => {
-    /*
-      @payload: {
-        bitmap:     // <- create from template bitmap
-        imageData:  // <- create from imgData
-        file:       // <- load & create from file object
-        src:        // <- load & create from file name
-        url:        // <- load & create from url
-        val:
+    // @payload: {
+    //   bitmap:     // <- create from template bitmap
+    //   imageData:  // <- create from imgData
+    //   file:       // <- load & create from file object
+    //   src:        // <- load & create from file name
+    //   url:        // <- load & create from url
+    //   val:
+    // }
+    var bitmap = new MoeObjects.Bitmap({
+      src: '/statics/img/resource/bg/more1.png',
+      onCreated: result => {
+        alert('callback')
+        console.log(result)
+        commit('ADD_BITMAP', {result})
+        commit('SET_ACTIVE_BITMAP', {result})
       }
-    */
-    payload.onCreated = bitmap => {
-      alert('bitmap callback')
-      commit('ADD_BITMAP', {bitmap})
-    }
-    var bitmap = new MoeObjects.Bitmap(payload)
-    console.log(bitmap)
-      // return callPromiseAPI(payload).then(res => {
-      //   commit('ADD_BITMAP', { res })
-      // })
+    })
+
   },
 
   updateBitmap: ({ commit }, payload) => {
@@ -79,6 +80,7 @@ const actions = {
 // define the possible mutations that can be applied to our state
 const mutations = {
   UPDATE (state, {key, val}) {
+    console.log('yeah')
     // 'a.b.etc'.split('.').reduce((o,i)=>o[i], obj)
   },
 
@@ -89,13 +91,11 @@ const mutations = {
   },
 
   ARRANGE_BITMAP (state, payload) {
-  /*
-    @payload: {
-      obj:
-      fromIndex:
-      toIndex:
-    }
-  */
+    // @payload: {
+    //   obj:
+    //   fromIndex:
+    //   toIndex:
+    // }
     var from = payload.fromIndex
     var to = payload.toIndex
     state.bitmaps.splice(to, 0, state.bitmaps.splice(from, 1)[0])
@@ -103,18 +103,16 @@ const mutations = {
   },
 
   ADD_BITMAP (state, payload) {
-    /*
-      @payload: {
-        bitmap: Bitmap
-      }
-    */
+    // @payload: {
+    //   bitmap: Bitmap
+    // }
     // var bitmap = {
     //   id: 'bitmap-' + state.bitmaps.length,
     //   src: payload.src,
     //   name: 'Untitled ' + state.bitmaps.length
     // }
     // console.log(state, bitmap)
-    state.activeBitmap = state.bitmaps.push(payload.bitmap)
+    state.bitmaps.push(payload.bitmap)
   },
 
   DELETE_BITMAP (state) {

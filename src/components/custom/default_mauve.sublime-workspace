@@ -367,16 +367,34 @@
 			"file": "/C/_JON_TEMP_tmp/mauve/src/moe/moe.editor.js",
 			"settings":
 			{
-				"buffer_size": 883,
+				"buffer_size": 878,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/_JON_TEMP_tmp/mauve/src/store/store.js",
+			"settings":
+			{
+				"buffer_size": 3223,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/_JON_TEMP_tmp/mauve/src/main.js",
+			"settings":
+			{
+				"buffer_size": 871,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "/C/_JON_TEMP_tmp/mauve/src/moe/moe.store.js",
 			"settings":
 			{
-				"buffer_size": 2902,
+				"buffer_size": 2749,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -385,7 +403,7 @@
 			"file": "/C/_JON_TEMP_tmp/mauve/src/components/views/view-mauve.vue",
 			"settings":
 			{
-				"buffer_size": 4732,
+				"buffer_size": 4735,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -402,7 +420,7 @@
 			"file": "j-component.vue",
 			"settings":
 			{
-				"buffer_size": 1702,
+				"buffer_size": 1499,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -411,24 +429,7 @@
 			"file": "j-collection.vue",
 			"settings":
 			{
-				"buffer_size": 7359,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "j-collection_different.vue",
-			"settings":
-			{
-				"buffer_size": 9800,
+				"buffer_size": 7462,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -558,13 +559,9 @@
 	[
 		"/C/_JON_TEMP_tmp/mauve",
 		"/C/_JON_TEMP_tmp/mauve/src",
-		"/C/_JON_TEMP_tmp/mauve/src/components",
 		"/C/_JON_TEMP_tmp/mauve/src/components/custom",
 		"/C/_JON_TEMP_tmp/mauve/src/components/custom/float-label",
-		"/C/_JON_TEMP_tmp/mauve/src/components/views",
-		"/C/_JON_TEMP_tmp/mauve/src/moe",
-		"/C/_JON_TEMP_tmp/mauve/src/moe/objects",
-		"/C/_JON_TEMP_tmp/mauve/src/moe/utils"
+		"/C/_JON_TEMP_tmp/mauve/src/store"
 	],
 	"file_history":
 	[
@@ -1024,7 +1021,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -1033,15 +1030,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 883,
+						"buffer_size": 878,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								190,
-								190
+								522,
+								522
 							]
 						],
 						"settings":
@@ -1054,24 +1051,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/_JON_TEMP_tmp/mauve/src/moe/moe.store.js",
+					"file": "/C/_JON_TEMP_tmp/mauve/src/store/store.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2902,
+						"buffer_size": 3223,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								977,
-								977
+								2822,
+								2822
 							]
 						],
 						"settings":
@@ -1081,27 +1078,87 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 289.0,
+						"translation.y": 2002.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/C/_JON_TEMP_tmp/mauve/src/components/views/view-mauve.vue",
+					"file": "/C/_JON_TEMP_tmp/mauve/src/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4732,
+						"buffer_size": 871,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								814,
-								814
+								312,
+								312
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/_JON_TEMP_tmp/mauve/src/moe/moe.store.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2749,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1122,
+								1122
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 858.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/_JON_TEMP_tmp/mauve/src/components/views/view-mauve.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4735,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3648,
+								3648
 							]
 						],
 						"settings":
@@ -1111,14 +1168,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 700.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "j-panel.vue",
 					"semi_transient": false,
 					"settings":
@@ -1130,8 +1187,8 @@
 						"selection":
 						[
 							[
-								2608,
-								2608
+								6767,
+								6775
 							]
 						],
 						"settings":
@@ -1141,115 +1198,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2002.0,
+						"translation.y": 5148.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "j-component.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1702,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								706,
-								706
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "j-collection.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7359,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1391,
-								1391
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 572.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
+					"file": "j-component.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 1499,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "j-collection_different.vue",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 9800,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								623,
+								623
 							]
 						],
 						"settings":
@@ -1262,7 +1231,37 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "j-collection.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7462,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1692,
+								1692
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1430.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1289,10 +1288,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 286.0,
+						"translation.y": 88.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1322,7 +1321,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]

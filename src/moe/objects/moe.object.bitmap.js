@@ -55,7 +55,20 @@ Bitmap.prototype = {
 
   constructor: Bitmap,
 
+  // Create (options) {
+  //   var options = options
+  //   return new Promise((resolve, reject) => {
+  //     if (this.init(options)
+  //     if (this.$store.dispatch('getUser') && this.$store.dispatch('getEntities')) {
+  //       resolve();
+  //     } else {
+  //       reject(Error('it broke'));
+  //     }
+  //   });
+  // }
+
   init (options) {
+    console.log('Bitmap options', options)
     var self = this
     var img = document.createElement('img')
 
@@ -69,7 +82,7 @@ Bitmap.prototype = {
         img.onload = () => {
           window.URL.revokeObjectURL(this.src)
           self.normalisePalette(img)
-          console.log('LOADED IMAGE!!!')
+          alert('LOADED IMAGE!!!')
         }
         img.src = window.URL.createObjectURL(options.file)
         img.height = 60
@@ -84,21 +97,19 @@ Bitmap.prototype = {
     // Create from src
     //
     else if (options.src) {
-      // Any old image file
+      // Any old image file from http://
       //
       alert('loading from src')
       img.onload = () => {
         alert('img loaded')
+        self.title = 'all aboard!'
         self.normalisePalette(img)
         alert('palette normalised')
-        self.title = 'all aboard!'
-        console.log(self)
         self.onCreated(self)
       }
       img.src = options.src
       img.height = 60
     }
-
     // this.imageData = new ImageData(this.width, this.height)
   },
 

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+  /* eslint-ignore */
   var iq = require('image-q')
   var ColorUtils = require('../../moe/utils/moe.utils.color.js')
   var jCanvas = require('./j-canvas')
@@ -108,8 +109,9 @@
         var iqImage = new iq.image.NearestColor(iqDistance)
 
         var outPointContainer = iqImage.quantize(inPointContainer, iqPalette)
-
-        jCanvas.fromRGBA(outPointContainer.toUint8Array())
+        console.log('outPointContainer', outPointContainer)
+        // jCanvas.fromRGBA(outPointContainer.toUint8Array())
+        // this.myValue.imageData = outPointContainer
         /*
         var imageData = canvas.getContext('2d').getImageData(0, 0, 256, 256)
         for (var i = 0; i < uint8array.length; i++) {

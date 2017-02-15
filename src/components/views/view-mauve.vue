@@ -13,41 +13,40 @@
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-        <pre slot="content" class='text-white'>{{ $store.state }}</pre>
-
+      <!--   <pre slot="content" class='text-white'>{{ $store.state }}</pre>
+ -->
       <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>
 
-      <j-panel
+      <!-- PANEL :: BITMAPS -->
+      <j-panel icon="business" title="Bitmaps" :width="320" :height="520" :x="10" :y="10">
+
+          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
+            <button class="circular primary small" @click='addBitmap'><i>add</i></button>
+            <button class="circular primary small" @click='addBitmap'><i>file_upload</i></button>
+          </div>
+
+          <div slot="content" class="j-tray area panel-item-grow">
+            <j-collection
+              v-model="bitmaps"
+              @jon="onUpdateBitmap"
+              @arrange="onArrangeBitmap"
+              class='frame-type-grid'
+            ></j-collection>
+          </div>
+
+      </j-panel>
+
+
+<!--       <j-panel
         title="Bitmap Detail"
         icon="upload"
          :width="370" :height="140" :x="320" :y="635">
         >
         <div slot="content">
        <!--    <q-range :model.sync="store.currentLevel" :min="1" :max="1000" class='xrotate-90'></q-range> -->
-        </div>
-      </j-panel>
-
-      <!-- PANEL :: BITMAPS -->
-      <j-panel icon="business"
-
-        title="Bitmaps"
-         :width="320" :height="520" :x="10" :y="10">
-        >
-          <div slot="header" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='addBitmap'><i>add</i></button>
-            <button class="circular primary small" @click='loadBitmap'><i>file_upload</i></button>
-          </div>
-
-          <div slot="content" class="j-tray area panel-item-grow">
-            <j-collection
-              v-model="store.resources.bitmaps"
-              @jon="onUpdateBitmap"
-              @arrange="onArrangeBitmap"
-              class='frame-type-grid'
-            ></j-collection>
-          </div>
-      </j-panel>
+<!--         </div>
+      </j-panel> -->
 
       <!--
         :options="" -->
@@ -121,16 +120,26 @@ import MoeObjects from '../../moe/objects'
 
 import {JSONEditor} from 'json-editor'
 
+import {mapState, mapActions} from 'vuex'
+
 export default {
   data () {
     return {
       store: MoeStore
     }
+  },
+  computed: {
+    ...mapState(['activeBitmap', 'bitmaps'])
   }
-  ,components: {
+  ,
+  components: {
     jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent
   },
   methods: {
+    ...mapActions(['addBitmap']),
+    xaddBitmap () {
+      console.log('addBitmap')
+    },
     onClick () {
       this.$store.setActiveBitmap()
       window.alert('click event', this.$store)

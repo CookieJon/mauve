@@ -26,14 +26,14 @@
         <span class="title">{{ title }}</span>
 
         <!--  J-PANEL-TOOL: Toggle Expand Panel -->
-        <button ref="target" >
+        <button ref="target1" >
           <i class="panelExpandArrow" :class="class_PanelExpandArrow">expand_more</i> <!-- or: "keyboard_arrow_down" -->
         </button>
 
         <!--  J-PANEL-TOOL: Action Menu -->
-        <button ref="target" class="primary">
+        <button ref="target2" class="primary">
           <i>more_vert</i>
-          <q-popover ref="popover" anchor-ref="target"
+          <q-popover ref="popover" anchor-ref="target2"
             :anchor-origin="{vertical: 'bottom', horizontal: 'right'}"
             :target-origin="{vertical: 'top', horizontal: 'right'}" >
             <div class="list item-delimiter" >
