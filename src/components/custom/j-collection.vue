@@ -33,8 +33,7 @@
     },
     props: {
       value: {
-        type: [Array, Object],
-        required: true
+        type: [Array, Object]
       },
       class: {
         type: String,

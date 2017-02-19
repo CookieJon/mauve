@@ -13,26 +13,27 @@
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-      <!--   <pre slot="content" class='text-white'>{{ $store.state }}</pre>
- -->
+        <pre slot="content" >{{ $root.store }} {{ $ctest }}</pre>
+
       <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>
+
+
 
       <!-- PANEL :: BITMAPS -->
       <j-panel icon="business" title="Bitmaps" :width="320" :height="520" :x="10" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='addBitmap'><i>add</i></button>
-            <button class="circular primary small" @click='addBitmap'><i>file_upload</i></button>
+            <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
+            <button class="circular primary small" @click='$actions.addBitmap()'><i>file_upload</i></button>
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
-            <j-collection
-              v-model="bitmaps"
-              @jon="onUpdateBitmap"
-              @arrange="onArrangeBitmap"
+          TEST:: <input type="text" v-model="test" />      <pre>{{ $actions }}asdasd</pre>
+           <!--  <j-collection
+              v-model="store.bitmaps"
               class='frame-type-grid'
-            ></j-collection>
+            ></j-collection> -->
           </div>
 
       </j-panel>
@@ -57,8 +58,8 @@
          :width="256" :height="256" :x="520" :y="35">
         >
         <div slot="content" class="j-tray area panel-item-grow">
-          <j-component v-model='store.resources.bitmaps'></j-component>
-          <j-canvas :image-data='store.editor.activeBitmap ? store.editor.activeBitmap.imageData : null' :width="256" :height="256" ></j-canvas>
+    <!--       <j-component v-model='store.state.bitmaps'></j-component> -->
+    <!--       <j-canvas :image-data='store.state.activeBitmap ? store.editor.activeBitmap.imageData : null' :width="256" :height="256" ></j-canvas> -->
         </div>
       </j-panel>
 
@@ -73,7 +74,6 @@
       <j-panel
         title="Gamma"
         icon="motorcycle"
-        v-model="store.state"
         options="{
           'title': 'Testy Bitemaps'
           'format': 'panel'
@@ -82,8 +82,8 @@
 
           <div slot="toolbar">
             <span>
-              <button class="primary small clear" @click='createBitmap'><i>add</i></button>
-              <button class="primary small clear" @click='loadBitmap'><i>file_upload</i></button>
+              <button class="primary small clear" @click='$actions.addBitmap()'><i>add</i></button>
+              <button class="primary small clear" @click='$actions.addBitmap()'><i>file_upload</i></button>
             </span>
           </div>
 
@@ -115,32 +115,45 @@ var jCollection = require('components/custom/j-collection')
 var jUploadZone = require('components/custom/j-upload-zone')
 var DragEffects = require('components/custom/DragEffects')
 
-import MoeStore from '../../moe/moe.store.js'
-import MoeObjects from '../../moe/objects'
 
 import {JSONEditor} from 'json-editor'
 
-import {mapState, mapActions} from 'vuex'
+// import {mapState, mapActions} from 'vuex'
+
 
 export default {
+  name: 'view-mauve',
   data () {
     return {
-      store: MoeStore
+      test: this.$moe.state.test
     }
   },
+  // computed: {
+  //   ...mapState(['activeBitmap', 'bitmaps'])
+  // },
   computed: {
-    ...mapState(['activeBitmap', 'bitmaps'])
-  }
-  ,
+    ctest () {
+      return this.$moe.state.test
+    }
+  },
   components: {
     jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent
   },
   methods: {
-    ...mapActions(['addBitmap']),
-    xaddBitmap () {
-      console.log('addBitmap')
-    },
-    onClick () {
+    addBitmap: o => {MoeStore.addBitmap}
+  },
+  ready () { console.log(this.data + '****') },
+  mounted () {
+    // var element = this.$refs.jsonhere
+    // var editor = JSONEditor(element, {
+    //   theme: 'bootstrap2'
+    // })
+    console.log('mounted JSONEditor', JSONEditor)
+  }
+}
+</script>
+
+  <!-- onClick () {
       this.$store.setActiveBitmap()
       window.alert('click event', this.$store)
     },
@@ -150,9 +163,9 @@ export default {
         ['d', 'e', 'f']
       ]
     },
-    createBitmap (e) {
+    addBitmap (e) {
       // this.$store.dispatch('addBitmap', {src: '/statics/img/resource/bg/more2.png'})
-      this.store.createBitmap()
+      this.store.addBitmap()
     },
     loadBitmap (e) {
       // this.$store.dispatch('loadBitmap', {})
@@ -168,14 +181,4 @@ export default {
     onArrangeBitmap (e) {
       this.$store.dispatch('arrangeBitmap', e)
     }
-  },
-  ready () { console.log(this.data + '****') },
-  mounted () {
-    // var element = this.$refs.jsonhere
-    // var editor = JSONEditor(element, {
-    //   theme: 'bootstrap2'
-    // })
-    console.log('mounted JSONEditor', JSONEditor)
-  }
-}
-</script>
+ -->

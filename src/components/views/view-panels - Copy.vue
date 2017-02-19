@@ -43,12 +43,12 @@
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
-            <j-collection
+         <!--    <j-collection
               :model="store.state.bitmaps"
               @jon="onUpdateBitmap"
               @arrange="onArrangeBitmap"
               class='frame-type-grid'
-            ></j-collection>
+            ></j-collection> -->
           </div>
       </j-panel>
 

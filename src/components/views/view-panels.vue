@@ -67,13 +67,13 @@
               <span>{{text}}</text>
             </div>
           <hr />
-
+<!--
             <j-collection
               :model="testBitmaps"
               @jon="onUpdateBitmap"
               @arrange="onArrangeBitmap"
               class='frame-type-grid'
-            ></j-collection>
+            ></j-collection> -->
         </div>
       </j-panel>
 

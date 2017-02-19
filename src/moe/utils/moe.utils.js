@@ -37,7 +37,7 @@ var Utils = {
 	},
 
 
-	/* prettyPrint 
+	/* prettyPrint
 	   http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript
 	*/
 	prettyPrint: function (obj) {
@@ -309,8 +309,8 @@ function shuffle(array) {
 
 /**
  *
- * 		MISC. UTILS & TEST 
- * 
+ * 		MISC. UTILS & TEST
+ *
  */
 
 function shufflePalette() {
@@ -358,7 +358,7 @@ function test() {
 /**
  *
  * DOM & SHORT-CUTS
- * 
+ *
  */
 function el(id) {
 	return document.getElementById(id);
@@ -385,7 +385,7 @@ Math.clamp = function (number, min, max) {
 
 
 
-// Populate Array on creation.  
+// Populate Array on creation.
 //	e.g. var myArray = [].repeat(what, howmanyTimes)
 //
 Array.prototype.repeat = function (what, L) {
@@ -402,7 +402,7 @@ function clone(obj) {
 /**
  *
  * COLOR CONVERSION
- * 
+ *
  * Color conversion formulas. Previously I used the d3.js library since they
  * have a fantastic API for this. My first profile showed that d3 had the
  * biggest performance hit on my code, so I moved the code to local functions.
@@ -536,23 +536,23 @@ var Ease = {
 	easeInOutQuad: function (t) {
 		return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 	},
-	// accelerating from zero velocity 
+	// accelerating from zero velocity
 	easeInCubic: function (t) {
 		return t * t * t
 	},
-	// decelerating to zero velocity 
+	// decelerating to zero velocity
 	easeOutCubic: function (t) {
 		return (--t) * t * t + 1
 	},
-	// acceleration until halfway, then deceleration 
+	// acceleration until halfway, then deceleration
 	easeInOutCubic: function (t) {
 		return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
 	},
-	// accelerating from zero velocity 
+	// accelerating from zero velocity
 	easeInQuart: function (t) {
 		return t * t * t * t
 	},
-	// decelerating to zero velocity 
+	// decelerating to zero velocity
 	easeOutQuart: function (t) {
 		return 1 - (--t) * t * t * t
 	},
@@ -568,7 +568,7 @@ var Ease = {
 	easeOutQuint: function (t) {
 		return 1 + (--t) * t * t * t * t
 	},
-	// acceleration until halfway, then deceleration 
+	// acceleration until halfway, then deceleration
 	easeInOutQuint: function (t) {
 		return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t
 	}
@@ -581,7 +581,7 @@ var Ease = {
 /**
  *
  * 		POLYFILLS
- * 
+ *
  */
 
 //

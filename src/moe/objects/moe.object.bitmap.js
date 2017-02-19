@@ -18,7 +18,7 @@ function Bitmap (options) {
     // defaults go here
   }, options)
 
-  this.onCreated = options.onCreated
+  this.options = options
 
   this._type = 'Bitmap'
 
@@ -48,7 +48,6 @@ function Bitmap (options) {
     high: null,
     low: null
   }
-  this.init(options)
 }
 
 Bitmap.prototype = {
@@ -67,9 +66,11 @@ Bitmap.prototype = {
   //   });
   // }
 
-  init (options) {
-    console.log('Bitmap options', options)
+  init () {
+    console.log('bitmap.init() options=', this.options)
+    let options = this.options
     var self = this
+
     var img = document.createElement('img')
 
     //  Create from file
@@ -105,7 +106,6 @@ Bitmap.prototype = {
         self.title = 'all aboard!'
         self.normalisePalette(img)
         alert('palette normalised')
-        self.onCreated(self)
       }
       img.src = options.src
       img.height = 60

@@ -1,5 +1,5 @@
 // store.js
-
+/*eslint-disable */
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -37,16 +37,9 @@ const actions = {
     //   url:        // <- load & create from url
     //   val:
     // }
-    var bitmap = new MoeObjects.Bitmap({
-      src: '/statics/img/resource/bg/more1.png',
-      onCreated: result => {
-        alert('callback')
-        console.log(result)
-        commit('ADD_BITMAP', {result})
-        commit('SET_ACTIVE_BITMAP', {result})
-      }
-    })
-
+    var bitmap = new MoeObjects.Bitmap({src: '/statics/img/resource/bg/more1.png'})
+    commit('ADD_BITMAP', {bitmap})
+    commit('SET_ACTIVE_BITMAP', {bitmap})
   },
 
   updateBitmap: ({ commit }, payload) => {
@@ -112,7 +105,8 @@ const mutations = {
     //   name: 'Untitled ' + state.bitmaps.length
     // }
     // console.log(state, bitmap)
-    state.bitmaps.push(payload.bitmap)
+    payload.bitmap.init().then(
+      state.bitmaps.push(payload.bitmap))
   },
 
   DELETE_BITMAP (state) {
