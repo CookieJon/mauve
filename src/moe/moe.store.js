@@ -40,7 +40,6 @@ const actions = {
     //   src:        // <- load & create from file name
     //   url:        // <- load & create from url
     // }
-    alert('addBitmap', payload)
     var bitmap = new MoeObjects.Bitmap()
     bitmap.init({src: '/statics/img/resource/bg/more1.png'})
     state.bitmaps.push(bitmap)
@@ -76,7 +75,7 @@ function install (Vue, options) {
 
   let moe = {
     vm: new Vue({
-      data: state
+      data: state // <- Giving state to vm makes it reactive!
     }),
     actions: actions,
     state: state
@@ -86,22 +85,16 @@ function install (Vue, options) {
     get: function get () { return moe }
   })
   Object.defineProperty(Vue.prototype, '$state', {
-    get: function get () { return moe.vm.$data }
-  })
-
-  let fnDebugFilter = function (k,v) {
-    return (v instanceof Uint8ClampedArray) ? 'Uint8ClampedArray[' + v.length + ' items]' : v
-  }
-  Object.defineProperty(Vue.prototype, '$debug', {
-    get: function get () {
-      return JSON.stringify(moe.state, fnDebugFilter, 2)
-    }
+    get: function get () { return moe.state }
   })
   Object.defineProperty(Vue.prototype, '$actions', {
     get: function get () { return moe.actions }
   })
 
   Vue.mixin({
+    // methods: {
+    //   $
+    // }
     // beforeCreate () {
     //   this.$moe = moe
     // }

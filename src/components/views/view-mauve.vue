@@ -11,26 +11,11 @@
  graphql
  -->
 
-      <!-- PANEL :: DEBUG -->
-      <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-        <div slot="content">
-        <button @click="$actions.addBitmap(123)">Add Bitmap</button>
-          <pre>{{ $debug }}</pre>
-          <label>TEST:<input type="text" v-model="test" /></label><br />
-          <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
-          <label>DTEST:<input type="text" v-model="dtest" /></label><br />
-
-          <label>TEST:<input type="text" :value="test" /></label><br />
-          <label>CTEST:<input type="text" :value="$state.test" /></label><br />
-          <label>DTEST:<input type="text" :value="dtest" /></label><br />
-        </div>
-      <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
-      </j-panel>
 
 
 
       <!-- PANEL :: BITMAPS -->
-      <j-panel icon="business" title="Bitmaps" :width="320" :height="520" :x="10" :y="10">
+      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
@@ -46,6 +31,28 @@
           </div>
 
       </j-panel>
+
+
+
+      <!-- PANEL :: DEBUG -->
+      <j-panel title='Debug' :width="380" :height="750" :x="400" :y="10">
+        <div slot="content">
+
+        <button @click="testAction" class="orange">TEST</button>
+
+          <j-debug :value="$state"></j-debug>
+
+          <label>TEST:<input type="text" v-model="test" /></label><br />
+          <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
+          <label>DTEST:<input type="text" v-model="dtest" /></label><br />
+
+          <label>TEST:<input type="text" :value="test" /></label><br />
+          <label>CTEST:<input type="text" :value="$state.test" /></label><br />
+          <label>DTEST:<input type="text" :value="dtest" /></label><br />
+        </div>
+      <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
+      </j-panel>
+
 
 <!--       <j-panel
         title="Bitmap Detail"
@@ -63,7 +70,7 @@
       <j-panel
         title="Artwork"
         icon="android"
-         :width="256" :height="256" :x="520" :y="35">
+         :width="256" :height="256" :x="10" :y="440">
         >
         <div slot="content" class="j-tray area panel-item-grow">
     <!--       <j-component v-model='store.state.bitmaps'></j-component> -->
@@ -94,6 +101,7 @@ var jCanvas = require('components/custom/j-canvas')
 var jCollection = require('components/custom/j-collection')
 // var jCollection = require('components/custom/j-collection')
 var jUploadZone = require('components/custom/j-upload-zone')
+var jDebug = require('components/custom/j-debug')
 var DragEffects = require('components/custom/DragEffects')
 
 
@@ -106,7 +114,8 @@ export default {
   name: 'view-mauve',
   data () {
     return {
-      test: this.$moe.state.test
+      // searchText: 'this is a test',
+      // test: this.$moe.state.test
     }
   },
   // computed: {
@@ -125,11 +134,13 @@ export default {
   //     }
   //   }
   // },
-  components: {
-    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent
-  },
   methods: {
-    addBitmap: o => {MoeStore.addBitmap}
+    testAction () {
+      this.$actions.addBitmap(123)
+    }
+  },
+  components: {
+    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent, jDebug
   },
   ready () { console.log(this.data + '****') },
   mounted () {
@@ -141,6 +152,26 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+  .json {
+    background rgba(255, 255, 255, 0.08)
+    box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
+    padding 2px
+    padding-left 15px
+    margin 4px 0
+    // margin -20px 0
+    font-size 11px
+    width 100%
+    transition all .5s
+    height auto
+  }
+  .json > .json {
+  }
+  // .json:active {
+  //   background rgba(255, 255, 255, 0.15)
+  //   height 20px
+  // }
+</style>
 
   <!-- onClick () {
       this.$store.setActiveBitmap()

@@ -1,9 +1,13 @@
 <template>
+<div>
   <canvas ref="canvas" :width='width' :height='height'></canvas>
+  <j-debug :value="imageData"></j-debug>
+</div>
 </template>
 
 <script>
 import { Utils } from 'quasar'
+var jDebug = require('./j-debug')
 export default {
   name: 'j-canvas',
   props: {
@@ -22,6 +26,15 @@ export default {
       type: Image
     }
   },
+  components: {
+    jDebug
+  },
+  watch: {
+    imageData (newVal, oldVal) {
+      console.log(newVal)
+      this.updateImage()
+    }
+  },
   data () {
     return {
       myImageData: Utils.extend({}, this.imageData),
@@ -38,8 +51,8 @@ export default {
   methods: {
     //
     updateImage () {
-      this.ctx.putImageData(this.myImageData, 0, 0)
-      this.$emit('input', this.myImageData)
+      this.ctx.putImageData(this.imageData, 0, 0)
+      // this.$emit('input', this.imageData)
     },
     // get canvas FROM...
     fromImageData (imageData) {

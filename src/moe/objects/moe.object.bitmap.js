@@ -99,12 +99,13 @@ Bitmap.prototype = {
     else if (options.src) {
       // Any old image file from http://
       //
-      alert('loading from src')
       img.onload = () => {
-        alert('img loaded')
         self.title = 'all aboard!'
-        self.normalisePalette(img)
-        alert('palette normalised')
+        setTimeout(function() {
+          self.normalisePalette(img)
+          console.log("IMAGE READY")
+        }, 1);
+
       }
       img.src = options.src
       img.height = 60
@@ -125,7 +126,7 @@ Bitmap.prototype = {
 
     // ... PREDEFEINED PALETTE
     //
-    alert("NORMALISING")
+
     // * material colors
     //
     var colorFrom = parseInt(Math.random() * 150)
@@ -166,8 +167,8 @@ Bitmap.prototype = {
     for (var i = 0; i < uint8array.length; i++) {
       this.imageData.data[i] = uint8array[i]
     }
-    this.imageData = this.imageData
-    // canvas.getContext('2d').putImageData(imageData, 0, 0)
+    this.stats.tags = this.imageData
+
 
     // draw palette
     //

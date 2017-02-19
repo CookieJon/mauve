@@ -2,11 +2,12 @@
 <template>
     <!-- item is just "Bitmap" at the moment... make generic later -->
     <div class='frame' @click='onClick'>
-      <img ref="src" :src="myValue.src" xclass='frame' @load='onImgLoad' width='256' height='256' />
-      <j-canvas ref="jCanvas" :image-data="imageData" class='image' :width='256' :height='256'></j-canvas><!--
+      <j-debug :value="value.imageData"></j-debug>
+      <img ref="src" :src="value.src" class='frame' @load='onImgLoad' width='256' height='256' />
+      <j-canvas ref="jCanvas" :image-data="value.imageData" class='image' :width='256' :height='256'></j-canvas><!--
       <canvas ref="dest" class='image' width='256' height='256'></canvas> -->
       <div class='item-label'>
-        <div><input :id="myValue.id" v-model="theTitle"></div>
+        <div><input :id="myValue.id" v-model="value.title"></div>
         <div><input :id="myValue.id+'2'" :value="value.src"></div>
         <div>sub label</div>
       </div>
@@ -18,6 +19,7 @@
   var iq = require('image-q')
   var ColorUtils = require('../../moe/utils/moe.utils.color.js')
   var jCanvas = require('./j-canvas')
+  var jDebug = require('./j-debug')
 
   import { Utils } from 'quasar'
 
@@ -30,6 +32,7 @@
         type: Object
       }
     },
+    components: { jCanvas, jDebug },
     data () {
       return {
         myValue: Utils.extend({}, this.value),
@@ -37,19 +40,16 @@
         ctx: null
       }
     },
-    computed: {
-      'theTitle': {
-        get: function get () {
-          return this.value.title
-        },
-        set: function set (value) {
-          this.value.title = value
-        }
-      }
-    },
-    components: {
-      jCanvas
-    },
+    // computed: {
+    //   'theTitle': {
+    //     get: function get () {
+    //       return this.value.title
+    //     },
+    //     set: function set (value) {
+    //       this.value.title = value
+    //     }
+    //   }
+    // },
     mounted () {
       // this.imageData = this.$refs.dest.getContext('2d').getImageData(0, 0, 255, 255)
     },
@@ -134,9 +134,9 @@
         // this.$refs.jCanvas.imageData = imageData
         // draw palette
         //
-        var paletteCanvas = ColorUtils.drawPixels(iqPalette.getPointContainer(), 16, 32)
-        paletteCanvas.className = 'palette'
-        this.$el.appendChild(paletteCanvas)
+        // var paletteCanvas = ColorUtils.drawPixels(iqPalette.getPointContainer(), 16, 32)
+        // paletteCanvas.className = 'palette'
+        // this.$el.appendChild(paletteCanvas)
       }
     }
   }

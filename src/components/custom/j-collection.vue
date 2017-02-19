@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <pre class="text-white">{{ this.myValue}}</pre> -->
+    <j-debug :value="value.map(v=>v.imageData)"></j-debug>
     <div
       ref="container"
       sortable="options.sortable"
@@ -13,8 +13,8 @@
       class="frame upload-zone"
     >
       <j-item
-        v-for='(item, i) in myValue'
-        v-model='myValue[i]'>
+        v-for='(item, i) in value'
+        v-model='value[i]'>
       </j-item>
     </div>
   </div>
@@ -23,13 +23,14 @@
 <script>
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
-  import { Utils } from 'quasar'
+  var jDebug = require('components/custom/j-debug')
+  // import { Utils } from 'quasar'
   import Sortable from 'sortablejs'
 
   export default {
     name: 'j-collection-rubaxa',
     components: {
-      jItem
+      jItem, jDebug
     },
     props: {
       value: {
@@ -42,7 +43,8 @@
     },
     data () {
       return {
-        myValue: Utils.extend({}, this.value),
+        test: null,
+        myValue: this.value,
         options: {
           sortable: {
             animation: 550,
@@ -167,8 +169,7 @@
 
 .frame.frame-type-grid > .frame > canvas.palette
   position absolute
-  width 24%
-  height 24%
+  width 14%
   right 6px
   margin-top -30%
   background white
