@@ -13,8 +13,17 @@
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="5" :y="445">
-        <pre slot="content" >{{ $root.store }} {{ $ctest }}</pre>
+        <div slot="content">
+        <button @click="$actions.addBitmap(123)">Add Bitmap</button>
+          <pre>{{ $debug }}</pre>
+          <label>TEST:<input type="text" v-model="test" /></label><br />
+          <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
+          <label>DTEST:<input type="text" v-model="dtest" /></label><br />
 
+          <label>TEST:<input type="text" :value="test" /></label><br />
+          <label>CTEST:<input type="text" :value="$state.test" /></label><br />
+          <label>DTEST:<input type="text" :value="dtest" /></label><br />
+        </div>
       <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>
 
@@ -29,15 +38,14 @@
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
-          TEST:: <input type="text" v-model="test" />      <pre>{{ $actions }}asdasd</pre>
-           <!--  <j-collection
-              v-model="store.bitmaps"
+
+           <j-collection
+              v-model="$state.bitmaps"
               class='frame-type-grid'
-            ></j-collection> -->
+            ></j-collection>
           </div>
 
       </j-panel>
-
 
 <!--       <j-panel
         title="Bitmap Detail"
@@ -64,33 +72,6 @@
       </j-panel>
 
 
-
-
-
-
-
-      <!-- PANEL :: Gamma -->
-      <!-- ======================== -->
-      <j-panel
-        title="Gamma"
-        icon="motorcycle"
-        options="{
-          'title': 'Testy Bitemaps'
-          'format': 'panel'
-        }"
-         :width="370" :height="640" :x="220" :y="135">
-
-          <div slot="toolbar">
-            <span>
-              <button class="primary small clear" @click='$actions.addBitmap()'><i>add</i></button>
-              <button class="primary small clear" @click='$actions.addBitmap()'><i>file_upload</i></button>
-            </span>
-          </div>
-
-          <div slot="content">
-          </div>
-        </div>
-      </j-panel>
 
 
   </div><!-- root node required -->
@@ -131,11 +112,19 @@ export default {
   // computed: {
   //   ...mapState(['activeBitmap', 'bitmaps'])
   // },
-  computed: {
-    ctest () {
-      return this.$moe.state.test
-    }
-  },
+  // computed: {
+  //   ctest () {
+  //     return this.$state.test
+  //   },
+  //   dtest: {
+  //     get: function () {
+  //       return this.$state.test
+  //     },
+  //     set: function(val) {
+  //       this.$state.test = val
+  //     }
+  //   }
+  // },
   components: {
     jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent
   },

@@ -34,7 +34,7 @@ Quasar.start(() => {
   /* eslint-disable */
   new Vue({
     el: '#q-app',
-    router, Store,
+    router,
     render: h => h(App)
   })
 })

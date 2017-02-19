@@ -6,8 +6,8 @@
       <j-canvas ref="jCanvas" :image-data="imageData" class='image' :width='256' :height='256'></j-canvas><!--
       <canvas ref="dest" class='image' width='256' height='256'></canvas> -->
       <div class='item-label'>
-        <div><input :id="myValue.id" :value="myValue.name" @input="onJon('name', $event)"></div>
-        <div><input :id="myValue.id+'2'" :value="myValue.src" @input="onJon('src', $event)"></div>
+        <div><input :id="myValue.id" v-model="theTitle"></div>
+        <div><input :id="myValue.id+'2'" :value="value.src"></div>
         <div>sub label</div>
       </div>
     </div>
@@ -35,6 +35,16 @@
         myValue: Utils.extend({}, this.value),
         imageData: null,
         ctx: null
+      }
+    },
+    computed: {
+      'theTitle': {
+        get: function get () {
+          return this.value.title
+        },
+        set: function set (value) {
+          this.value.title = value
+        }
       }
     },
     components: {
@@ -134,4 +144,5 @@
 
 <style lang="stylus">
   canvas {width:120px; height:120px;}
+  input {color: white;}
 </style>

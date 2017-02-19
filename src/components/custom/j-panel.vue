@@ -322,6 +322,9 @@
 
   @import '../../themes/app.variables.styl'
 
+  input
+    color white
+
   .ui-draggable-handle
     cursor grab
 

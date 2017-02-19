@@ -39,7 +39,6 @@ function Bitmap (options) {
   this.imageData = null // context.getImageData(0,0,this.width, this.height).data
 
   this.imageData = new ImageData(256, 256)
-
   this.stats = {
     tags: null,
     colors: null,
@@ -66,9 +65,9 @@ Bitmap.prototype = {
   //   });
   // }
 
-  init () {
+  init (options) {
     console.log('bitmap.init() options=', this.options)
-    let options = this.options
+
     var self = this
 
     var img = document.createElement('img')
@@ -126,7 +125,7 @@ Bitmap.prototype = {
 
     // ... PREDEFEINED PALETTE
     //
-
+    alert("NORMALISING")
     // * material colors
     //
     var colorFrom = parseInt(Math.random() * 150)
@@ -167,6 +166,7 @@ Bitmap.prototype = {
     for (var i = 0; i < uint8array.length; i++) {
       this.imageData.data[i] = uint8array[i]
     }
+    this.imageData = this.imageData
     // canvas.getContext('2d').putImageData(imageData, 0, 0)
 
     // draw palette

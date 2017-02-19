@@ -1,12 +1,13 @@
 /**
  *
- * Take 2
+ * DEPRECATED!!!  Refer to moe.object.bitmap instead
  *
  */
 
 exports.Bitmap = Bitmap
 
 function Bitmap () {
+
   this._type = 'Bitmap'
 
   this.title = 'Untitled'
@@ -23,7 +24,7 @@ function Bitmap () {
 
   this.pixels = null // Uint8Array[.length]   Output/used pixels
   this.palette = null // Uint8Array[256]     Output/used palette
-  this.imageData = null // context.getImageData(0,0,this.width, this.height).data
+  this.ximageData = null // context.getImageData(0,0,this.width, this.height).data
 
   this.stats = {
     tags: null,
@@ -40,7 +41,7 @@ Bitmap.prototype = {
   constructor: Bitmap,
 
   init: function () {
-    this.imageData = new ImageData(this.width, this.height)
+    // this.imageData = new ImageData(this.width, this.height)
   },
 
   fromArrayBuffer: function fromArrayBuffer (srcArrayBuffer) {

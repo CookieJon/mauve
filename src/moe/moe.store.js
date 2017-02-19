@@ -8,7 +8,7 @@
 /* eslint-disable */
 
 import MoeObjects from '../moe/objects'
-// import Vue from "./vue"
+
 //  --- state
 //
 const state = {
@@ -40,7 +40,9 @@ const actions = {
     //   src:        // <- load & create from file name
     //   url:        // <- load & create from url
     // }
-    var bitmap = new MoeObjects.Bitmap({src: '/statics/img/resource/bg/more1.png'})
+    alert('addBitmap', payload)
+    var bitmap = new MoeObjects.Bitmap()
+    bitmap.init({src: '/statics/img/resource/bg/more1.png'})
     state.bitmaps.push(bitmap)
   },
 
@@ -73,15 +75,30 @@ function install (Vue, options) {
   // install.installed = true
 
   let moe = {
-    bus: new Vue({}),
+    vm: new Vue({
+      data: state
+    }),
+    actions: actions,
     state: state
   }
 
   Object.defineProperty(Vue.prototype, '$moe', {
     get: function get () { return moe }
   })
-  Object.defineProperty(Vue.prototype, '$aaa', {
-    get: function get$1 () { return moe }
+  Object.defineProperty(Vue.prototype, '$state', {
+    get: function get () { return moe.vm.$data }
+  })
+
+  let fnDebugFilter = function (k,v) {
+    return (v instanceof Uint8ClampedArray) ? 'Uint8ClampedArray[' + v.length + ' items]' : v
+  }
+  Object.defineProperty(Vue.prototype, '$debug', {
+    get: function get () {
+      return JSON.stringify(moe.state, fnDebugFilter, 2)
+    }
+  })
+  Object.defineProperty(Vue.prototype, '$actions', {
+    get: function get () { return moe.actions }
   })
 
   Vue.mixin({
@@ -96,6 +113,7 @@ function install (Vue, options) {
     //   }
     // }
   })
+
 }
 function mapState (states) {
   var res = {}
