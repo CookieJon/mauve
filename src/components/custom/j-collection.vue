@@ -8,12 +8,13 @@
       @dragenter.stop.prevent="onDragEnter"
       @dragover.stop.prevent="onDragOver"
       @drop.stop.prevent="onDrop"
-      @click="onClick"
       :class="this.class"
       class="frame upload-zone"
     >
       <j-item
         v-for='(item, i) in value'
+        @cxlick="$actions.setActiveBitmap(value[i])"
+        @dblclick="$actions.setActiveBitmap(value[i])"
         v-model='value[i]'>
       </j-item>
     </div>

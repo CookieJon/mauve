@@ -38,6 +38,11 @@
       }
     },
     methods: {
+      jsonToHtml (json) {
+
+        this.element = createElement('div', 'json')
+        return
+      },
       onClick (e) {
         alert(123)
         let element = e.target
@@ -65,8 +70,20 @@
     width 100%
     transition all .5s
     height auto
+    // transform scaleY(.10)
+    // max-height 20px
+    // transition max-height 0.45s ease-in-out
+    // cubic-bezier(1,0,1,0)
+    overflow hidden
   }
+  .json:hover
+    // max-height 500px
+    // transition max-height 0.45s ease-in-out
+    // cubic-bezier(0,1,0,1)
+    // transform scaleY(1)
+
   .json > .json {
+
   }
 
 </style>

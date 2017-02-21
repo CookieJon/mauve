@@ -37,9 +37,6 @@
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="400" :y="10">
         <div slot="content">
-
-        <button @click="testAction" class="orange">TEST</button>
-
           <j-debug :value="$state"></j-debug>
 
           <label>TEST:<input type="text" v-model="test" /></label><br />
@@ -73,8 +70,7 @@
          :width="256" :height="256" :x="10" :y="440">
         >
         <div slot="content" class="j-tray area panel-item-grow">
-    <!--       <j-component v-model='store.state.bitmaps'></j-component> -->
-    <!--       <j-canvas :image-data='store.state.activeBitmap ? store.editor.activeBitmap.imageData : null' :width="256" :height="256" ></j-canvas> -->
+          <j-canvas :image-data="$state.activeBitmap ? $state.activeBitmap.imageData : null"></j-canvas>
         </div>
       </j-panel>
 

@@ -1,29 +1,23 @@
 
 <template>
     <!-- item is just "Bitmap" at the moment... make generic later -->
-    <div class='frame' @click='onClick'>
-      <j-debug :value="value.imageData"></j-debug>
-      <img ref="src" :src="value.src" class='frame' @load='onImgLoad' width='256' height='256' />
-      <j-canvas ref="jCanvas" :image-data="value.imageData" class='image' :width='256' :height='256'></j-canvas><!--
-      <canvas ref="dest" class='image' width='256' height='256'></canvas> -->
-      <div class='item-label'>
-        <div><input :id="myValue.id" v-model="value.title"></div>
-        <div><input :id="myValue.id+'2'" :value="value.src"></div>
-        <div>sub label</div>
-      </div>
+    <div class='frame' @click="$emit('click')" @dblclick="$emit('dblclick')">
+      <j-canvas ref="jCanvas" :image-data="value.imageData" :width='256' :height='256'></j-canvas>
+<!--       <j-debug :value="value.imageData"></j-debug> -->
+      <label>Type: <input type="text" v-model="value._type" /></strong>
+      <label>Title: <input type="text" v-model="value.title" /></label>
+
     </div>
 </template>
 
 <script>
-  /* eslint-ignore */
+  /* eslint-disable */
   var iq = require('image-q')
   var ColorUtils = require('../../moe/utils/moe.utils.color.js')
   var jCanvas = require('./j-canvas')
   var jDebug = require('./j-debug')
 
   import { Utils } from 'quasar'
-
-  // console.log(ColorUtils)
 
   export default {
     name: 'j-item',
@@ -35,7 +29,7 @@
     components: { jCanvas, jDebug },
     data () {
       return {
-        myValue: Utils.extend({}, this.value),
+        // myValue: Utils.extend({}, this.value),
         imageData: null,
         ctx: null
       }
@@ -53,11 +47,11 @@
     mounted () {
       // this.imageData = this.$refs.dest.getContext('2d').getImageData(0, 0, 255, 255)
     },
-    watch: {
-      imageData: function (newValue, oldValue) {
-        alert('j-item watch kicked in!')
-      }
-    },
+    // watch: {
+    //   imageData: function (newValue, oldValue) {
+    //     alert('j-item watch kicked in!')
+    //   }
+    // },
     methods: {
       onJon (key, e) {
         // Update a property on an item
@@ -143,6 +137,6 @@
 </script>
 
 <style lang="stylus">
-  canvas {width:120px; height:120px;}
-  input {color: white;}
+  // canvas {width:120px; height:120px;}
+  // input {color: white;}
 </style>

@@ -1,7 +1,7 @@
 <template>
-<div>
-  <canvas ref="canvas" :width='width' :height='height'></canvas>
-  <j-debug :value="imageData"></j-debug>
+<div :style="styleComponent">
+  <canvas ref="canvas" :width='pixelWidth' :height='pixelHeight'></canvas>
+<!--   <j-debug :value="imageData"></j-debug> -->
 </div>
 </template>
 
@@ -11,11 +11,19 @@ var jDebug = require('./j-debug')
 export default {
   name: 'j-canvas',
   props: {
-    width: {
+    width: {  // display width
       type: Number,
       default: 256
     },
-    height: {
+    height: { // display height
+      type: Number,
+      default: 256
+    },
+    pixelWidth: { // canvas pixels
+      type: Number,
+      default: 256
+    },
+    pixelHeight: { // canvas pixels
       type: Number,
       default: 256
     },
@@ -29,9 +37,17 @@ export default {
   components: {
     jDebug
   },
+  computed: {
+    styleComponent () {
+      return {
+        width: this.width,
+        height: this.height
+      }
+    }
+  },
   watch: {
     imageData (newVal, oldVal) {
-      console.log(newVal)
+      console.log('** canvas watch imageData **', newVal.width, newVal.height, newVal.data.length)
       this.updateImage()
     }
   },
@@ -39,18 +55,15 @@ export default {
     return {
       myImageData: Utils.extend({}, this.imageData),
       ctx: null,
-      id: 'j-canvas-1'
+      id: 'j-canvas-1',
+      _test2: 'test2',
+      test2: 'test22'
     }
   },
-  // watch: {
-  //   imageData (newVal, oldVal) {
-  //     this.myImageData = newVal
-  //     this.ctx.putImageData(newVal, 0, 0)
-  //   }
-  // },
   methods: {
-    //
+    // Update from imageData
     updateImage () {
+      console.log('** canvas update from imageData **')
       this.ctx.putImageData(this.imageData, 0, 0)
       // this.$emit('input', this.imageData)
     },
@@ -67,8 +80,8 @@ export default {
     },
     fromImage (img) {
       console.log('j-canvas.fromImage() with ', img)
-      this.ctx.drawImage(img, 0, 0, this.width, this.height)
-      this.myImageData = this.ctx.getImageData(0, 0, this.width, this.height)
+      this.ctx.drawImage(0, 0, this.pixelWidth, this.pixelHeight)
+      this.imageData = this.ctx.getImageData(0, 0, this.pixelWidth, this.pixelHeight)
       this.updateImage()
     },
     // GET from canvas...
@@ -85,12 +98,18 @@ export default {
       return null
     }
   },
+  ready () {
+    this.test1 = 'test1'
+  },
   mounted () {
     this.ctx = this.$refs.canvas.getContext('2d')
-    this.myImageData = this.ctx.getImageData(0, 0, this.width, this.height)
+    this.myImageData = this.ctx.getImageData(0, 0, this.pixelWidth, this.pixelHeight)
   }
 }
 </script>
 
-<style>
+<style lang="stylus">
+  canvas
+    width 100%
+    height 100%
 </style>

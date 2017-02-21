@@ -45,8 +45,8 @@ const actions = {
     state.bitmaps.push(bitmap)
   },
 
-  setActiveBitmap (payload) {
-    state.activeBitmap = payload.bitmap
+  setActiveBitmap (bitmap) {
+    state.activeBitmap = bitmap
   }
 
 }

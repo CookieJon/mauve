@@ -185,7 +185,7 @@
             }
           }
         }
-        console.log('___properties ', out)
+        // console.log('___properties ', out)
         return out
       }
     },
@@ -204,8 +204,8 @@
       this._static = _static
       this.order = _static._panels.length - 1
       this.id = 'Panel-00' + _static._panelCount
-      console.log('CREATED j-PANEL:', this.order, this)
-      console.log("State = ", s)
+      // console.log('CREATED j-PANEL:', this.order, this)
+      // console.log("State = ", s)
     },
     mounted () {
       var vm = this
