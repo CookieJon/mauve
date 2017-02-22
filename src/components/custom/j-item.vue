@@ -4,9 +4,8 @@
     <div class='frame' @click="$emit('click')" @dblclick="$emit('dblclick')">
       <j-canvas ref="jCanvas" :image-data="value.imageData" :width='256' :height='256'></j-canvas>
 <!--       <j-debug :value="value.imageData"></j-debug> -->
-      <label>Type: <input type="text" v-model="value._type" /></strong>
-      <label>Title: <input type="text" v-model="value.title" /></label>
-
+   <!--    <label>Type: <input type="text" v-model="value._type" /></strong>
+      <label>Title: <input type="text" v-model="value.title" /></label> -->
     </div>
 </template>
 
@@ -17,13 +16,13 @@
   var jCanvas = require('./j-canvas')
   var jDebug = require('./j-debug')
 
-  import { Utils } from 'quasar'
+  // import { Utils } from 'quasar'
 
   export default {
     name: 'j-item',
     props: {
       value: {
-        type: Object
+        type: Object  // 'moe.objects.bitmap' (so far)
       }
     },
     components: { jCanvas, jDebug },

@@ -41,7 +41,8 @@ const actions = {
     //   url:        // <- load & create from url
     // }
     var bitmap = new MoeObjects.Bitmap()
-    bitmap.init({src: '/statics/img/resource/bg/more1.png'})
+    var src = state.imgUrls[Math.floor(Math.random() * state.imgUrls.length)]
+    bitmap.init({src})
     state.bitmaps.push(bitmap)
   },
 

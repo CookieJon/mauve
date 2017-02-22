@@ -131,8 +131,8 @@ Bitmap.prototype = {
       // * material colors
       var colorFrom = parseInt(Math.random() * 150)
       var colorTo = parseInt(Math.random() * 150) + 151
-      colorFrom = 0
-      colorTo = 255
+      // colorFrom = 0
+      // colorTo = 255
       var materialColors = ColorUtils.getMaterialColors(colorFrom, colorTo)
 
       // * iq.palette <= material colors

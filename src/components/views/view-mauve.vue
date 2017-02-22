@@ -11,9 +11,6 @@
  graphql
  -->
 
-
-
-
       <!-- PANEL :: BITMAPS -->
       <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
 

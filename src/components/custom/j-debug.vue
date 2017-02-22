@@ -1,6 +1,6 @@
 
 <template>
-    <pre v-html="htmlJSON" ></pre>
+    <pre v-html="htmlJSON" @click='onClick' ></pre>
 </template>
 
 <script>
@@ -14,7 +14,6 @@
     } else {
       return v
     }
-
     // return (v instanceof Uint8ClampedArray) ? k + 'Uint8(' + v.slice(0,10).join('.') + '...)' : v
   }
 
@@ -27,26 +26,73 @@
     },
     computed: {
       htmlJSON () {
-
-        if (!this.value) return 'EMPTY!'
-        return JSON.stringify(this.value, fnFilterJSON, 0)
-          .replace(/([{\[])([^}\]])/g, '$1<div class="json default">$2')
-          .replace(/([^{\[])([}\]])/g, '$1</div>$2')
-          .replace(/,/g, ',<br />')
-          .slice(1, -8)
-        return (out)
+        return this.jsonToHtml(this.value, 0)
       }
     },
     methods: {
-      jsonToHtml (json) {
+      jsonToHtml (json, depth) {
 
-        this.element = createElement('div', 'json')
-        return
+        let html = '<ul class="json">'
+
+        Object.keys(json).forEach(k => {
+
+          html += '<li>' + k + ': '
+
+          let _type = typeof json[k]
+
+          if (_type === 'undefined') {
+
+            html += 'undefined'
+
+          }
+          else if (_type === 'object') {
+
+            if (json[k] === null) {
+              html += 'null'
+            }
+            else if (Array.isArray(json[k]) || [Uint8ClampedArray, Uint8Array].includes(json[k].constructor)) {
+
+              html += json[k].constructor.name
+
+              if (json[k].length === 0) {
+                html += '[]'
+              } else if (json[k].length > 10) {
+                html += '[' + json[k].length  + ']'
+              } else {
+                html += this.jsonToHtml(json[k], depth + 1)
+              }
+
+            } else {
+
+              html += '{'
+              if (Object.keys(json[k]).length > 0) {
+                html += this.jsonToHtml(json[k], depth + 1)
+              }
+              html += '}'
+
+            }
+
+          }
+          else if (_type === 'string') {
+              html += '"' + json[k] + '"'
+          }
+          else {
+            html += json[k]
+          }
+
+          html += '</li>'
+
+        })
+
+        html += '</ul>'
+
+        return html
+
       },
+
       onClick (e) {
-        alert(123)
+        console.log(e.target)
         let element = e.target
-        //   return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
         if (element.classList.contains('expanded')) {
           element.className = 'json default'
         } else {
@@ -62,6 +108,7 @@
     color white
     background rgba(255, 255, 255, 0.08)
     box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
+    border-top 1px solid white
     padding 2px
     padding-left 15px
     margin 4px 0
