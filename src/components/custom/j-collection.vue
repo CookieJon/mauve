@@ -1,35 +1,34 @@
 <template>
   <div>
-    <j-debug :value="value.map(v=>v.imageData)"></j-debug>
     <div
       ref="container"
       sortable="options.sortable"
       @sort='onArrange'
-      @dragenter.stop.prevent="onDragEnter"
-      @dragover.stop.prevent="onDragOver"
-      @drop.stop.prevent="onDrop"
       :class="this.class"
       class="frame upload-zone"
     >
-      <j-item
-        v-for='(item, i) in value'
-        @cxlick="$actions.setActiveBitmap(value[i])"
-        @dblclick="$actions.setActiveBitmap(value[i])"
-        v-model='value[i]'>
+  <!--   <div v-for='id in value'>{{$state.repo.bitmaps[id]}}</div> -->
+       <j-item
+        v-for='id in value'
+        :value='$state.repo.bitmaps[id]'>
       </j-item>
     </div>
   </div>
 </template>
 
+      @dragenter.stop.prevent="onDragEnter"
+      @dragover.stop.prevent="onDragOver"
+      @drop.stop.prevent="onDrop"
 <script>
+/* eslint-disable */
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
   var jDebug = require('components/custom/j-debug')
-  // import { Utils } from 'quasar'
+  //import { Utils } from 'quasar'
   import Sortable from 'sortablejs'
 
   export default {
-    name: 'j-collection-rubaxa',
+    name: 'j-collection-rubaxax',
     components: {
       jItem, jDebug
     },
@@ -67,61 +66,46 @@
       Sortable.create(this.$refs.container)
     },
     methods: {
-      onClick (e) {
-        console.log(e)
-        this.$emit('click')
-      },
-      onDragEnter (e) {
-        e.stopPropagation()
-        e.preventDefault()
-      },
-      onDragOver (e) {
-        e.stopPropagation()
-        e.preventDefault()
-      },
-      onDrop (e) {
-        console.log('onDrop:', e, e.dataTransfer.files)
-        e.preventDefault()
-        var files = e.dataTransfer.files
-        for (var i = 0, l = files.length; i < l; i++) {
-          var file = files[i]
-          if (!file.type.match(/image.*/)) {
-            console.log('File ', i, 'not an image. Won\'t create bitmap.')
-          }
-          else {
-            // this.loadImage(file)
-            console.log('File type = ', file.type)
-            this.$store.dispatch('addBitmap', {file})
-          }
-        }
-        // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
-      },
-      loadImage (src) {
-        //  Prevent any non-image file type from being read.
-        if (!src.type.match(/image.*/)) {
-          console.log('The dropped file is not an image: ', src.type)
-          return
-        }
-        //  Create our FileReader and ru n the results through the render function.
-        var reader = new FileReader()
-        reader.onload = function (e) {
-          this.render(e.target.result)
-        }.bind(this)
-        reader.readAsDataURL(src)
-      },
-      onJon (e) {
-        // Update a property on an item
-        console.log('j-collection.onUpdate()', e)
-        this.$emit('jon', e)
-      },
+      // onClick (e) {
+      //   console.log(e)
+      //   this.$emit('click')
+      // },
+      // onDragEnter (e) {
+      //   e.stopPropagation()
+      //   e.preventDefault()
+      // },
+      // onDragOver (e) {
+      //   e.stopPropagation()
+      //   e.preventDefault()
+      // },
+      // onDrop (e) {
+      //   console.log('onDrop:', e, e.dataTransfer.files)
+      //   e.preventDefault()
+      //   var files = e.dataTransfer.files
+      //   for (var i = 0, l = files.length; i < l; i++) {
+      //     var file = files[i]
+      //     if (!file.type.match(/image.*/)) {
+      //       console.log('File ', i, 'not an image. Won\'t create bitmap.')
+      //     }
+      //     else {
+      //       // this.loadImage(file)
+      //       console.log('File type = ', file.type)
+      //       this.$store.dispatch('addBitmap', {file})
+      //     }
+      //   }
+      //   // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
+      // },
       onArrange (e) {
-        console.log('j-collection.onArrange()', e)
-        this.$emit('arrange', {
-          obj: this.item,
-          fromIndex: e.oldIndex,
-          toIndex: e.newIndex
-        })
-        console.log(e)
+        let tmp = JSON.parse(JSON.stringify(this.value))
+        tmp.splice(e.newIndex, 0, tmp.splice(e.oldIndex, 1)[0])
+        this.$emit('input', tmp)
+
+        // this.$emit('arrange', {
+        //   obj: this.item,
+        //   fromIndex: e.oldIndex,
+        //   toIndex: e.newIndex
+        // })
+        // console.log(e)
       }
     }
   }

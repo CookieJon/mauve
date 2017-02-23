@@ -20,10 +20,9 @@ function Bitmap (options) {
 
   this.options = options
 
-
   this._type = 'Bitmap'
   this.title = 'Untitled'
-  this.test = 'test'
+  this.uid = null
 
   this.src = null
 
@@ -56,26 +55,13 @@ Bitmap.prototype = {
 
   constructor: Bitmap,
 
-  // Create (options) {
-  //   var options = options
-  //   return new Promise((resolve, reject) => {
-  //     if (this.init(options)
-  //     if (this.$store.dispatch('getUser') && this.$store.dispatch('getEntities')) {
-  //       resolve();
-  //     } else {
-  //       reject(Error('it broke'));
-  //     }
-  //   });
-  // }
-
   init (options) {
 
     this.options = options
-    console.log('bitmap.init() options=', this.options)
+    this.uid = options.uid
 
     var self = this
 
-    var img = document.createElement('img')
 
     //  Create from file
     //
@@ -84,10 +70,10 @@ Bitmap.prototype = {
       // Any old image file
       //
       if (file.type.match(/image.*/)) {
+        let img = document.createElement('img')
         img.onload = () => {
           window.URL.revokeObjectURL(this.src)
           self.normalisePalette(img)
-          alert('LOADED IMAGE!!!')
         }
         img.src = window.URL.createObjectURL(options.file)
       }
@@ -103,12 +89,12 @@ Bitmap.prototype = {
     else if (options.src) {
       // Any old image file from http://
       //
+      let img = document.createElement('img')
       img.onload = () => {
         self.title = 'Welcome Aboard'
         setTimeout(function() {
           self.normalisePalette(img)
           self.image = img
-          console.log("IMAGE READY")
         }, 1);
 
       }

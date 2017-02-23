@@ -104,7 +104,12 @@
 </script>
 
 <style lang="stylus">
-  .json {
+  li
+    list-style-type none
+
+
+  json
+    list-style-type none
     color white
     background rgba(255, 255, 255, 0.08)
     box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
@@ -122,7 +127,7 @@
     // transition max-height 0.45s ease-in-out
     // cubic-bezier(1,0,1,0)
     overflow hidden
-  }
+
   .json:hover
     // max-height 500px
     // transition max-height 0.45s ease-in-out

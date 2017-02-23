@@ -60,7 +60,7 @@
   export default {
     data () {
       return {
-        'selectedBg': '',
+        'selectedBg': '/statics/img/resource/bg/tron/tron5.jpg',
         'bgs': [
           '/statics/img/resource/bg/tron/tron1.png',
           '/statics/img/resource/bg/tron/tron2.jpg',

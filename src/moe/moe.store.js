@@ -9,11 +9,29 @@
 
 import MoeObjects from '../moe/objects'
 
+// Global mixing components
+var jArtwork = require('components/custom/j-artwork')
+var jComponent = require('components/custom/j-component')
+var jPanel = require('components/custom/j-panel')
+var jItem = require('components/custom/j-item')
+var jCanvas = require('components/custom/j-canvas')
+var jCollection = require('components/custom/j-collection')
+// var jCollection = require('components/custom/j-collection')
+var jUploadZone = require('components/custom/j-upload-zone')
+var jDebug = require('components/custom/j-debug')
+var DragEffects = require('components/custom/DragEffects')
+
+
 //  --- state
 //
 const state = {
+  repo: {
+    bitmaps: {}
+  },
   test: 'Hi Jon',
   bitmaps: [],
+  artworks: [],
+  filters: [],
   activeBitmap: {},
   notes: [],
   imgUrls: [
@@ -30,6 +48,7 @@ const state = {
 
 //  --- actions
 //
+let uid = 0
 const actions = {
 
   addBitmap (payload) {
@@ -42,14 +61,34 @@ const actions = {
     // }
     var bitmap = new MoeObjects.Bitmap()
     var src = state.imgUrls[Math.floor(Math.random() * state.imgUrls.length)]
-    bitmap.init({src})
-    state.bitmaps.push(bitmap)
+    uid++
+    bitmap.init({src, uid})
+    state.repo.bitmaps[uid] = bitmap
+    state.bitmaps.push(uid)
   },
 
   setActiveBitmap (bitmap) {
     state.activeBitmap = bitmap
-  }
+  },
 
+  addArtwork (payload) {
+    var artwork = new MoeObjects.Artwork()
+    artwork.init({})
+    state.artworks.push(artwork)
+  },
+
+  setActiveArtwork (bitmap) {
+    state.ActiveArtwork = bitmap
+  },
+
+  addFilter (payload) {
+    var filter = new MoeObjects.Filter()
+    filter.init({})
+    state.filters.push(filter)
+  },
+  setActiveFilter (bitmap) {
+    state.ActiveFilter = bitmap
+  },
 }
 
 //  --- Define Store mixin
@@ -93,6 +132,9 @@ function install (Vue, options) {
   })
 
   Vue.mixin({
+    components: {
+      jPanel, jItem, jCanvas, jUploadZone, jCollection, jComponent, jDebug, jArtwork
+    }
     // methods: {
     //   $
     // }

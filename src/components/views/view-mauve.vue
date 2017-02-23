@@ -11,12 +11,59 @@
  graphql
  -->
 
-      <!-- PANEL :: BITMAPS -->
-      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
+
+      <!-- PANEL :: ARTWORKS -->
+      <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="10" :y="10">
+
+          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
+            <button class="circular primary small" @click='$actions.addArtwork()'><i>add</i></button>
+          </div>
+
+          <div slot="content" class="j-tray area panel-item-grow">
+
+           <j-collection
+              @click='$actions.setActiveArtwork'
+              v-model="$state.artworks"
+              class='frame-type-grid'
+            ></j-collection>
+          </div>
+
+      </j-panel>
+      <!-- PANEL :: ARTWORK PREVIEW -->
+      <j-panel
+        title="Artwork"
+        icon="android"
+         :width="256" :height="256" :x="10" :y="440">
+        >
+        <div slot="content" class="j-tray area panel-item-grow">
+          <j-canvas :image-data="$state.activeArtwork ? $state.activeArtwork : null"></j-canvas>
+        </div>
+      </j-panel>
+
+      <!-- PANEL :: FILTERS -->
+      <j-panel icon="business" title="Filters" :width="320" :height="420" :x="330" :y="10">
+
+          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
+            <button class="circular primary small" @click='$actions.addFilter()'><i>add</i></button>
+          </div>
+
+          <div slot="content" class="j-tray area panel-item-grow">
+
+           <j-collection
+              v-model="$state.filters"
+              class='frame-type-grid'
+            ></j-collection>
+          </div>
+
+      </j-panel>
+
+
+      <!-- PANEL :: BITMAPS -->  <button class="circular primary small" @click='methods["doMethod"]("test1")'><i>file_upload</i></button>
+      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="640" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
-            <button class="circular primary small" @click='$actions.addBitmap()'><i>file_upload</i></button>
+
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
@@ -28,8 +75,6 @@
           </div>
 
       </j-panel>
-
-
 
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="400" :y="10">
@@ -60,17 +105,6 @@
 
       <!--
         :options="" -->
-      <!-- PANEL :: ARTWORK PREVIEW -->
-      <j-panel
-        title="Artwork"
-        icon="android"
-         :width="256" :height="256" :x="10" :y="440">
-        >
-        <div slot="content" class="j-tray area panel-item-grow">
-          <j-canvas :image-data="$state.activeBitmap ? $state.activeBitmap.imageData : null"></j-canvas>
-        </div>
-      </j-panel>
-
 
 
 
@@ -82,11 +116,7 @@
 
 <script>
 /* eslint-disable */
-/**
- *
- * START SCRIPT
- *
- **/
+
 var jComponent = require('components/custom/j-component')
 var jPanel = require('components/custom/j-panel')
 var jItem = require('components/custom/j-item')
@@ -100,9 +130,6 @@ var DragEffects = require('components/custom/DragEffects')
 
 import {JSONEditor} from 'json-editor'
 
-// import {mapState, mapActions} from 'vuex'
-
-
 export default {
   name: 'view-mauve',
   data () {
@@ -111,37 +138,16 @@ export default {
       // test: this.$moe.state.test
     }
   },
-  // computed: {
-  //   ...mapState(['activeBitmap', 'bitmaps'])
-  // },
-  // computed: {
-  //   ctest () {
-  //     return this.$state.test
-  //   },
-  //   dtest: {
-  //     get: function () {
-  //       return this.$state.test
-  //     },
-  //     set: function(val) {
-  //       this.$state.test = val
-  //     }
-  //   }
-  // },
-  methods: {
-    testAction () {
-      this.$actions.addBitmap(123)
-    }
-  },
   components: {
     jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent, jDebug
   },
-  ready () { console.log(this.data + '****') },
-  mounted () {
-    // var element = this.$refs.jsonhere
-    // var editor = JSONEditor(element, {
-    //   theme: 'bootstrap2'
-    // })
-    console.log('mounted JSONEditor', JSONEditor)
+  methods: {
+    doMethod (e) {
+      this[e]()
+    },
+    test1 () {
+      alert('test1')
+    }
   }
 }
 </script>
@@ -160,38 +166,4 @@ export default {
   }
   .json > .json {
   }
-  // .json:active {
-  //   background rgba(255, 255, 255, 0.15)
-  //   height 20px
-  // }
 </style>
-
-  <!-- onClick () {
-      this.$store.setActiveBitmap()
-      window.alert('click event', this.$store)
-    },
-    testModify () {
-      this.categories = [
-        ['a', 'b', 'c'],
-        ['d', 'e', 'f']
-      ]
-    },
-    addBitmap (e) {
-      // this.$store.dispatch('addBitmap', {src: '/statics/img/resource/bg/more2.png'})
-      this.store.addBitmap()
-    },
-    loadBitmap (e) {
-      // this.$store.dispatch('loadBitmap', {})
-    },
-    cloneBitmap (e) {
-
-    },
-    selectBitmap (e) {
-    },
-    onUpdateBitmap (e) {
-      this.$store.dispatch('updateBitmap', e)
-    },
-    onArrangeBitmap (e) {
-      this.$store.dispatch('arrangeBitmap', e)
-    }
- -->
