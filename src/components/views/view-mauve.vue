@@ -12,32 +12,34 @@
  -->
 
 
-      <!-- PANEL :: ARTWORKS -->
-      <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="10" :y="10">
+      <!-- PANEL :: ARTWORK PREVIEW -->
+      <j-panel
+        title="Artwork"
+        icon="android"
+         :width="256" :height="256" :x="610" :y="440">
+        >
+        <div slot="content" class="j-tray area panel-item-grow">
+          <j-canvas :image-data="$state.activeArtwork ? $state.activeArtwork : null"></j-canvas>
+        </div>
+      </j-panel>
+
+
+      <!-- PANEL :: BITMAPS -->  <button class="circular primary small" @click='methods["doMethod"]("test1")'><i>file_upload</i></button>
+      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='$actions.addArtwork()'><i>add</i></button>
+            <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
+
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
 
            <j-collection
-              @click='$actions.setActiveArtwork'
-              v-model="$state.artworks"
+              v-model="$state.bitmaps"
               class='frame-type-grid'
             ></j-collection>
           </div>
 
-      </j-panel>
-      <!-- PANEL :: ARTWORK PREVIEW -->
-      <j-panel
-        title="Artwork"
-        icon="android"
-         :width="256" :height="256" :x="10" :y="440">
-        >
-        <div slot="content" class="j-tray area panel-item-grow">
-          <j-canvas :image-data="$state.activeArtwork ? $state.activeArtwork : null"></j-canvas>
-        </div>
       </j-panel>
 
       <!-- PANEL :: FILTERS -->
@@ -58,26 +60,26 @@
       </j-panel>
 
 
-      <!-- PANEL :: BITMAPS -->  <button class="circular primary small" @click='methods["doMethod"]("test1")'><i>file_upload</i></button>
-      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="640" :y="10">
+
+      <!-- PANEL :: ARTWORKS -->
+      <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="640" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
-
+            <button class="circular primary small" @click='$actions.addArtwork()'><i>add</i></button>
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
 
            <j-collection
-              v-model="$state.bitmaps"
+              @click='$actions.setActiveArtwork'
+              v-model="$state.artworks"
               class='frame-type-grid'
             ></j-collection>
           </div>
 
       </j-panel>
-
       <!-- PANEL :: DEBUG -->
-      <j-panel title='Debug' :width="380" :height="750" :x="400" :y="10">
+      <j-panel title='Debug' :width="380" :height="750" :x="10" :y="440">
         <div slot="content">
           <j-debug :value="$state"></j-debug>
 

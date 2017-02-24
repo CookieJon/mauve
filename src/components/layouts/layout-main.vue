@@ -60,7 +60,8 @@
   export default {
     data () {
       return {
-        'selectedBg': '/statics/img/resource/bg/tron/tron5.jpg',
+        // 'selectedBg': '/statics/img/resource/bg/tron/tron5.jpg',
+        'selectedBg': '',
         'bgs': [
           '/statics/img/resource/bg/tron/tron1.png',
           '/statics/img/resource/bg/tron/tron2.jpg',
@@ -162,7 +163,7 @@ ripple { to {
     xbackground url("/statics/img/resource/bg/bg3.png") no-repeat 50% 0px
     background-attachment fixed
     background-size cover/* cover || contain  */
-    /* background-color: #3F51B5; */
+    background-color black
     overflow hidden
   .layout-view
     scroll none
