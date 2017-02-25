@@ -1,6 +1,6 @@
 
 <template>
-    <pre v-html="htmlJSON" @click='onClick' ></pre>
+  <div style="margin-top:100px;" ref="target" class="json"></div>
 </template>
 
 <script>
@@ -16,135 +16,214 @@
       }
     },
     computed: {
-      htmlJSON () {
-        this.$nextTick(() => {
-          let uls = this.$el.getElementsByTagName('ul')
-          for (let i =0, l = uls.length; i < l; i++) {
-            let el = uls[i]
+      htmlEl () {
+        console.log(this.objToDom(this.value, 0))
 
-            el.style.height = Utils.dom.height(el)+'px' // = Utils.dom.height(el)
-            el.className = 'json expanded'
-            console.log(el)
-          }
-        })
-        return this.jsonToHtml(this.value, 0)
-        // var template = document.createElement('template');
-        // template.innerHTML = html;
-        // return template.content.firstChild
+        var element = this.$refs.target
+        while (element.firstChild) {
+          element.removeChild(element.firstChild);
+        }
+        return this.$refs.target.appendChild(this.objToDom(this.value, 0))
       }
     },
     methods: {
-      jsonToHtml (json, depth) {
+      objToDom (obj, depth) {
 
-        let html = '<ul class="json">'
+        let ul = document.createElement('ul')
 
-        Object.keys(json).forEach(k => {
+        Object.keys(obj).forEach(k => {
 
-          html += '<li>'
+          let li = document.createElement('li')
+          let a = document.createElement('a')
+          a.textContent = ':'
 
-          let _type = typeof json[k]
+          li.appendChild(a)
+          ul.appendChild(li)
+
+          // name
+          a.setAttribute('data-name', k)
+
+          // value
+          let _type = typeof obj[k]
 
           if (_type === 'undefined') {
-
-            html += (k + ': undefined')
-
+            // undefined
+            a.setAttribute('data-value', 'undefined')
           }
           else if (_type === 'object') {
-
-            if (json[k] === null) {
-              html += (k + ': null')
+            // null
+            if (obj[k] === null) {
+              a.setAttribute('data-value', 'null')
             }
-            else if (Array.isArray(json[k]) || [Uint8ClampedArray, Uint8Array].includes(json[k].constructor)) {
+            else if (Array.isArray(obj[k]) || [Uint8ClampedArray, Uint8Array].includes(obj[k].constructor)) {
+              // Array-like
+              li.classList.add('array')
+              a.setAttribute('data-constructor', obj[k].constructor.name)
 
-              html += json[k].constructor.name
-
-              if (json[k].length === 0) {
-                html += '[]'
-              } else if (json[k].length > 10) {
-                html += '[' + json[k].length  + ']'
+              if (obj[k].length === 0) {
+                li.classList.add('empty')
+              } else if (obj[k].length > 10) {
+                li.classList.add('limited')
+                a.setAttribute('data-length', obj[k].length)
               } else {
-                html += '<a>' + k + '</a>:['
-                html += this.jsonToHtml(json[k], depth + 1)
-                html += ']'
+                li.classList.add('full')
+                li.appendChild(this.objToDom(obj[k], depth + 1))
               }
 
             } else {
+              // Object
+              li.classList.add('object')
+              a.setAttribute('data-constructor', obj[k].constructor.name)
 
-              if (Object.keys(json[k]).length === 0) {
-                html += '[]'
-              } else if (Object.keys(json[k]).length > 10) {
-                html += '[' + json[k].length  + ']'
+              if (Object.keys(obj[k]).length === 0) {
+                li.classList.add('empty')
+              } else if (Object.keys(obj[k]).length > 10) {
+                li.classList.add('limited')
+                a.setAttribute('data-length', obj[k].length)
               } else {
-                html += '<a>' + k + '</a>:{'
-                html += this.jsonToHtml(json[k], depth + 1)
-                html += '}'
+                li.classList.add('full')
+                li.appendChild(this.objToDom(obj[k], depth + 1))
               }
 
             }
 
           }
           else if (_type === 'string') {
-            html += '"' + json[k] + '"'
+            li.classList.add('string')
+            a.setAttribute('data-value', obj[k])
           } else {
-            html += json[k]
+            li.classList.add('number')
+            a.setAttribute('data-value', obj[k])
           }
-
-          html += '</li>'
 
         })
 
-        html += '</ul>'
 
-        return html
+        return ul
 
       },
 
       onClick (e) {
+        // Toggle <ul> next to a clicked <a>
         if (e.target.nodeName !== 'A') return
         let el = e.target.nextSibling
         if (!el || el.nodeName !== 'UL') return
-        if (el.classList.contains('collapsed')) {
-          el.className = 'json expanded'
-        } else {
-          el.className = 'json collapsed'
-        }
+        el.className = el.classList.contains('collapsed') ? '' : 'collapsed'
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  li
-    list-style-type none
+
+      // <ul>
+      //   <li><a class="object empty" data-name='$vacuum'></a>
+      //   <li><a class="object full" data-name='$vacuum'></a>
+
 
   div.json
-    display inline-block
-    background rgba(255, 255, 255, 0.08)
-    box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
-    // border-top 1px solid white
-    padding 2px
-    padding-left 15px
-    margin 4px 0
-    // margin -20px 0
-    font-size 11px
-    width 100%
-    transition all .5s
-    height auto
-    // transform scaleY(.10)
-    // max-height 20px
-    // transition max-height 0.45s ease-in-out
-    // cubic-bezier(1,0,1,0)
-    overflow hidden
+    background rgba(0, 0, 0, 0.75)
 
-  ul.json
-    list-style-type none
-    color white
+    ul
+      list-style-type none
+      color #2e9dfd
+      background rgba(255, 255, 255, 0.02)
+      box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
+      xborder-top 1px solid  rgba(255, 255, 255, 0.1)
+      border-left 1px solid  rgba(255, 255, 255, 0.13)
+      xpadding 2px
+      margin 4px 0
+      // margin -20px 0
+      font-size 12px
+      font-family courier
+      width 100%
+      padding-left  0
+      transition all .5s
+      &:hover
+        background rgba(255, 255, 255, 0.05)
+    li
+      padding 2px
+      &:hover
+        background rgba(255, 255, 255, 0.035)
+        > a
+          color #2e9dfd
+      > ul
+        margin-left  10px
 
-  ul.json.collapsed
-    display none
 
-  ul.json.expanded
-    display inline-block
+    li > a
+      // Defaults:
+      transition all 0.3s linear-in-out
+      padding-left 10px
+      display block
+      padding 2px
+      color #027be3
 
+      &::before
+        content attr(data-name)
+        font-weight bold
+      &::after
+        content attr(data-value)
+        color rgba(255, 255, 255, .9)
+
+    // Object
+    // li.object > a::before
+    //   content attr(data-name)
+    li.object.empty > a::after
+      content " " attr(data-constructor) "{}"
+    li.array.limit > a::after
+      content " " attr(data-constructor) "[" attr(data-limit) "]"
+    li.object.full > a::after
+      content  " " attr(data-constructor) "{"
+    li.object.full::after
+      content "}"
+      color white
+
+    // Array
+    // li.array > a::before
+    //   content attr(data-name)
+    li.array.empty > a::after
+      content " " attr(data-constructor) "[]"
+    li.array.limit > a::after
+      content " " attr(data-constructor) "[" attr(data-limit) "]"
+    li.array.full > a::after
+      content  " " attr(data-constructor) "["
+    li.array.full::after
+      content "]"
+      color white
+
+    // String
+    // li.array > a::before
+    //   content attr(data-name)
+    li.string > a
+      &::before
+        content attr(data-name)
+      &::after
+        content ' "' attr(data-value) '"'
+
+    // Boolean
+    // li.array > a::before
+    //   content attr(data-name)
+    li.boolean > a
+      &::before
+        content attr(data-name)
+      &::after
+        content ' ' attr(data-value)
+
+    // Number
+    // li.array > a::before
+    //   content attr(data-name)
+    li.string > a
+      &::before
+        content attr(data-name)
+      &::after
+        content ' "' attr(data-value) '"'
+
+    // Function
+    li.function > a
+      &::before
+        content attr(data-name)
+      &::after
+        content " function() {}"
 
 </style>

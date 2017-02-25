@@ -387,9 +387,7 @@
   & .j-panel-titlebar
     background $primary
     // background $toolbar-background
-    opacity 0.6
     z-index 10
-    height 32px
     color white
     padding 4px 8px
     display flex
@@ -412,7 +410,6 @@
     font-size 1rem
     padding 4px
     display flex
-    height 16px
     flex-wrap nowrap
     flex-direction row
     justify-content space-between
