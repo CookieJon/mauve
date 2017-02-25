@@ -25,6 +25,22 @@ var DragEffects = require('components/custom/DragEffects')
 //  --- state
 //
 const state = {
+  objEmpty: {},
+  objFull: {
+    aString: "Hi Therr!",
+    aNumber: 42.0009,
+    aBoolean: true,
+    anArray: [
+      {name: "Jon", age: 44, handsome: true},
+      {name: "Penny", age: 34, handsome: true},
+      {name: "Rob", age: 24, handsome: true},
+    ],
+    anEmptyArray: [],
+    testA: null,
+    testB: undefined
+  },
+
+
   repo: {
     bitmaps: {}
   },

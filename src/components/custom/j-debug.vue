@@ -1,6 +1,7 @@
 
 <template>
-  <div style="margin-top:100px;" ref="target" class="json"></div>
+  <div style="margin-top:50px;" ref="target" class="json"></div>
+  {{ htmlEl }}
 </template>
 
 <script>
@@ -18,7 +19,6 @@
     computed: {
       htmlEl () {
         console.log(this.objToDom(this.value, 0))
-
         var element = this.$refs.target
         while (element.firstChild) {
           element.removeChild(element.firstChild);
@@ -30,6 +30,7 @@
       objToDom (obj, depth) {
 
         let ul = document.createElement('ul')
+        ul.addEventListener('click', this.onClick, true)
 
         Object.keys(obj).forEach(k => {
 
@@ -98,7 +99,6 @@
 
         })
 
-
         return ul
 
       },
@@ -108,7 +108,9 @@
         if (e.target.nodeName !== 'A') return
         let el = e.target.nextSibling
         if (!el || el.nodeName !== 'UL') return
-        el.className = el.classList.contains('collapsed') ? '' : 'collapsed'
+        el.classList.toggle('collapsed')
+
+        console.log(el.classList)
       }
     }
   }
@@ -131,13 +133,10 @@
       box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
       xborder-top 1px solid  rgba(255, 255, 255, 0.1)
       border-left 1px solid  rgba(255, 255, 255, 0.13)
-      xpadding 2px
       margin 4px 0
-      // margin -20px 0
-      font-size 12px
+      font-size 14px
       font-family courier
-      width 100%
-      padding-left  0
+      padding 0
       transition all .5s
       &:hover
         background rgba(255, 255, 255, 0.05)
@@ -148,8 +147,7 @@
         > a
           color #2e9dfd
       > ul
-        margin-left  10px
-
+        margin 0 10px
 
     li > a
       // Defaults:
@@ -158,6 +156,8 @@
       display block
       padding 2px
       color #027be3
+      white-space nowrap
+      overflow-x hidden
 
       &::before
         content attr(data-name)
