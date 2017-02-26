@@ -82,14 +82,14 @@
       <j-panel title='Debug' :width="380" :height="750" :x="10" :y="440">
         <div slot="content">
           <j-debug :value="$state"></j-debug>
-
+<!--
           <label>TEST:<input type="text" v-model="test" /></label><br />
           <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
           <label>DTEST:<input type="text" v-model="dtest" /></label><br />
 
           <label>TEST:<input type="text" :value="test" /></label><br />
           <label>CTEST:<input type="text" :value="$state.test" /></label><br />
-          <label>DTEST:<input type="text" :value="dtest" /></label><br />
+          <label>DTEST:<input type="text" :value="dtest" /></label><br /> -->
         </div>
       <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
       </j-panel>

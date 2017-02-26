@@ -18,14 +18,31 @@
     },
     computed: {
       htmlEl () {
-        console.log(this.objToDom(this.value, 0))
-        var element = this.$refs.target
-        while (element.firstChild) {
-          element.removeChild(element.firstChild);
+        let target = this.$refs.target
+        while (target.firstChild) {
+          target.removeChild(target.firstChild);
         }
-        return this.$refs.target.appendChild(this.objToDom(this.value, 0))
+        let dom = this.objToDom(this.value, 0)
+        dom.addEventListener('webkitTransitionEnd', e => {
+          if (e.tagName === 'UL' && e.propertyName === 'height') {
+            e.target.style.height = ''
+          }
+        })
+        target.appendChild(dom)
+        // let ul = dom.getElementsByTagName('ul')
+        // for (let i = 0, l = ul.length; i < l; i++) {
+        //   ul[i].setAttribute('data-height', ul[i].offsetHeight + 'px')
+        //   // ul[i].style.height = ul[i].getAttribute('data-height')
+        // }
+        console.log(dom)
+        return dom
       }
     },
+    // watch: {
+    //   'value' (newVal, oldVal) {
+    //     alert('ok')
+    //   }
+    // },
     methods: {
       objToDom (obj, depth) {
 
@@ -98,19 +115,27 @@
           }
 
         })
-
         return ul
 
       },
 
       onClick (e) {
         // Toggle <ul> next to a clicked <a>
+        e.stopPropagation()
+        e.preventDefault()
         if (e.target.nodeName !== 'A') return
         let el = e.target.nextSibling
         if (!el || el.nodeName !== 'UL') return
+        if (!el.classList.contains('collapsed')) {
+          console.log('collapsing...')
+          el.setAttribute('data-height', el.offsetHeight + 'px')
+          el.style.height = el.getAttribute('data-height')
+        } else {
+          console.log('expanding...')
+          el.style.height = el.getAttribute('data-height')
+        }
         el.classList.toggle('collapsed')
-
-        console.log(el.classList)
+        console.log(el)
       }
     }
   }
@@ -122,31 +147,66 @@
       //   <li><a class="object empty" data-name='$vacuum'></a>
       //   <li><a class="object full" data-name='$vacuum'></a>
 
+  // @keyframes zoomIn {
+  //   from {
+  //     opacity: 0;
+  //     -webkit-transform: scale3d(.3, .3, .3);
+  //     transform: scale3d(.3, .3, .3);
+  //   }
+
+  //   50% {
+  //     opacity: 1;
+  //   }
+  // }
+
+  @keyframes anim_collapse
+    0%
+      border 1px solid red
+      opacity 0
+      transform scale(.5)
+    50%
+      opacity 1
+    100%
+      opacity 1
+      transform scale(1)
 
   div.json
     background rgba(0, 0, 0, 0.75)
 
     ul
       list-style-type none
+      font-family "Lucida Console", Monaco, monospace
+      font-size 12px
+      margin 4px 0
+      padding 0
+      overflow hidden
       color #2e9dfd
       background rgba(255, 255, 255, 0.02)
       box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)
-      xborder-top 1px solid  rgba(255, 255, 255, 0.1)
+      border-top 1px solid  rgba(255, 255, 255, 0.1)
       border-left 1px solid  rgba(255, 255, 255, 0.13)
-      margin 4px 0
-      font-size 14px
-      font-family courier
-      padding 0
-      transition all .5s
+      // opacity 1
+      transition all .5s ease
+      &.collapsed
+        height 0 !important
+        animation-name anim_collapse
+        // opacity 0
+        // transform scale3d(.3, .3, .3)
+        // transform scaleY(0)
       &:hover
         background rgba(255, 255, 255, 0.05)
+
+
     li
       padding 2px
+      transition all .5s
+      overflow hidden
       &:hover
         background rgba(255, 255, 255, 0.035)
         > a
           color #2e9dfd
       > ul
+        /* child object container */
         margin 0 10px
 
     li > a
@@ -200,6 +260,7 @@
         content attr(data-name)
       &::after
         content ' "' attr(data-value) '"'
+        color #4CAF50
 
     // Boolean
     // li.array > a::before
