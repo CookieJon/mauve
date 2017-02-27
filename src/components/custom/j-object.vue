@@ -1,22 +1,133 @@
-
+<!--
 <template>
+  <j-object
   <div v-touch-pan="touchPan" style="margin-top:50px;" ref="target" class="json"></div>
   {{ htmlEl }}
 </template>
+ -->
+
+export default
+
+
+
 
 <script>
   /* eslint-disable */
   import { Utils } from 'quasar'
-  var jDebug = require('components/custom/j-debug')
   var jObject = require('components/custom/j-object')
 
   export default {
-    name: 'j-debug',
-    props: ['value'],
-    components: {jObject},
+    name: 'j-object',
+    components: { jObject },
+    props: ['value', 'andchild'],
+    render (h) {
+
+      return h('ul', //'hi there')
+        {
+          class: {
+            'j-object': true,
+            'dragging': this.isDragging
+          },
+          style: {
+            'top': this.top + 'px',
+            'left': this.left + 'px'
+          },
+          directives: [
+            {
+              name: 'touch-pan',
+              value: this.touchPan
+            }
+          ]
+        },
+        // ul > li[...]
+        Object.keys(this.value).map(k => {
+
+          let v = this.value[k]
+          let _type = typeof v
+
+          // parent
+          let li = h('li', { attrs: {} }, [])
+
+          // child 1
+          let a =  h('a', {
+            attrs: {
+              'data-name': k,
+              'data-value': ' ' + v,
+              'data-constructor': ' '
+            }},
+            ':')
+
+          li.children.push(a)
+
+          if (_type === 'undefined') {
+            // undefined
+            a.data.attrs.dataValue = 'undefined'
+          }
+          else if (_type === 'object') {
+            // null
+            if (v === null) {
+              a.data.attrs.dataValue = 'null'
+            } else if (Array.isArray(v) || [Uint8ClampedArray, Uint8Array].includes(v.constructor)) {
+              // Array-like
+              a.data.attrs['data-constructor']= v.constructor.name
+
+              if (v.length === 0) {
+                li.data.attrs.class = 'array empty'
+              } else if (v.length > 10) {
+                li.data.attrs.class = 'array limited'
+                a.data.attrs.dataLength = v.length
+              } else {
+                li.data.attrs.class = 'array full'
+                li.children.push(h('j-object', {
+                  props: {
+                    value: v
+                  }
+                }))
+              }
+
+            } else {
+              // // Object
+
+              a.data.attrs['data-constructor']= v.constructor.name
+
+              if (Object.keys(v).length === 0) {
+                li.data.attrs.class = 'object empty'
+              } else if (Object.keys(v).length > 10) {
+                li.data.attrs.class = 'object limited'
+                a.data.attrs.dataLength = v.length
+              } else {
+                li.data.attrs.class = 'object full'
+                li.children.push(h('j-object', {
+                  props: {
+                    value: v
+                  }
+                }))
+              }
+
+            }
+
+          }
+          else if (_type === 'string') {
+            a.data.attrs.class = 'string'
+          } else {
+            a.data.attrs.class = 'number'
+          }
+
+
+          return li
+          //   [
+          //     a
+          //     h('a', { attrs: {'data-name': k}}, k + ' = ' + this.value[k])
+          //   ]
+          // )
+        })
+      )
+    },
     data () {
       return {
-        states: { }
+        isDragging: false,
+        left: null,
+        top: null
       }
     },
     computed: {
@@ -48,7 +159,15 @@
     // },
     methods: {
       touchPan (e) {
-        console.log(e)
+        if (e.isFirst) {
+          this.isDragging = true
+        } else if (e.isFinal) {
+          this.isDragging = false
+        }
+        this.top = e.position.top
+        this.left = e.position.left
+
+        console.log(this.top)
       },
       objToDom (obj, depth) {
 
@@ -149,21 +268,19 @@
 
 <style lang="stylus">
 
-  @keyframes anim_collapse
-    0%
-      border 1px solid red
-      opacity 0
-      transform scale(.5)
-    50%
-      opacity 1
-    100%
-      opacity 1
-      transform scale(1)
 
-  div.json
-    background rgba(0, 0, 0, 0.75)
+    .j-object
+      // position relative
+      // background rgba(0, 0, 0, 0.75)
+      // border 1px solid #2e9dfd
+      // border-top 20px solid #2e9dfd
+      // margin-top 100px
+      color white
+      &.dragging
+        position absolute
 
-    ul
+
+    .j-object
       list-style-type none
       font-family "Lucida Console", Monaco, monospace
       font-size 12px
@@ -196,9 +313,11 @@
         background rgba(255, 255, 255, 0.035)
         > a
           color #2e9dfd
-      > ul
+      > .j-object
         /* child object container */
-        margin 0 10px
+        margin 0 15px
+        padding 4px 2px
+        // padding 0 10px
 
     li > a
       // Defaults:
@@ -221,27 +340,27 @@
     // li.object > a::before
     //   content attr(data-name)
     li.object.empty > a::after
-      content " " attr(data-constructor) "{}"
+      content " " attr(data-constructor) " {}"
     li.array.limit > a::after
-      content " " attr(data-constructor) "[" attr(data-limit) "]"
+      content " " attr(data-constructor) " {" attr(data-limit) "}"
     li.object.full > a::after
-      content  " " attr(data-constructor) "{"
-    li.object.full::after
-      content "}"
-      color white
+      content  " " attr(data-constructor) " {"
+    // li.object.full::after
+    //   content "}"
+    //   color white
 
     // Array
     // li.array > a::before
     //   content attr(data-name)
     li.array.empty > a::after
-      content " " attr(data-constructor) "[]"
+      content " " attr(data-constructor) " []"
     li.array.limit > a::after
-      content " " attr(data-constructor) "[" attr(data-limit) "]"
+      content " " attr(data-constructor) " [" attr(data-limit) "]"
     li.array.full > a::after
-      content  " " attr(data-constructor) "["
-    li.array.full::after
-      content "]"
-      color white
+      content  " " attr(data-constructor) " ["
+    // li.array.full::after
+    //   content "]"
+    //   color white
 
     // String
     // li.array > a::before

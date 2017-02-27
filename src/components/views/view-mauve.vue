@@ -10,6 +10,9 @@
 
  graphql
  -->
+      <div style="position:relative">
+        <j-object v-model="$state"></j-object>
+      </div>
 
 
       <!-- PANEL :: ARTWORK PREVIEW -->
@@ -24,12 +27,11 @@
       </j-panel>
 
 
-      <!-- PANEL :: BITMAPS -->  <button class="circular primary small" @click='methods["doMethod"]("test1")'><i>file_upload</i></button>
+      <!-- PANEL :: BITMAPS -->
       <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
-
           </div>
 
           <div slot="content" class="j-tray area panel-item-grow">
@@ -81,6 +83,7 @@
       <!-- PANEL :: DEBUG -->
       <j-panel title='Debug' :width="380" :height="750" :x="10" :y="440">
         <div slot="content">
+
           <j-debug :value="$state"></j-debug>
 <!--
           <label>TEST:<input type="text" v-model="test" /></label><br />
@@ -127,6 +130,7 @@ var jCollection = require('components/custom/j-collection')
 // var jCollection = require('components/custom/j-collection')
 var jUploadZone = require('components/custom/j-upload-zone')
 var jDebug = require('components/custom/j-debug')
+var jObject = require('components/custom/j-object')
 var DragEffects = require('components/custom/DragEffects')
 
 
@@ -141,7 +145,7 @@ export default {
     }
   },
   components: {
-    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent, jDebug
+    jPanel, jItem, jCanvas, jUploadZone, jCollection, DragEffects, jComponent, jDebug, jObject
   },
   methods: {
     doMethod (e) {
