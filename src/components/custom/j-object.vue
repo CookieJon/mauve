@@ -8,9 +8,6 @@
 
 export default
 
-
-
-
 <script>
   /* eslint-disable */
   import { Utils } from 'quasar'
