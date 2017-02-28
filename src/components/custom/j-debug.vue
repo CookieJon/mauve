@@ -149,6 +149,19 @@
 
 <style lang="stylus">
 
+/*
+
+"You have nothing but ad hominem arguments."
+
+No, that's <u>you</u> sweetie.  Don't blame me because you refuse to see what you don't want to.  I even tried to help you, inviting you personally - by name - to comment above on <u>the evidence which indicates</u> what a disingenuous bunch of bigots you all are.  But surprise, surprise - you couldn't actually deal with my sagacious observations so instead here you are, slinging more of your mindless ad hominem insults like...
+
+"The freak is you...  you can't engage them as equals. They use their minds not insult."
+~ Theresa 2
+
+How tacky.  You really need to go away and think about how poorly you've conducted yourself, and come back only when you've thought of something to add beyond this tedious, nonsensical screeching that's been the hallmark of all your contributions so far.
+
+*/
+
   @keyframes anim_collapse
     0%
       border 1px solid red

@@ -22,7 +22,7 @@ export default
     props: ['value', 'andchild'],
     render (h) {
 
-      return h('ul', //'hi there')
+      return h('ul',
         {
           class: {
             'j-object': true,
@@ -113,13 +113,7 @@ export default
             a.data.attrs.class = 'number'
           }
 
-
           return li
-          //   [
-          //     a
-          //     h('a', { attrs: {'data-name': k}}, k + ' = ' + this.value[k])
-          //   ]
-          // )
         })
       )
     },
@@ -164,10 +158,11 @@ export default
         } else if (e.isFinal) {
           this.isDragging = false
         }
-        this.top = e.position.top
-        this.left = e.position.left
-
-        console.log(this.top)
+        if (this.isDragging) {
+          this.top = e.position.top
+          this.left = e.position.left
+          console.log(this.top)
+        }
       },
       objToDom (obj, depth) {
 
@@ -245,22 +240,22 @@ export default
       },
 
       onClick (e) {
-        // Toggle <ul> next to a clicked <a>
-        e.stopPropagation()
-        e.preventDefault()
-        if (e.target.nodeName !== 'A') return
-        let el = e.target.nextSibling
-        if (!el || el.nodeName !== 'UL') return
-        if (!el.classList.contains('collapsed')) {
-          console.log('collapsing...')
-          el.setAttribute('data-height', el.offsetHeight + 'px')
-          el.style.height = el.getAttribute('data-height')
-        } else {
-          console.log('expanding...')
-          el.style.height = el.getAttribute('data-height')
-        }
-        el.classList.toggle('collapsed')
-        console.log(el)
+        // // Toggle <ul> next to a clicked <a>
+        // e.stopPropagation()
+        // e.preventDefault()
+        // if (e.target.nodeName !== 'A') return
+        // let el = e.target.nextSibling
+        // if (!el || el.nodeName !== 'UL') return
+        // if (!el.classList.contains('collapsed')) {
+        //   console.log('collapsing...')
+        //   el.setAttribute('data-height', el.offsetHeight + 'px')
+        //   el.style.height = el.getAttribute('data-height')
+        // } else {
+        //   console.log('expanding...')
+        //   el.style.height = el.getAttribute('data-height')
+        // }
+        // el.classList.toggle('collapsed')
+        // console.log(el)
       }
     }
   }
@@ -277,6 +272,8 @@ export default
       // margin-top 100px
       color white
       &.dragging
+        width 240px !important
+        height 400px !important
         position absolute
 
 
@@ -294,7 +291,7 @@ export default
       border-left 1px solid  rgba(255, 255, 255, 0.13)
       // opacity 1
       height 100% !important
-      transition all .5s ease
+      xtransition height .5s ease
       &.collapsed
         height 0 !important
         animation-name anim_collapse

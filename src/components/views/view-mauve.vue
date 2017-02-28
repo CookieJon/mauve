@@ -10,13 +10,13 @@
 
  graphql
  -->
-      <div style="position:relative">
+      <div style="border:1px solid blue;position:relative">
         <j-object v-model="$state"></j-object>
       </div>
 
 
       <!-- PANEL :: ARTWORK PREVIEW -->
-      <j-panel
+<!--       <j-panel
         title="Artwork"
         icon="android"
          :width="256" :height="256" :x="610" :y="440">
@@ -24,11 +24,11 @@
         <div slot="content" class="j-tray area panel-item-grow">
           <j-canvas :image-data="$state.activeArtwork ? $state.activeArtwork : null"></j-canvas>
         </div>
-      </j-panel>
+      </j-panel> -->
 
 
       <!-- PANEL :: BITMAPS -->
-      <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
+   <!--    <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
@@ -42,10 +42,10 @@
             ></j-collection>
           </div>
 
-      </j-panel>
+      </j-panel> -->
 
       <!-- PANEL :: FILTERS -->
-      <j-panel icon="business" title="Filters" :width="320" :height="420" :x="330" :y="10">
+<!--       <j-panel icon="business" title="Filters" :width="320" :height="420" :x="330" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addFilter()'><i>add</i></button>
@@ -59,12 +59,12 @@
             ></j-collection>
           </div>
 
-      </j-panel>
+      </j-panel> -->
 
 
 
       <!-- PANEL :: ARTWORKS -->
-      <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="640" :y="10">
+    <!--   <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="640" :y="10">
 
           <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
             <button class="circular primary small" @click='$actions.addArtwork()'><i>add</i></button>
@@ -79,23 +79,23 @@
             ></j-collection>
           </div>
 
-      </j-panel>
+      </j-panel> -->
       <!-- PANEL :: DEBUG -->
+      <!--
       <j-panel title='Debug' :width="380" :height="750" :x="10" :y="440">
         <div slot="content">
 
           <j-debug :value="$state"></j-debug>
-<!--
+
           <label>TEST:<input type="text" v-model="test" /></label><br />
           <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
           <label>DTEST:<input type="text" v-model="dtest" /></label><br />
 
           <label>TEST:<input type="text" :value="test" /></label><br />
           <label>CTEST:<input type="text" :value="$state.test" /></label><br />
-          <label>DTEST:<input type="text" :value="dtest" /></label><br /> -->
+          <label>DTEST:<input type="text" :value="dtest" /></label><br />
         </div>
-      <!--  <pre slot="content" class='text-white'>Vuex Store: {{ $store.state | json 2 }}</pre> -->
-      </j-panel>
+      </j-panel> -->
 
 
 <!--       <j-panel
