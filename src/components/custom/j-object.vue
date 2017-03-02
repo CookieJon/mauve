@@ -29,6 +29,9 @@ export default
             'top': this.top + 'px',
             'left': this.left + 'px'
           },
+          attrs: {
+            'draggable': true
+          },
           directives: [
             {
               name: 'touch-pan',
@@ -118,7 +121,9 @@ export default
       return {
         isDragging: false,
         left: null,
-        top: null
+        top: null,
+        dragOffsetTop: 0,
+        dragOffsetLeft: 0
       }
     },
     computed: {
@@ -152,13 +157,16 @@ export default
       touchPan (e) {
         if (e.isFirst) {
           this.isDragging = true
+          this.dragOffsetTop = Utils.dom.offset(this.$el).top - e.position.top
+          this.dragOffsetLeft = Utils.dom.offset(this.$el).left - e.position.left
+          console.log(Utils.dom.offset(this.$el).top, e.position.top)
         } else if (e.isFinal) {
           this.isDragging = false
         }
         if (this.isDragging) {
-          this.top = e.position.top
-          this.left = e.position.left
-          console.log(this.top)
+          this.top = e.position.top -this.dragOffsetTop
+          this.left = e.position.left + this.dragOffsetLeft
+          console.log(e)
         }
       },
       objToDom (obj, depth) {
