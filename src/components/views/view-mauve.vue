@@ -1,5 +1,21 @@
- <template>
-  <!-- root node required -->
+<template lang="pug">
+<!-- root node required -->
+div
+  // test
+  div.workbench.fullscreen
+    j-object(v-model='$state')
+    j-object(v-model='$state.imgUrls')
+
+<!--   j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
+    .j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
+      button.circular.primary.small(@click='$actions.addBitmap()')
+        i add
+    .j-tray.area.panel-item-grow(slot='content')
+      j-collection.frame-type-grid(v-model='$state.bitmaps') -->
+
+</template>
+
+
   <div>
 <!--
  JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
@@ -10,6 +26,9 @@
 
  graphql
  -->
+
+
+
       <div style="border:1px solid blue;position:relative">
         <j-object v-model="$state"></j-object>
       </div>
@@ -140,6 +159,11 @@ export default {
   name: 'view-mauve',
   data () {
     return {
+      test: [
+        ['One','Two','Three','Four'],
+        ['Un','Deux','Trois','Quatre'],
+        ['Uno','Dos','Tres','Cuatro']
+      ]
       // searchText: 'this is a test',
       // test: this.$moe.state.test
     }
@@ -158,6 +182,14 @@ export default {
 }
 </script>
 <style lang="stylus">
+.workbench
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    border 1px solid red
+    background rgba(255,255,255,0.02)
   .json {
     background rgba(255, 255, 255, 0.08)
     box-shadow 11px 10px 6px -10px rgba(0,0,0,0.75)

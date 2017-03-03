@@ -1,17 +1,13 @@
-<!--
-<template>
-  <j-object
-  <div v-touch-pan="touchPan" style="margin-top:50px;" ref="target" class="json"></div>
-  {{ htmlEl }}
-</template>
- -->
-
 export default
 
 <script>
   /* eslint-disable */
   import { Utils } from 'quasar'
   var jObject = require('components/custom/j-object')
+
+  var objectGlobal = {
+    isDragging: null
+  }
 
   export default {
     name: 'j-object',
@@ -23,9 +19,11 @@ export default
         {
           class: {
             'j-object': true,
-            'dragging': this.isDragging
+            'dragging': this.drag.isDragging
           },
           style: {
+            'width': this.width + 'px',
+            'height': this.height + 'px',
             'top': this.top + 'px',
             'left': this.left + 'px'
           },
@@ -85,7 +83,7 @@ export default
             } else {
               // // Object
 
-              a.data.attrs['data-constructor']= v.constructor.name
+              a.data.attrs['data-constructor'] = v.constructor.name
 
               if (Object.keys(v).length === 0) {
                 li.data.attrs.class = 'object empty'
@@ -100,140 +98,57 @@ export default
                   }
                 }))
               }
-
             }
-
           }
           else if (_type === 'string') {
             a.data.attrs.class = 'string'
           } else {
             a.data.attrs.class = 'number'
           }
-
           return li
         })
       )
     },
     data () {
       return {
-        isDragging: false,
-        left: null,
-        top: null
-      }
-    },
-    computed: {
-      htmlEl () {
-        let target = this.$refs.target
-        while (target.firstChild) {
-          target.removeChild(target.firstChild);
+        width: 240,
+        height: 300,
+        drag: {
+          isDragging: false,
+          left: null,
+          top: null,
+          offsetLeft: 0,
+          offsetTop: 0
         }
-        let dom = this.objToDom(this.value, 0)
-        dom.addEventListener('webkitTransitionEnd', e => {
-          if (e.tagName === 'UL' && e.propertyName === 'height') {
-            e.target.style.height = ''
-          }
-        })
-        target.appendChild(dom)
-        // let ul = dom.getElementsByTagName('ul')
-        // for (let i = 0, l = ul.length; i < l; i++) {
-        //   ul[i].setAttribute('data-height', ul[i].offsetHeight + 'px')
-        //   // ul[i].style.height = ul[i].getAttribute('data-height')
-        // }
-        console.log(dom)
-        return dom
       }
     },
-    // watch: {
-    //   'value' (newVal, oldVal) {
-    //     alert('ok')
-    //   }
-    // },
+    // hooks
+    mounted () {
+      this.setDimensions()
+    },
     methods: {
-      touchPan (e) {
-        if (e.isFirst) {
-          this.isDragging = true
-        } else if (e.isFinal) {
-          this.isDragging = false
-        }
-        if (this.isDragging) {
-          this.top = e.position.top
-          this.left = e.position.left
-          console.log(this.top)
-        }
+      setDimensions () {
+        this.width = 240
+        this.height = this.$el.scrollHeight
+        console.log(this.height)
       },
-      objToDom (obj, depth) {
-
-        let ul = document.createElement('ul')
-        ul.addEventListener('click', this.onClick, true)
-
-        Object.keys(obj).forEach(k => {
-
-          let li = document.createElement('li')
-          let a = document.createElement('a')
-          a.textContent = ':'
-
-          li.appendChild(a)
-          ul.appendChild(li)
-
-          // name
-          a.setAttribute('data-name', k)
-
-          // value
-          let _type = typeof obj[k]
-
-          if (_type === 'undefined') {
-            // undefined
-            a.setAttribute('data-value', 'undefined')
+      touchPan (e) {
+        if (e.isFirst && !objectGlobal.isDragging) {
+          objectGlobal.isDragging = this
+          this.drag.isDragging = true
+          let offset =  Utils.dom.offset(this.$el)
+          console.log(offset)
+          this.drag.offsetLeft = Utils.dom.offset(this.$el).left
+          this.drag.offsetTop = Utils.dom.offset(this.$el).top
+        } else if (this.drag.isDragging) {
+          this.drag.top = e.position.top
+          this.drag.left = e.position.left
+          if (e.isFinal) {
+            objectGlobal.isDragging = null
+            this.drag.isDragging = false
           }
-          else if (_type === 'object') {
-            // null
-            if (obj[k] === null) {
-              a.setAttribute('data-value', 'null')
-            }
-            else if (Array.isArray(obj[k]) || [Uint8ClampedArray, Uint8Array].includes(obj[k].constructor)) {
-              // Array-like
-              li.classList.add('array')
-              a.setAttribute('data-constructor', obj[k].constructor.name)
-
-              if (obj[k].length === 0) {
-                li.classList.add('empty')
-              } else if (obj[k].length > 10) {
-                li.classList.add('limited')
-                a.setAttribute('data-length', obj[k].length)
-              } else {
-                li.classList.add('full')
-                li.appendChild(this.objToDom(obj[k], depth + 1))
-              }
-
-            } else {
-              // Object
-              li.classList.add('object')
-              a.setAttribute('data-constructor', obj[k].constructor.name)
-
-              if (Object.keys(obj[k]).length === 0) {
-                li.classList.add('empty')
-              } else if (Object.keys(obj[k]).length > 10) {
-                li.classList.add('limited')
-                a.setAttribute('data-length', obj[k].length)
-              } else {
-                li.classList.add('full')
-                li.appendChild(this.objToDom(obj[k], depth + 1))
-              }
-
-            }
-
-          }
-          else if (_type === 'string') {
-            li.classList.add('string')
-            a.setAttribute('data-value', obj[k])
-          } else {
-            li.classList.add('number')
-            a.setAttribute('data-value', obj[k])
-          }
-
-        })
-        return ul
-
+          console.log(this.drag.left)
+        }
       },
 
       onClick (e) {
@@ -260,7 +175,7 @@ export default
 
 <style lang="stylus">
 
-
+  @import '~quasar-framework/dist/quasar.mat.styl'
     .j-object
       // position relative
       // background rgba(0, 0, 0, 0.75)
@@ -269,8 +184,6 @@ export default
       // margin-top 100px
       color white
       &.dragging
-        width 240px !important
-        height 400px !important
         position absolute
 
 
@@ -311,6 +224,7 @@ export default
         /* child object container */
         margin 0 15px
         padding 4px 2px
+        position relative
         // padding 0 10px
 
     li > a

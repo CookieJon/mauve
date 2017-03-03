@@ -24,12 +24,12 @@
 -->
 
      <!-- Navigation Tabs    -->
-     <q-tabs slot="navigation" class="text-white">
+<!--      <q-tabs slot="navigation" class="text-white">
       <q-tab route="/view-mauve" icon="settings_system_daydream" exact>Mauve</q-tab>
       <q-tab route="/view-panels" icon="mail" exact>Panels</q-tab>
       <q-tab route="/view-sortable" icon="alarm" exact>Sortable</q-tab>
       <q-tab route="/view-editor" icon="help" exact>Editor</q-tab>
-    </q-tabs>
+    </q-tabs> -->
     <q-select
         type="radio"
         :value="selectedBg"
@@ -39,10 +39,10 @@
 
 
    <!-- FABS -->
-      <q-fab type="indigo" style="margin:40px 20px " icon="collections" direction="right" class="fixed-top-left">
+ <!--      <q-fab type="indigo" style="margin:40px 20px " icon="collections" direction="right" class="fixed-top-left">
         <q-small-fab class="white" @click="this.openModal()">mail</q-small-fab>
         <q-small-fab class="white" @click="toast('alarm')">alarm</q-small-fab>
-      </q-fab>
+      </q-fab> -->
 
 
       <!-- <div class="layout-view no-scroll">keep-alive>-->
@@ -60,8 +60,8 @@
   export default {
     data () {
       return {
-        // 'selectedBg': '/statics/img/resource/bg/tron/tron5.jpg',
-        'selectedBg': '',
+        'selectedBg': '/statics/img/resource/bg/tron/tron7.jpg',
+        // 'selectedBg': '',
         'bgs': [
           '/statics/img/resource/bg/tron/tron1.png',
           '/statics/img/resource/bg/tron/tron2.jpg',
@@ -169,9 +169,6 @@ ripple { to {
     scroll none
   .bg-glass
     background rgba(30, 30, 30, .3)
-
-
-
 
   .layout-header
     z-index 11 !important
