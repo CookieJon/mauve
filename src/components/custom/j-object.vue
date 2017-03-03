@@ -27,6 +27,9 @@ export default
             'top': this.top + 'px',
             'left': this.left + 'px'
           },
+          attrs: {
+            'draggable': true
+          },
           directives: [
             {
               name: 'touch-pan',
