@@ -24,7 +24,7 @@ var DragEffects = require('components/custom/DragEffects')
 
 //  --- state
 //
-const state = {
+let state = {
   objEmpty: {},
   objFull: {
     aString: "Hi Therr!",
@@ -39,8 +39,6 @@ const state = {
     testA: null,
     testB: undefined
   },
-
-
   repo: {
     bitmaps: {}
   },
@@ -60,6 +58,12 @@ const state = {
     '/statics/img/resource/bg/bitmap3.bmp',
     '/statics/img/resource/bg/bitmap4.bmp'
   ]
+}
+
+// -- ui
+//
+let ui = {
+
 }
 
 //  --- actions

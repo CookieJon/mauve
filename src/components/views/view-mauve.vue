@@ -6,12 +6,12 @@ div
     j-object(v-model='$state')
     j-object(v-model='$state.imgUrls')
 
-<!--   j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
     .j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
       button.circular.primary.small(@click='$actions.addBitmap()')
         i add
     .j-tray.area.panel-item-grow(slot='content')
-      j-collection.frame-type-grid(v-model='$state.bitmaps') -->
+      j-collection.frame-type-grid(v-model='$state.bitmaps')
 
 </template>
 

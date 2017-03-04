@@ -6,15 +6,108 @@ export default
   var jObject = require('components/custom/j-object')
 
   var objectGlobal = {
-    isDragging: null
+    isDragging: null,
+
+    cloneNode (node) {
+      let clone = node.cloneNode(true)
+      let all = clone.querySelectorAll('[id]')
+      for (var i=0, l = all.length; i < l; i++) {
+        all[i].removeAttribute('id')
+      }
+
+    }
   }
+Mumtaz Maha
+Mughal
+
+In Agra's Taj Mahal the Mughal Shah Jahan his Mumtaz mourned
+Its minarets and vaulted halls, and walls adorned with finial forms
+A monument from heaven sent with whose domes as sheer as coral beheld behoveful home or hovel
+
+
+of marble finely of marble mark
+
+For she in life beloved wife beheld behoveul
+
+
+
+behold behoveful hole or hovel
+are minarets and vaulted halls, and walls adorned with finial forms
+whose marble marks this monument a sacred place from heaven sent
+to hold beneath beloved wife in life
+
+, a monument from heaven sent
+Whose marble floors and vaulted halls
+Adorn the walls of vaulted halls and minarets a design so fine and novel
+The marble floors of vaulted halls
+whoe finial forms adorn the walls of minarets by fine and novel
+For she in life beloved wife
+
+ of Mumtaz his beloved wife
+a sacred space
+did make a place sacred space a monument from heaven sent
+minarets vaulted halls and walls adorned with finial forms
+his beloved wife in life
+to mourn his Mumtaz
+,
+A sacred space the resting place
+a monument from heaven sent
+
+From heaven sent marble halls and finial forms and
+For she in life beloved wife of gerent the His wife in life gerent who could
+
+From Heaven sent a monument whose marble halls and vaulted halls forms novel
+
+Her resting place a sacred space, a monument whose marble form
+from heaven sent
+ beloved wife
+
+gerent could
+Her marble in marble form
+A
+d an alcazar
+mansion
+
+A marble
+
+befits the wife
+A For she in life beloved wife
+The tomb Tagore before did
+
+ behold behoveful hole or hovel
+.$delete(key)
+
+
+(a palace)
+In life no wife
+               no
+Such novel digs  be more behoveful hovel
+But in life the emperor's wife
+But
+but in life no emperor's wife //
+his Taj Mahal did Mumtaz mourned
+
+
+But
+No taj mahal shah jahan
+Am I whose
+
+behoveful hovel
+
+Mughal emperor Shah Jahan as a mausoleum for his beloved wife
+
 
   export default {
     name: 'j-object',
     components: { jObject },
     props: ['value', 'andchild'],
+    // xrender () {
+    //   return
+    //     <ul>
+    //       test
+    //     </ul>
+    // },
     render (h) {
-
       return h('ul',
         {
           class: {
@@ -116,6 +209,8 @@ export default
       return {
         width: 240,
         height: 300,
+        top: null,
+        left: null,
         drag: {
           isDragging: false,
           left: null,
@@ -127,34 +222,36 @@ export default
     },
     // hooks
     mounted () {
-      this.setDimensions()
+
     },
     methods: {
       setDimensions () {
-        this.width = 240
-        this.height = this.$el.scrollHeight
-        console.log(this.height)
+
+        this.height = Utils.dom.height(this.$el, 'height')
+        this.width = Utils.dom.width(this.$el, 'width')
+        // Utils.dom.css(this.$el, {
+        //   height: Utils.dom.style(this.$el, 'height'),
+        //   width: Utils.dom.style(this.$el, 'width')
+        // })
+        // console.log()
       },
       touchPan (e) {
         if (e.isFirst && !objectGlobal.isDragging) {
+          this.setDimensions()
           objectGlobal.isDragging = this
           this.drag.isDragging = true
           let offset =  Utils.dom.offset(this.$el)
-          console.log(offset)
           this.drag.offsetLeft = Utils.dom.offset(this.$el).left
           this.drag.offsetTop = Utils.dom.offset(this.$el).top
         } else if (this.drag.isDragging) {
-          this.drag.top = e.position.top
-          this.drag.left = e.position.left
+          this.top = e.position.top - this.drag.offsetTop
+          this.left = e.position.left - this.drag.offsetLeft
           if (e.isFinal) {
             objectGlobal.isDragging = null
             this.drag.isDragging = false
           }
-          console.log(this.drag.left)
         }
-      },
-
-      onClick (e) {
+      }
         // // Toggle <ul> next to a clicked <a>
         // e.stopPropagation()
         // e.preventDefault()
@@ -171,14 +268,14 @@ export default
         // }
         // el.classList.toggle('collapsed')
         // console.log(el)
-      }
     }
   }
 </script>
 
 <style lang="stylus">
-
-  @import '~quasar-framework/dist/quasar.mat.styl'
+    @require '../../themes/app.variables.styl'
+    @require '~quasar-framework/src/themes/core/colors.variables.styl'
+    // @require '~quasar-framework/dist/quasar.mat.styl'
     .j-object
       // position relative
       // background rgba(0, 0, 0, 0.75)
@@ -187,7 +284,8 @@ export default
       // margin-top 100px
       color white
       &.dragging
-        position absolute
+        position fixed !important
+        border 2px dotted green
 
 
     .j-object
