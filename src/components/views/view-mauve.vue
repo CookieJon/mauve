@@ -1,20 +1,51 @@
 <template lang="pug">
 <!-- root node required -->
 div
+  pre {{$state}}
   // test
-  div.workbench.fullscreen
-    j-object(v-model='$state')
-    j-object(v-model='$state.imgUrls')
+  // div.workbench.fullscreen
+  //  j-object(v-model='$state')
+  //  j-object(v-model='$state.imgUrls')
 
-<!--   j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
+  // Bitmaps Panel
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
     .j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
       button.circular.primary.small(@click='$actions.addBitmap()')
         i add
     .j-tray.area.panel-item-grow(slot='content')
-      j-collection.frame-type-grid(v-model='$state.bitmaps') -->
+      button(@click='test.testFn()')
+        | HI THERE
+      j-collection.frame-type-grid(v-model='$state.bitmaps')
+
+  // Bitmap Detail Panel
+  j-panel(icon='business', title='Bitmap Detail', :width='370', :height='340', :x='320', :y='635')
+    div(slot='content')
+
 
 </template>
 
+In Xanadu did Kubla Khan  /   At Agra Mogul Shah Jahan
+A stately pleasure-dome decree:  / A sacred place of rest built he
+Where Alph, the sacred river, ran / with
+Through caverns measureless to man
+   Down to a sunless sea.
+So twice five miles of fertile ground
+With walls and towers were girdled round;
+And there were gardens bright with sinuous rills,
+Where blossomed many an incense-bearing tree;
+And here were forests ancient as the hills,
+Enfolding sunny spots of greenery.
+
+
+    <j-panel
+        title="Bitmap Detail"
+        icon="upload"
+         :width="370" :height="140" :x="320" :y="635">
+        >
+        <div slot="content">
+       <!--    <q-range :model.sync="store.currentLevel" :min="1" :max="1000" class='xrotate-90'></q-range> -->
+<!--         </div>
+      </j-panel> -->
 
   <div>
 <!--
@@ -155,15 +186,23 @@ var DragEffects = require('components/custom/DragEffects')
 
 import {JSONEditor} from 'json-editor'
 
+function testObj() {
+  this.test1 = 'test 1'
+  this.testFn = function () {
+    alert('testing ' + this.test1)
+  }
+}
+
 export default {
   name: 'view-mauve',
   data () {
     return {
-      test: [
+      test1: [
         ['One','Two','Three','Four'],
         ['Un','Deux','Trois','Quatre'],
         ['Uno','Dos','Tres','Cuatro']
-      ]
+      ],
+      test: new testObj()
       // searchText: 'this is a test',
       // test: this.$moe.state.test
     }

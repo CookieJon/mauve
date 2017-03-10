@@ -60,6 +60,10 @@ let routes = [
         component: load('views/view-mauve')
       },
       {
+        path: '/view-vip',
+        component: load('views/view-vip')
+      },
+      {
         path: '/view-panels',
         component: load('views/view-panels')
       },
@@ -77,7 +81,13 @@ let routes = [
   // Not found
   {
     path: '*',
-    component: load('layouts/layout-main')
+    component: load('layouts/layout-main'),
+    children: [
+      {
+        path: '*',
+        component: load('views/view-vip')
+      }
+    ]
   }
 
 ]

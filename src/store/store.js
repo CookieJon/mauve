@@ -7,6 +7,7 @@ import MoeObjects from '../moe/objects'
 
 Vue.use(Vuex)
 
+
 //  --- state
 //
 const state = {

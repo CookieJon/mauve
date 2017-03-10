@@ -3,6 +3,17 @@ export default
 <script>
   /* eslint-disable */
   import { Utils } from 'quasar'
+
+  var $ = require('jquery')
+  require('malihu-custom-scrollbar-plugin')
+  require('jquery-mousewheel')
+  require('jquery-ui/draggable')
+  require('jquery-ui/resizable')
+  require('jquery-ui-css/core.css')
+  require('jquery-ui-css/theme.css')
+  require('jquery-ui-css/draggable.css')
+  require('jquery-ui-css/resizable.css')
+
   var jObject = require('components/custom/j-object')
 
   var objectGlobal = {

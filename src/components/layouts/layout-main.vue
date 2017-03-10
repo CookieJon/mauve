@@ -60,9 +60,10 @@
   export default {
     data () {
       return {
-        'selectedBg': '/statics/img/resource/bg/tron/tron7.jpg',
-        // 'selectedBg': '',
+        // 'selectedBg': '/statics/img/resource/bg/tron/tron7.jpg',
+        'selectedBg': '',
         'bgs': [
+          '',
           '/statics/img/resource/bg/tron/tron1.png',
           '/statics/img/resource/bg/tron/tron2.jpg',
           '/statics/img/resource/bg/tron/tron3.jpg',
@@ -90,6 +91,7 @@
     computed: {
       'bgStyle' () {
         return {
+          'background-color': 'white',
           'background-image': 'url(' + this.selectedBg + ')'
         }
       },

@@ -21,6 +21,7 @@ var jUploadZone = require('components/custom/j-upload-zone')
 var jDebug = require('components/custom/j-debug')
 var DragEffects = require('components/custom/DragEffects')
 
+
 function testObj() {
   this.testA = 'My Test'
   this.testFunction = function () {
