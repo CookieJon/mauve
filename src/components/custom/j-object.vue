@@ -28,85 +28,6 @@ export default
 
     }
   }
-Mumtaz Maha
-Mughal
-
-In Agra's Taj Mahal the Mughal Shah Jahan his Mumtaz mourned
-Its minarets and vaulted halls, and walls adorned with finial forms
-A monument from heaven sent with whose domes as sheer as coral beheld behoveful home or hovel
-
-
-of marble finely of marble mark
-
-For she in life beloved wife beheld behoveul
-
-
-
-behold behoveful hole or hovel
-are minarets and vaulted halls, and walls adorned with finial forms
-whose marble marks this monument a sacred place from heaven sent
-to hold beneath beloved wife in life
-
-, a monument from heaven sent
-Whose marble floors and vaulted halls
-Adorn the walls of vaulted halls and minarets a design so fine and novel
-The marble floors of vaulted halls
-whoe finial forms adorn the walls of minarets by fine and novel
-For she in life beloved wife
-
- of Mumtaz his beloved wife
-a sacred space
-did make a place sacred space a monument from heaven sent
-minarets vaulted halls and walls adorned with finial forms
-his beloved wife in life
-to mourn his Mumtaz
-,
-A sacred space the resting place
-a monument from heaven sent
-
-From heaven sent marble halls and finial forms and
-For she in life beloved wife of gerent the His wife in life gerent who could
-
-From Heaven sent a monument whose marble halls and vaulted halls forms novel
-
-Her resting place a sacred space, a monument whose marble form
-from heaven sent
- beloved wife
-
-gerent could
-Her marble in marble form
-A
-d an alcazar
-mansion
-
-A marble
-
-befits the wife
-A For she in life beloved wife
-The tomb Tagore before did
-
- behold behoveful hole or hovel
-.$delete(key)
-
-
-(a palace)
-In life no wife
-               no
-Such novel digs  be more behoveful hovel
-But in life the emperor's wife
-But
-but in life no emperor's wife //
-his Taj Mahal did Mumtaz mourned
-
-
-But
-No taj mahal shah jahan
-Am I whose
-
-behoveful hovel
-
-Mughal emperor Shah Jahan as a mausoleum for his beloved wife
-
 
   export default {
     name: 'j-object',
@@ -126,10 +47,14 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
             'dragging': this.drag.isDragging
           },
           style: {
-            'width': this.width + 'px',
+            //'width': this.width + 'px',
+            'width': '100%',
             'height': this.height + 'px',
             'top': this.top + 'px',
             'left': this.left + 'px'
+          },
+          on: {
+            'click': e => {this.toggleOpen(e)}
           },
           attrs: {
             'draggable': true
@@ -154,12 +79,14 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
           let a =  h('a', {
             attrs: {
               'data-name': k,
-              'data-value': ' ' + v,
-              'data-constructor': ' '
+              'data-value': v + '',
+              'data-constructor': ' ',
+              'data-length': ' '
             }},
             ':')
 
           li.children.push(a)
+
 
           if (_type === 'undefined') {
             // undefined
@@ -175,11 +102,13 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
 
               if (v.length === 0) {
                 li.data.attrs.class = 'array empty'
+                a.data.attrs.dataValue = v
               } else if (v.length > 10) {
                 li.data.attrs.class = 'array limited'
-                a.data.attrs.dataLength = v.length
+                a.data.attrs.dataValue = '['+v.length + 'items]'
               } else {
                 li.data.attrs.class = 'array full'
+                a.data.attrs.dataValue = v
                 li.children.push(h('j-object', {
                   props: {
                     value: v
@@ -192,13 +121,21 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
 
               a.data.attrs['data-constructor'] = v.constructor.name
 
-              if (Object.keys(v).length === 0) {
+              if (['ImageData'].includes(v.constructor.name)) {
                 li.data.attrs.class = 'object empty'
-              } else if (Object.keys(v).length > 10) {
+                a.data.attrs.dataValue = v.constructor.name + '!'
+              } else if (['Ref'].includes(v.constructor.name)) {
+                li.data.attrs.class = 'object empty'
+                a.data.attrs.dataValue = ' ref: ' + v.repo + '.' + v.key
+              } else if (Object.keys(v).length === 0) {
+                li.data.attrs.class = 'object empty'
+                a.data.attrs.dataValue = v
+              } else if (Object.keys(v).length > 20) {
                 li.data.attrs.class = 'object limited'
-                a.data.attrs.dataLength = v.length
+                a.data.attrs.dataValue = '[' + Object.keys(v).length + 'items]'
               } else {
                 li.data.attrs.class = 'object full'
+                a.data.attrs.dataValue = v
                 li.children.push(h('j-object', {
                   props: {
                     value: v
@@ -208,9 +145,11 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
             }
           }
           else if (_type === 'string') {
+            // undefined
+            a.data.attrs.dataValue = v + '!'
             a.data.attrs.class = 'string'
           } else {
-            a.data.attrs.class = 'number'
+            a.data.attrs.dataValue = v + '!'
           }
           return li
         })
@@ -247,6 +186,7 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
         // console.log()
       },
       touchPan (e) {
+        return // DISABLED!!
         if (e.isFirst && !objectGlobal.isDragging) {
           this.setDimensions()
           objectGlobal.isDragging = this
@@ -262,23 +202,26 @@ Mughal emperor Shah Jahan as a mausoleum for his beloved wife
             this.drag.isDragging = false
           }
         }
+      },
+      toggleOpen(e) {
+        // Toggle <ul> next to a clicked <a>
+        e.stopPropagation()
+        e.preventDefault()
+        if (e.target.nodeName !== 'A') return
+        let el = e.target.nextSibling
+        if (!el || el.nodeName !== 'UL') return
+        if (!el.classList.contains('collapsed')) {
+          console.log('collapsing...')
+          el.setAttribute('data-height', el.offsetHeight + 'px')
+          el.style.height = el.getAttribute('data-height')
+        } else {
+          console.log('expanding...')
+          el.style.height = el.getAttribute('data-height')
+        }
+        el.classList.toggle('collapsed')
+        console.log(el)
       }
-        // // Toggle <ul> next to a clicked <a>
-        // e.stopPropagation()
-        // e.preventDefault()
-        // if (e.target.nodeName !== 'A') return
-        // let el = e.target.nextSibling
-        // if (!el || el.nodeName !== 'UL') return
-        // if (!el.classList.contains('collapsed')) {
-        //   console.log('collapsing...')
-        //   el.setAttribute('data-height', el.offsetHeight + 'px')
-        //   el.style.height = el.getAttribute('data-height')
-        // } else {
-        //   console.log('expanding...')
-        //   el.style.height = el.getAttribute('data-height')
-        // }
-        // el.classList.toggle('collapsed')
-        // console.log(el)
+
     }
   }
 </script>

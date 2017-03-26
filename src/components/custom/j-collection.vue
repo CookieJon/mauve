@@ -4,13 +4,16 @@
       ref="container"
       sortable="options.sortable"
       @sort='onArrange'
+      @click.native='e => {console.log(e)}'
+
       :class="this.class"
       class="frame upload-zone"
     >
   <!--   <div v-for='id in value'>{{$state.repo.bitmaps[id]}}</div> -->
        <j-item
-        v-for='id in value'
-        :value='$state.repo.bitmaps[id]'>
+        v-for='item in value'
+        @dblclick='$emit("dblclick", $event)'
+        :value='item'>
       </j-item>
     </div>
   </div>
@@ -24,7 +27,7 @@
   // var Bitmap = require('../../moe/moe.bitmap.js')
   var jItem = require('components/custom/j-item')
   var jDebug = require('components/custom/j-debug')
-  //import { Utils } from 'quasar'
+  import { Utils } from 'quasar'
   import Sortable from 'sortablejs'
 
   export default {
@@ -43,7 +46,7 @@
     },
     data () {
       return {
-        test: null,
+        test: Utils.extend({}, this.value),
         myValue: this.value,
         options: {
           sortable: {
@@ -96,7 +99,7 @@
       //   // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
       // },
       onArrange (e) {
-        let tmp = JSON.parse(JSON.stringify(this.value))
+        let tmp = Utils.extend({}, this.value)
         tmp.splice(e.newIndex, 0, tmp.splice(e.oldIndex, 1)[0])
         this.$emit('input', tmp)
 

@@ -1,35 +1,35 @@
 <template>
   <q-layout v-bind:style="bgStyle">
 
-   <!--
-    <div slot="header" class="toolbar bg-primary shadow-2 z-marginal-plus-1">
-      <button>
-        <i>menu</i>
-      </button>
-      <button class="left-drawer-opener">
-        <i>menu</i>
-      </button>e
-      <q-toolbar-title :padding="3">
-        quaZ-APP!
+ <!--
+  <div slot="header" class="toolbar bg-primary shadow-2 z-marginal-plus-1">
+    <button>
+      <i>menu</i>
+    </button>
+    <button class="left-drawer-opener">
+      <i>menu</i>
+    </button>e
+    <q-toolbar-title :padding="3">
+      quaZ-APP!
 
-      </q-toolbar-title>
+    </q-toolbar-title>
 
-      <button>
-        <i>mail</i>
-      </button>
-      <button>
-        <i>alarm</i>
-      </button>
-    </div>
+    <button>
+      <i>mail</i>
+    </button>
+    <button>
+      <i>alarm</i>
+    </button>
+  </div>
 -->
 
      <!-- Navigation Tabs    -->
-<!--      <q-tabs slot="navigation" class="text-white">
-      <q-tab route="/view-mauve" icon="settings_system_daydream" exact>Mauve</q-tab>
-      <q-tab route="/view-panels" icon="mail" exact>Panels</q-tab>
-      <q-tab route="/view-sortable" icon="alarm" exact>Sortable</q-tab>
-      <q-tab route="/view-editor" icon="help" exact>Editor</q-tab>
-    </q-tabs> -->
+       <q-tabs slot="navigation" class="text-white">
+        <q-tab route="/view-mauve" icon="settings_system_daydream" exact>Mauve</q-tab>
+        <q-tab route="/view-panels" icon="mail" exact>Panels</q-tab>
+        <q-tab route="/view-sortable" icon="alarm" exact>Sortable</q-tab>
+        <q-tab route="/view-editor" icon="help" exact>Editor</q-tab>
+      </q-tabs>
     <q-select
         type="radio"
         :value="selectedBg"

@@ -4,65 +4,44 @@ div
   pre {{$state}}
   // test
   // div.workbench.fullscreen
-  //  j-object(v-model='$state')
+  //   j-object(v-model='$state')
   //  j-object(v-model='$state.imgUrls')
 
-  // Bitmaps Panel
-  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
-    .j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
+  // DEBUG
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='720', :x='10', :y='10')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-object(v-model='$state')
+
+  // BITMAPS
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='340', :y='10')
+    div.j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
       button.circular.primary.small(@click='$actions.addBitmap()')
         i add
-    .j-tray.area.panel-item-grow(slot='content')
-      button(@click='test.testFn()')
-        | HI THERE
-      j-collection.frame-type-grid(v-model='$state.bitmaps')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-collection.frame-type-grid(v-model='$state.bitmaps', @click='$actions.setActiveBitmap(bitmap)')
 
-  // Bitmap Detail Panel
-  j-panel(icon='business', title='Bitmap Detail', :width='370', :height='340', :x='320', :y='635')
-    div(slot='content')
-
-
+  // ARTWORK PREVIEW
+  j-panel(icon='business', title='Artwork', :width='320', :height='420', :x='340', :y='550')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-canvas.frame-type-grid(image-data='$state.activeBitmap && $state.activeBitmap.imageData ? $state.activeBitmap.imageData : null')
 </template>
 
-In Xanadu did Kubla Khan  /   At Agra Mogul Shah Jahan
-A stately pleasure-dome decree:  / A sacred place of rest built he
-Where Alph, the sacred river, ran / with
-Through caverns measureless to man
-   Down to a sunless sea.
-So twice five miles of fertile ground
-With walls and towers were girdled round;
-And there were gardens bright with sinuous rills,
-Where blossomed many an incense-bearing tree;
-And here were forests ancient as the hills,
-Enfolding sunny spots of greenery.
+<div>
 
 
-    <j-panel
-        title="Bitmap Detail"
-        icon="upload"
-         :width="370" :height="140" :x="320" :y="635">
-        >
-        <div slot="content">
-       <!--    <q-range :model.sync="store.currentLevel" :min="1" :max="1000" class='xrotate-90'></q-range> -->
-<!--         </div>
-      </j-panel> -->
+  <!--
+   JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
 
-  <div>
-<!--
- JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
+   Axios / GraphQL
 
- Axios / GraphQL
+   orm, oauth, perhaps websockets
 
- orm, oauth, perhaps websockets
+   graphql
+   -->
 
- graphql
- -->
-
-
-
-      <div style="border:1px solid blue;position:relative">
-        <j-object v-model="$state"></j-object>
-      </div>
+  <div style="border:1px solid blue;position:relative">
+    <j-object v-model="$state"></j-object>
+  </div>
 
 
       <!-- PANEL :: ARTWORK PREVIEW -->
