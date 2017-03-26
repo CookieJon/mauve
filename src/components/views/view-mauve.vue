@@ -2,36 +2,45 @@
 <!-- root node required -->
 div
   // test
-  div.workbench.fullscreen
-    j-object(v-model='$state')
-    j-object(v-model='$state.imgUrls')
+  // div.workbench.fullscreen
+  //   j-object(v-model='$state')
+  //  j-object(v-model='$state.imgUrls')
 
-  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='10', :y='10')
-    .j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
+  // DEBUG
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='720', :x='10', :y='10')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-object(v-model='$state')
+
+  // BITMAPS
+  j-panel(icon='business', title='Bitmaps', :width='320', :height='420', :x='340', :y='10')
+    div.j-panel-toolbar.text-black(slot='toolbar', style='padding:4px;')
       button.circular.primary.small(@click='$actions.addBitmap()')
         i add
-    .j-tray.area.panel-item-grow(slot='content')
-      j-collection.frame-type-grid(v-model='$state.bitmaps')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-collection.frame-type-grid(v-model='$state.bitmaps', @click='$actions.setActiveBitmap(bitmap)')
 
+  // ARTWORK PREVIEW
+  j-panel(icon='business', title='Artwork', :width='320', :height='420', :x='340', :y='550')
+    div.j-tray.area.panel-item-grow(slot='content')
+      j-canvas.frame-type-grid(image-data='$state.activeBitmap && $state.activeBitmap.imageData ? $state.activeBitmap.imageData : null')
 </template>
 
-
-  <div>
-<!--
- JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
-
- Axios / GraphQL
-
- orm, oauth, perhaps websockets
-
- graphql
- -->
+<div>
 
 
+  <!--
+   JS Path: Node + Express or possibly Adonisjs, Koa (have to google what it even is sigh), don't fiddle around with API or form schemas just yet, say hello briefly to Mongo, and dive into postgresql (fallingback to old faithful mySQL if it's all too hard)
 
-      <div style="border:1px solid blue;position:relative">
-        <j-object v-model="$state"></j-object>
-      </div>
+   Axios / GraphQL
+
+   orm, oauth, perhaps websockets
+
+   graphql
+   -->
+
+  <div style="border:1px solid blue;position:relative">
+    <j-object v-model="$state"></j-object>
+  </div>
 
 
       <!-- PANEL :: ARTWORK PREVIEW -->

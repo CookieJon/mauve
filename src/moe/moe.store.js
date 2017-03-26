@@ -8,7 +8,7 @@
 /* eslint-disable */
 
 import MoeObjects from '../moe/objects'
-
+import Vue from 'vue'
 // Global mixing components
 var jArtwork = require('components/custom/j-artwork')
 var jComponent = require('components/custom/j-component')
@@ -25,20 +25,6 @@ var DragEffects = require('components/custom/DragEffects')
 //  --- state
 //
 let state = {
-  objEmpty: {},
-  objFull: {
-    aString: "Hi Therr!",
-    aNumber: 42.0009,
-    aBoolean: true,
-    anArray: [
-      {name: "Jon", age: 44, handsome: true},
-      {name: "Penny", age: 34, handsome: true},
-      {name: "Rob", age: 24, handsome: true},
-    ],
-    anEmptyArray: [],
-    testA: null,
-    testB: undefined
-  },
   repo: {
     bitmaps: {}
   },
@@ -81,10 +67,14 @@ const actions = {
     // }
     var bitmap = new MoeObjects.Bitmap()
     var src = state.imgUrls[Math.floor(Math.random() * state.imgUrls.length)]
-    uid++
-    bitmap.init({src, uid})
-    state.repo.bitmaps[uid] = bitmap
-    state.bitmaps.push(uid)
+    var uuid = 'bitmap_000' + uid++
+
+    // state.repo.bitmaps[uuid] = bitmap
+    Vue.set(state.repo.bitmaps, uuid, bitmap)
+    bitmap.init({src, uuid})
+    let ref = new Ref()
+    state.bitmaps.push(ref)
+    ref.init({repo: 'bitmaps', key: uuid})
   },
 
   setActiveBitmap (bitmap) {
@@ -94,7 +84,7 @@ const actions = {
   addArtwork (payload) {
     var artwork = new MoeObjects.Artwork()
     artwork.init({})
-    state.artworks.push(artwork)
+   // state.artworks.push(new Ref())
   },
 
   setActiveArtwork (bitmap) {
@@ -128,6 +118,22 @@ const Mixin = {
 }
 
 // var Vue // bind on install
+function Ref () {
+  this._type = 'Ref'
+  this.repo = null
+  this.key = null
+}
+Ref.prototype = {
+  constructor: Ref,
+  init: function (options) {
+    this.repo = options.repo
+    this.key = options.key
+  },
+  getRef () {
+    return state.repos[this.repo]
+  }
+
+}
 
 function install (Vue, options) {
   // if (install.installed) { return }

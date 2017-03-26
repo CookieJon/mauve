@@ -375,7 +375,6 @@
 
 
   .j-panel-header
-    height 16px
     cursor pointer
     z-index 10
     xflex-shrink 0

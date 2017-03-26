@@ -28,7 +28,7 @@ export default {
       default: 256
     },
     imageData: {
-      type: ImageData
+      // type: ImageData
     },
     image: {
       type: Image
@@ -47,7 +47,7 @@ export default {
   },
   watch: {
     imageData (newVal, oldVal) {
-      console.log('** canvas watch imageData **', newVal.width, newVal.height, newVal.data.length)
+      console.log('** canvas watch imageData **', newVal)
       this.updateImage()
     }
   },
