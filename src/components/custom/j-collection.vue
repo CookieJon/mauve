@@ -13,7 +13,7 @@
        <j-item
         v-for='item in value'
         @dblclick='$emit("dblclick", $event)'
-        :value='item'>
+        :value='$state.repo[item.repo][item.item]||null'>
       </j-item>
     </div>
   </div>
@@ -65,10 +65,21 @@
     },
     mounted () {
       // var me = this
-      this.myValue = this.value
       Sortable.create(this.$refs.container)
     },
     methods: {
+      onArrange (e) {
+        let tmp = Utils.extend({}, {val: this.value}).val
+        tmp.splice(e.newIndex, 0, tmp.splice(e.oldIndex, 1)[0])
+        this.$emit('input', tmp)
+
+        // this.$emit('arrange', {
+        //   obj: this.item,
+        //   fromIndex: e.oldIndex,
+        //   toIndex: e.newIndex
+        // })
+        // console.log(e)
+      }      
       // onClick (e) {
       //   console.log(e)
       //   this.$emit('click')
@@ -98,18 +109,7 @@
       //   }
       //   // $vm.$refs.fileinput.files = files // this code line fires your 'fileCloadImagehanged' function (imageLoader change event)
       // },
-      onArrange (e) {
-        let tmp = Utils.extend({}, this.value)
-        tmp.splice(e.newIndex, 0, tmp.splice(e.oldIndex, 1)[0])
-        this.$emit('input', tmp)
 
-        // this.$emit('arrange', {
-        //   obj: this.item,
-        //   fromIndex: e.oldIndex,
-        //   toIndex: e.newIndex
-        // })
-        // console.log(e)
-      }
     }
   }
 </script>

@@ -124,9 +124,9 @@ export default
               if (['ImageData'].includes(v.constructor.name)) {
                 li.data.attrs.class = 'object empty'
                 a.data.attrs.dataValue = v.constructor.name + '!'
-              } else if (['Ref'].includes(v.constructor.name)) {
+              } else if (['ref'].includes(v.constructor.name)) {
                 li.data.attrs.class = 'object empty'
-                a.data.attrs.dataValue = ' ref: ' + v.repo + '.' + v.key
+                a.data.attrs['data-value'] = ' ref: xS' // + v.repo + '.' + v.key
               } else if (Object.keys(v).length === 0) {
                 li.data.attrs.class = 'object empty'
                 a.data.attrs.dataValue = v
@@ -135,7 +135,7 @@ export default
                 a.data.attrs.dataValue = '[' + Object.keys(v).length + 'items]'
               } else {
                 li.data.attrs.class = 'object full'
-                a.data.attrs.dataValue = v
+                a.data.attrs.dataValue = v + ''
                 li.children.push(h('j-object', {
                   props: {
                     value: v
