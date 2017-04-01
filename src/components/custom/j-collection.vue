@@ -9,7 +9,9 @@
       :class="this.class"
       class="frame upload-zone"
     >
-  <!--   <div v-for='id in value'>{{$state.repo.bitmaps[id]}}</div> -->
+    <div  v-for='item in value'>
+      {{ item }}s
+    </div>
        <j-item
         v-for='item in value'
         @dblclick='$emit("dblclick", $event)'
