@@ -61,7 +61,7 @@
     data () {
       return {
         // 'selectedBg': '/statics/img/resource/bg/tron/tron7.jpg',
-        'selectedBg': '',
+        'selectedBg': '/statics/img/resource/bg/tron/tron1.png',
         'bgs': [
           '',
           '/statics/img/resource/bg/tron/tron1.png',

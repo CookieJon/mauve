@@ -66,6 +66,13 @@ let ui = {
 let uid = 0
 const actions = {
 
+  getRef (ref, field) {
+    let obj = state.repos[ref.repo][ref.key]
+    if (!obj) return null
+    if (field) return obj[field]
+    return obj
+  },
+
   addBitmap (payload) {
     // @payload: {
     //   bitmap:     // <- create from template bitmap
@@ -76,17 +83,21 @@ const actions = {
     // }
     var bitmap = new MoeObjects.Bitmap()
     var src = state.imgUrls[Math.floor(Math.random() * state.imgUrls.length)]
-    var uuid = 'bitmap_000' + uid++
-
-    // state.repo.bitmaps[uuid] = bitmap
-    Vue.set(state.repo.bitmaps, uuid, bitmap)
-    bitmap.init({src, uuid})
+    var id = 'bitmap_000' + uid++
+    var testobj = { test: 'pass' }
+   //  state.repo.bitmaps[id] = bitmap
+   // state.repo.bitmaps[id] = bitmap
+    Vue.set(state.repo.bitmaps, id, bitmap)
+    bitmap.init({src, id})
+    // 
     let ref = new Ref()
-    state.bitmaps.push(ref)
-    ref.init({repo: 'bitmaps', key: uuid})
+    // state.bitmaps.push(ref)
+    state.bitmaps.push(bitmap)
+    ref.init({repo: 'bitmaps', key: id})
   },
 
   setActiveBitmap (bitmap) {
+    console.log(':-)')
     state.activeBitmap = bitmap
   },
 

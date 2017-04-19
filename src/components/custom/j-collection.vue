@@ -4,26 +4,29 @@
       ref="container"
       sortable="options.sortable"
       @sort='onArrange'
-      @click.native='e => {console.log(e)}'
-
       :class="this.class"
       class="frame upload-zone"
     >
-    <div  v-for='item in value'>
-      {{ item }}s
-    </div>
-       <j-item
-        v-for='item in value'
-        @dblclick='$emit("dblclick", $event)'
-        :value='$state.repo[item.repo][item.item]||null'>
-      </j-item>
+
+    <j-item
+      v-for='item, i in value'
+      @click='onClickItem(i, $event)'
+      :value='value[i]'
+      xvalue='$state.repo[item.repo][item.key]||null'>
+    </j-item>
+    
     </div>
   </div>
 </template>
+<!--
 
+    <div  v-for='item in value'>
+      {{ item.repo + ' ' + item.key }}
+    </div>
       @dragenter.stop.prevent="onDragEnter"
       @dragover.stop.prevent="onDragOver"
       @drop.stop.prevent="onDrop"
+      -->
 <script>
 /* eslint-disable */
   // var Bitmap = require('../../moe/moe.bitmap.js')
@@ -81,18 +84,17 @@
         //   toIndex: e.newIndex
         // })
         // console.log(e)
-      }      
-      // onClick (e) {
-      //   console.log(e)
-      //   this.$emit('click')
-      // },
+      },
+      onClickItem (index, e) {
+        this.$emit("clickItem", this.value[index])
+      },
       // onDragEnter (e) {
       //   e.stopPropagation()
       //   e.preventDefault()
       // },
       // onDragOver (e) {
       //   e.stopPropagation()
-      //   e.preventDefault()
+      //   <e class="preventDefault"></e>
       // },
       // onDrop (e) {
       //   console.log('onDrop:', e, e.dataTransfer.files)

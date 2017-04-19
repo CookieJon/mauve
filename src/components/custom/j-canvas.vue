@@ -69,8 +69,8 @@ export default {
     },
     // get canvas FROM...
     fromImageData (imageData) {
-      this.myImageData = imageData
-      this.updateImage()
+      // this.myImageData = imageData
+      // this.updateImage()
     },
     fromRGBA (rgba) { // @rgba = UInt8Array
       for (var i = 0, l = rgba.length; i < l; i++) {

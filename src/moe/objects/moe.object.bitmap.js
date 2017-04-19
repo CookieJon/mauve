@@ -11,6 +11,9 @@ export default Bitmap
 
 var iq = require('image-q')
 var ColorUtils = require('../../moe/utils/moe.utils.color.js')
+
+import { Utils } from 'quasar'
+
 console.log(ColorUtils)
 
 function Bitmap (options) {
@@ -22,7 +25,7 @@ function Bitmap (options) {
 
   this._type = 'Bitmap'
   this.title = 'Untitled'
-  this.uid = null
+  this.id = null
 
   this.src = null
 
@@ -32,14 +35,14 @@ function Bitmap (options) {
 
   this.pixels_key = null // Original pixels
   this.palette_key = null // Original palette
-  this.imageData_key = null // context.getImageData(0,0,this.width, this.height).data
+  // this.imageData_key = null // context.getImageData(0,0,this.width, this.height).data
 
   this.pixels = null // Uint8Array[.length]   Output/used pixels ?>??  needed?
   this.palette = null // Uint8Array[256]     Output/used palette
 
-  this.image = null // for loading image and copying to canvas
+  // this.image = null // for loading image and copying to canvas
   // this.canvas = document.createElement('canvas') // for generating imageData (only available w. canvas!)
-  this.imageData = null // context.getImageData(0,0,this.width, this.height).data
+  this.imageData = null
 
   this.stats = {
     tags: null,
@@ -58,10 +61,9 @@ Bitmap.prototype = {
   init (options) {
 
     this.options = options
-    this.uid = options.uid
+    this.id = options.id
 
     var self = this
-
 
     //  Create from file
     //
@@ -94,7 +96,7 @@ Bitmap.prototype = {
         self.title = 'Welcome Aboard'
         setTimeout(function() {
           self.normalisePalette(img)
-          self.image = img
+          // self.image = img
         }, 1);
 
       }
@@ -105,6 +107,7 @@ Bitmap.prototype = {
 
   normalisePalette (img) {
 
+
     if (1 == 1) {
       // * scale img to 256x256 via canvas
       let canvas = document.createElement('canvas')
@@ -112,7 +115,9 @@ Bitmap.prototype = {
       canvas.height = 256
       let ctx = canvas.getContext('2d')
       ctx.drawImage(img, 0, 0, 256, 256)
-      this.imageData = ctx.getImageData(0, 0, 256, 256)
+      
+     // this.imageData = Utils.extend(true, {}, ctx.getImageData(0, 0, 256, 256))
+      // let imgData = ctx.getImageData(0, 0, 256, 256)
 
       // * material colors
       var colorFrom = parseInt(Math.random() * 150)
@@ -138,11 +143,15 @@ Bitmap.prototype = {
 
       var outPointContainer = iqImage.quantize(inPointContainer, iqPalette)
       var uint8array = outPointContainer.toUint8Array()
-      // var imageData = canvas.getContext('2d').getImageData(0, 0, 256, 256)
+      var imageData = canvas.getContext('2d').getImageData(0, 0, 256, 256)
+      // Utils.extend(true, this.imageData, imageData)
+      this.imageData = new ImageData(256, 256)
+     //this.imageData.data.set(data)
       for (var i = 0; i < uint8array.length; i++) {
         this.imageData.data[i] = uint8array[i]
       }
-      this.stats.tags = this.imageData
+      
+      // tags
 
       // draw palette
       //

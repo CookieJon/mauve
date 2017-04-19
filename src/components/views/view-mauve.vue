@@ -1,7 +1,7 @@
 <template lang="pug">
 <!-- root node required -->
 div
-  pre {{$state}}
+  // pre {{$state}}
   // test
   // div.workbench.fullscreen
   //   j-object(v-model='$state')
@@ -18,12 +18,14 @@ div
       button.circular.primary.small(@click='$actions.addBitmap()')
         i add
     div.j-tray.area.panel-item-grow(slot='content')
-      j-collection.frame-type-grid(v-model='$state.bitmaps', @click='$actions.setActiveBitmap(bitmap)')
+      j-collection.frame-type-grid(v-model='$state.bitmaps', @clickItem='b => {$actions.setActiveBitmap(b)}')
 
   // ARTWORK PREVIEW
   j-panel(icon='business', title='Artwork', :width='320', :height='420', :x='340', :y='550')
     div.j-tray.area.panel-item-grow(slot='content')
-      j-canvas.frame-type-grid(image-data='$state.activeBitmap && $state.activeBitmap.imageData ? $state.activeBitmap.imageData : null')
+      | ss {{ $state.activeBitmap ? $state.activeBitmap.id : 'none'}}
+      j-canvas.frame-type-grid(:image-data='previewImageData')
+      | dd
 </template>
 
 <div>
@@ -43,102 +45,6 @@ div
     <j-object v-model="$state"></j-object>
   </div>
 
-
-      <!-- PANEL :: ARTWORK PREVIEW -->
-<!--       <j-panel
-        title="Artwork"
-        icon="android"
-         :width="256" :height="256" :x="610" :y="440">
-        >
-        <div slot="content" class="j-tray area panel-item-grow">
-          <j-canvas :image-data="$state.activeArtwork ? $state.activeArtwork : null"></j-canvas>
-        </div>
-      </j-panel> -->
-
-
-      <!-- PANEL :: BITMAPS -->
-   <!--    <j-panel icon="business" title="Bitmaps" :width="320" :height="420" :x="10" :y="10">
-
-          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='$actions.addBitmap()'><i>add</i></button>
-          </div>
-
-          <div slot="content" class="j-tray area panel-item-grow">
-
-           <j-collection
-              v-model="$state.bitmaps"
-              class='frame-type-grid'
-            ></j-collection>
-          </div>
-
-      </j-panel> -->
-
-      <!-- PANEL :: FILTERS -->
-<!--       <j-panel icon="business" title="Filters" :width="320" :height="420" :x="330" :y="10">
-
-          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='$actions.addFilter()'><i>add</i></button>
-          </div>
-
-          <div slot="content" class="j-tray area panel-item-grow">
-
-           <j-collection
-              v-model="$state.filters"
-              class='frame-type-grid'
-            ></j-collection>
-          </div>
-
-      </j-panel> -->
-
-
-
-      <!-- PANEL :: ARTWORKS -->
-    <!--   <j-panel icon="business" title="Artworks" :width="320" :height="420" :x="640" :y="10">
-
-          <div slot="toolbar" class='j-panel-toolbar text-black' style='padding:4px;'>
-            <button class="circular primary small" @click='$actions.addArtwork()'><i>add</i></button>
-          </div>
-
-          <div slot="content" class="j-tray area panel-item-grow">
-
-           <j-collection
-              @click='$actions.setActiveArtwork'
-              v-model="$state.artworks"
-              class='frame-type-grid'
-            ></j-collection>
-          </div>
-
-      </j-panel> -->
-      <!-- PANEL :: DEBUG -->
-      <!--
-      <j-panel title='Debug' :width="380" :height="750" :x="10" :y="440">
-        <div slot="content">
-
-          <j-debug :value="$state"></j-debug>
-
-          <label>TEST:<input type="text" v-model="test" /></label><br />
-          <label>CTEST:<input type="text" v-model="$state.test" /></label><br />
-          <label>DTEST:<input type="text" v-model="dtest" /></label><br />
-
-          <label>TEST:<input type="text" :value="test" /></label><br />
-          <label>CTEST:<input type="text" :value="$state.test" /></label><br />
-          <label>DTEST:<input type="text" :value="dtest" /></label><br />
-        </div>
-      </j-panel> -->
-
-
-<!--       <j-panel
-        title="Bitmap Detail"
-        icon="upload"
-         :width="370" :height="140" :x="320" :y="635">
-        >
-        <div slot="content">
-       <!--    <q-range :model.sync="store.currentLevel" :min="1" :max="1000" class='xrotate-90'></q-range> -->
-<!--         </div>
-      </j-panel> -->
-
-      <!--
-        :options="" -->
 
 
 
@@ -184,6 +90,12 @@ export default {
       test: new testObj()
       // searchText: 'this is a test',
       // test: this.$moe.state.test
+    }
+  },
+  computed: {
+    previewImageData () {
+      console.log('computed previewImageData ' + this.$state.activeBitmap.id)
+      return this.$state.activeBitmap ? this.$state.activeBitmap.imageData : null  
     }
   },
   components: {
