@@ -323,7 +323,7 @@ $(document).ready(function() {
                 </nav>
                   <p>
                     <div class="checkbox switch">
-                        <label for="switch-{{ _uid }}">
+                        <label for="switch-{{ _uid }}"> 
                             <input class="access-hide" id="switch-{{ _uid }}" name="switch-{{ _uid }}" type="checkbox"><span class="switch-toggle"></span>
                         </label>
                     </div>

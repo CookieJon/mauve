@@ -8,7 +8,8 @@
 <script>
 export default {
   // camelCase in JavaScript
-  props: ['model'],
+  props: {
+  },
   data () {
     return {}
   }

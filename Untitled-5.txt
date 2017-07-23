@@ -1,0 +1,36 @@
+
+
+...12.....12........12....12........12.....12......12......12.....12_.....34_......34......_34....._12.....12.....['']...['']......['']..['']......['']...['']...\[*-]....['']....[".]....[._]....[__]....[_.]....[."]....['']...└[__]┘.└[__]┘....└[__]┘┌[__]┘....└[__]┐.┌[__]┐...[__]\..>[__]<...[_<]....[<.]...<[..]>...[.>]....[>_]...<[__]>....||...../<........>\....<\......../>..../..\...../|......||......|\......||....../|......||......|\......||...
+
+
+1 |NQEQCQDQCQEQFQFQEQ_EP_FPF_PE_QEQM 
+2 |MLNLFLMLFLNLN\[*-]DLH" ]H _]HJH_ ]H "]DLM
+3 |KIKINKIGINKJ┐ GJ┐N[J\M>[J<N[_<]H<.]N<[..]>N[.>]H>_]N<[J> 
+4 |NTE/<C>ZD<ZC/>D/MZE/|FTF|ZFTF/|FTF|ZFTN.
+5 |----------------------------------------------------------------------------------------------------------------
+
+x=`YYXWVUTTSR`.match(/../g)
+
+// abcdefghijklmnopqrstuvwxyz
+
+/*
+Z\\YZ/X|┌W┐|V)|U|(T||S┐/RZ┌  Q${x[r]}P${x[r+1]
+Ox
+N...
+M..
+L['']
+K.└[
+J__]
+IJ┘
+HD[
+G┌[
+FNN
+ENM
+DN.
+CFM
+BNQEQCQDQCQEQFQFQEQ_EP_FPF_PE_QEQMMLNLFLMLFLNLN\[*-]DLH" ]H _]HJH_ ]H "]DLMKIKINKIGINKJ┐ GJ┐N[J\M>[J<N[_<]H<.]N<[..]>N[.>]H>_]N<[J>NTE/<C>ZD<ZC/>D/MZE/|FTF|ZFTF/|FTF|ZFTN.
+A
+
+Z\\YZ/X|┌W┐|V)|U|(T||S┐/RZ┌Q${x[r]}P${x[r+1]OxN...M..L['']K.└[J__]IJ┘HD[G┌[FNNENMDN.CFMBNQEQCQDQCQEQFQFQEQ_EP_FPF_PE_QEQMMLNLFLMLFLNLN\[*-]DLH" ]H _]HJH_ ]H "]DLMKIKINKIGINKJ┐ GJ┐N[J\M>[J<N[_<]H<.]N<[..]>N[.>]H>_]N<[J>NTE/<C>ZD<ZC/>D/MZE/|FTF|ZFTF/|FTF|ZFTN.
+
+*/

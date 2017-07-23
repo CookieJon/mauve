@@ -343,7 +343,7 @@
     align-items stretch
     align-content flex-start
     zbackground-clip border-box
-    min-width 250px
+    min-width 50px
     border-top-left-radius 2px
     border-top-right-radius 2px
     box-shadow 0 3px 6px 3px rgba(1,1,1,0.4)

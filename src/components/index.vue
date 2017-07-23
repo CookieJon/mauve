@@ -83,12 +83,12 @@ export default {
   mounted () {
     this.$nextTick(() => {
       document.addEventListener('mousemove', this.move)
-      document.addEventListener('touchmove', this.move)
+      // document.addEventListener('touchmove', this.move)
     })
   },
   beforeDestroy () {
     document.removeEventListener('mousemove', this.move)
-    document.removeEventListener('touchmove', this.move)
+    // document.removeEventListener('touchmove', this.move)
   }
 }
 </script>

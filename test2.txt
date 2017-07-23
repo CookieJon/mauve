@@ -1,0 +1,38 @@
+
+
+a=0,y=0,z=0,j=0,window.onkeyup=(b=>(40==(k=b.keyCode)?D():2*z*(d=37==k?2:39==k?.5:0)&65|j*d&a||(z*=d),R())),
+
+
+Z=(a=>(y=6,z=12/(new Date%3+1))),R=(b=>{j=z<<5*y;for(o="",i=30;i--;)o+=1<<i&(a|j)?"#":"_",o+=i%5?"":"<br>";document.body.innerHTML=o}),
+
+
+
+D=(b=>(!y||a&j>>5?(y>4?a=0:16^16&(a|=j)>>5*y||(a=a>>5*(y+1)<<5*y|a&-1>>>5*-(y+1)>>5),Z()):(y--,j<<=5),R())),setInterval(D,700),Z();
+
+TOTAL: 11 + 374 = 385
+
+###Tweet 1 - P0 (11 bytes)
+    chrome a.js
+
+###Tweet 2 - P1 (108 bytes)
+    a=0,y=0,z=0,j=0,window.onkeyup=(b=>(40==(k=b.keyCode)?D():2*z*(d=37==k?2:39==k?.5:0)&65|j*d&a||(z*=d),R())),
+
+###Tweet 3 - P2 (135 bytes)
+    Z=(a=>(y=6,z=12/(new Date%3+1))),R=(b=>{j=z<<5*y;for(o="",i=30;i--;)o+=1<<i&(a|j)?"#":"_",o+=i%5?"":"<br>";document.body.innerHTML=o}),
+
+###Tweet 4 - P3 (122 bytes)
+    D=(b=>(!y||a&j>>5?(y>4?a=0:31^31&(a|=j)>>5*y||(a=a>>5*(y+1)<<5*y|a&-1>>>5*-(y+1)>>5),Z()):y--,R())),setInterval(D,700),Z()
+
+
+D=(b=>(!y||a&j>>5?(y>4?a=0:16^16&(a|=j)>>5*y||(a=a>>5*(y+1)<<5*y|a&-1>>>5*-(y+1)>>5),Z()):(y--,j<<=5),R())),setInterval(D,700),Z();Z=(a=>(y=6,z=12/(new Date%3+1))),R=(b=>{j=z<<5*y;for(o="",i=30;i--;)o+=1<<i&(a|j)?"#":"_",o+=i%5?"":"<br>";document.body.innerHTML=o}),a=0,y=0,z=0,j=0,window.onkeyup=(b=>(40==(k=b.keyCode)?D():2*z*(d=37==k?2:39==k?.5:0)&65|j*d&a||(z*=d),R())),
+
+
+
+###Tweet 2 - P1 (108 bytes)
+    a=0,y=0,z=0,j=0,window.onkeyup=(b=>(40==(k=b.keyCode)?D():2*z*(d=37==k?2:39==k?.5:0)&65|j*d&a||(z*=d),R())),
+
+###Tweet 3 - P2 (135 bytes)
+    Z=(a=>(y=30,z=12/(new Date%3+1))),R=(b=>{j=z<<y;for(o="",i=30;i--;)o+=1<<i&(a|j)?"#":"_",o+=i%5?"":"<br>";document.body.innerHTML=o}),
+
+###Tweet 4 - P3 (131 bytes)
+    D=(b=>(!y||a&j>>5?(y>20?a=0:31^31&(a|=j)>>y||(a=a>>y+5<<y|a&-1>>>5-y>>5),Z()):y-=5,R())),setInterval(D,700),Z()

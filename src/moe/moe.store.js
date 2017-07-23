@@ -37,6 +37,11 @@ let state = {
   repo: {
     bitmaps: {}
   },
+  workbench: {
+    editors: []
+  },
+  leverPercent: 50,
+  leverValue: 50,
   test: 'Hi Jon',
   bitmaps: [],
   artworks: [],

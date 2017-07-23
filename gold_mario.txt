@@ -1,0 +1,63 @@
+data=[...`
+
+ b3 o0 r5 g b6 o0 r8
+ 3050608
+bor
+
+
+f=(a,b,c,d)=>{
+
+    s="bbbrrrrrbbbb
+    bbrrrrrrrrrb
+    bbgggoogobbb
+    bgogooogooob
+    bgoggooogooo
+    bggooooggggb
+    bbbooooooobb
+    bbggrgggbbbb
+    bgggrggrgggb
+    ggggrrrrgggg
+    oogrorrorgoo
+    ooorrrrrrooo
+    oorrrrrrrroo
+    bbrrrbbrrrbb
+    bgggbbbbgggb
+    ggggbbbbgggg"
+
+    s=[...s]
+    o=""
+
+    z=[a,b,c,d]
+    x=0
+    c=0
+
+    s.map(v=>{
+        if (v===z[x]) {
+
+        }
+
+    })
+
+}
+
+]
+
+40690
+
+
+bbbrrrrrbbbb
+bbrrrrrrrrrb
+bbgggoogobbb
+bgogooogooob
+bgoggooogooo
+bggooooggggb
+bbbooooooobb
+bbggrgggbbbb
+bgggrggrgggb
+ggggrrrrgggg
+oogrorrorgoo
+ooorrrrrrooo
+oorrrrrrrroo
+bbrrrbbrrrbb
+bgggbbbbgggb
+ggggbbbbgggg

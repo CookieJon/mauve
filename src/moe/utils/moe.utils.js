@@ -1,5 +1,8 @@
 var Utils = {
 
+
+
+
 	isUndefined: function (obj) {
 		return obj === undefined;
 	},
@@ -97,7 +100,14 @@ var Utils = {
 
 
 
-
+	
+// Populate Array on creation.  
+//	e.g. var myArray = [].repeat(what, howmanyTimes)
+//
+Array.prototype.repeat= function(what, L){
+	while(L) this[--L] = what;
+	return this;
+}
 
 
 

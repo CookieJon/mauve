@@ -20,6 +20,7 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      'nouislider': path.resolve(__dirname, '../node_modules/nouislider/distribute'),
       'quasar': path.resolve(__dirname, '../node_modules/quasar-framework/'),
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),

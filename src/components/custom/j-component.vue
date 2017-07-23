@@ -2,10 +2,12 @@
 <script>
 /* eslint-disable */
 var jItem = require('components/custom/j-item')
+var jBitmap = require('components/custom/j-bitmap')
+var jArtwork = require('components/custom/j-artwork')
 export default {
   name: 'j-component',
   components: {
-    jItem
+    jItem, jBitmap, jArtwork
   },
   render: function (createElement) {
     function appropriateListComponent () {
